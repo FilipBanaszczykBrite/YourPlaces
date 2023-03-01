@@ -1,0 +1,276 @@
+<apex:page showHeader="false" controller="YP_WebToLeadFormController">
+    <apex:slds />
+    <style>
+    
+    html{
+        background-repeat: no-repeat; 
+        background-position: center;
+        background-size: cover; 
+        height: 100%;
+        background-image: url('https://img.indiafilings.com/learn/wp-content/uploads/2015/10/12011006/Real-Estate-Agent-Business-India.jpg');
+    }
+    .form{ 
+        display: inline-block;
+        width:420px;
+        height:450px;
+        background:#e6e6e6;
+        border-radius:8px;
+        box-shadow:0 0 40px -10px #000;
+        
+        padding:20px 30px;
+
+        position:relative;
+        left: 10%;
+        top:27%;
+        opacity: 0.93;
+    }
+    .input{
+      width:100%;
+      padding:10px;
+      box-sizing:border-box;
+      background:none;
+      outline:none;
+        margin-top:5px;
+      border:0;
+      transition:all .2s;
+      border-bottom:2px solid #bebed2
+    }
+     
+    input:focus{
+          border-bottom: 2px solid #3A62A3; 
+    }
+    .submit{
+          float:right;
+          padding:8px 20px;
+          margin-top: 8px !important; 
+          border:2px solid #3A62A3;
+          border-radius: 4px;
+          background:0;
+           font-size: 26px;
+          color:#5a5a6e;
+          cursor:pointer;
+          transition:all .2s
+            margin-top:10px;
+    }
+    .submit:hover{
+      background-color:#787AA;
+        border: 2px solid #5A82C3;
+        color:#5A82C3;
+    }
+    
+    .select{
+        width: 200px;
+        height: 28px;
+        margin:10px;
+    }
+    
+    label{
+        margin-top: 20px;
+        font-size: 16px;
+    
+    }
+
+    .logo-container{
+      display: inline-block;
+      flex: 1;
+      height: 100px;
+      width: 200px;
+      margin-top:90px;
+      margin-left:70px;
+      margin-right:70px;
+      text-align: center;
+    }
+
+    .top-logo{
+      color: #BFBFBF;
+      font-size: 50px;
+      border-bottom: 1px solid #BFBFBF;
+      font-weight: 400;
+      margin-bottom: 2px;
+      
+
+    }
+    .bottom-logo{
+      color: #BFBFBF;
+      font-size: 21px;
+      margin-top: 2px;
+      border-top: 1px solid #BFBFBF;
+      
+
+    }
+    .container{
+      display: flex;
+      flex-direction: row;
+    }
+
+    .thank{
+      display: inline-block;
+        width:420px;
+        height:150px;
+        background:#e6e6e6;
+        border-radius:8px;
+        box-shadow:0 0 40px -10px #000;
+        text-align: center;
+        padding:20px 30px;
+
+        position:relative;
+        left: 10%;
+        top:37%;
+        margin-top: 150px;
+        opacity: 0.93;
+    }
+
+    .thank-text{
+      font-size: 23px;
+      display: block;
+      margin-top: 20px;
+    }
+    </style>
+    
+    <META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8"/>
+    
+    <div class="container">
+      <div class="logo-container">
+        <p class="top-logo">Your Places</p>
+        <p class="bottom-logo">Business &amp; Living</p>
+      </div>
+      <div style="display: inline-flex; align-items: center; justify-content: center; margin-top:50px; flex: 2" id="toast">
+        <div style="position:absolute">
+            <div class="slds-notify_container slds-is-relative">
+                <div class="slds-notify slds-notify_toast slds-theme_error slds-hide" role="status"
+                     id="errorToast">
+                    <span class="slds-assistive-text">error</span>
+                    <span class="slds-icon_container slds-icon-utility-error slds-m-right_medium slds-no-flex slds-align-top">
+                     <svg class="slds-icon slds-icon_medium" xmlns:xlink="http://www.w3.org/2001/XMLSchema-instance"
+                          aria-hidden="true">
+                          <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#error')}"></use>
+                        </svg>
+                    </span>
+                    <apex:outputPanel id="toast">
+                        <div class="slds-notify__content" id="toastMsg">
+                            <p style="font-weight: 400 !important;" id="toastMsgp" class="slds-text-heading_medium"> </p>
+                        </div>
+                    </apex:outputPanel>
+      
+                </div>
+            </div>
+        </div>
+      </div>
+      <div style="flex: 2">
+        <apex:outputLabel rendered="{!successValue}">
+            <div class="thank">
+              <p class="thank-text">Thank You!</p>
+              <p class="thank-text">We will contact You as soon as possible!</p>
+            </div>
+        </apex:outputLabel>
+
+        <apex:outputLabel rendered="{! !successValue}">
+          <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" class="form" id="form" onsubmit="return checkForm()">
+        
+          
+            <input type="hidden" name="oid" value="00D68000000YM3f"/>
+            <input type="hidden" name="retURL" value="https://yourplaces-developer-edition.eu42.force.com?success=true"/> 
+     
+           
+           <label style="margin-top: 15px" for="first_name">First Name</label><input class="input" id="first_name" maxlength="40" name="first_name" size="20" type="text" />
+           
+           <label style="margin-top: 15px" for="last_name">Last Name</label><input class="input" id="last_name" maxlength="80" name="last_name" size="20" type="text" />
+           
+           <label style="margin-top: 15px" for="email">Email</label><input class="input" id="email" maxlength="80" name="email" size="20" type="text" />
+           
+           <label style="margin-top: 15px" for="phone">Phone</label><input class="input" id="phone" maxlength="40" name="phone" size="20" type="text" />
+           
+           <label style="margin-right: 17px" for="00N68000004VAYH">Product  Of Interest: </label> 
+            <select style="margin-top: 5px" class="select" id="00N68000004VAYH" name="00N68000004VAYH" title="Product  Of Interest">
+           <option value="Apartments">Apartments</option>
+           <option value="Business Premises">Business Premises</option>
+                </select>
+           
+                <label class="label" for="company">Company</label><input class="input" id="company" maxlength="40" name="company" size="20" type="text" />
+           
+                <input class="submit" type="submit" name="submit"/>
+       
+       </form>
+        </apex:outputLabel>
+        
+      </div>
+       
+    </div>
+    
+    
+
+	<script type='text/javascript'>
+        function checkForm(){
+          const formMessage = form.querySelector(".form-message");
+          let firstName = document.forms["form"]["first_name"].value;
+          let lastName = document.forms["form"]["last_name"].value;
+          let phone = document.forms["form"]["phone"].value;
+          let email = document.forms["form"]["email"].value;
+          let product = document.forms["form"]["00N68000004VAYH"].value;
+          let company = document.forms["form"]["company"].value;
+          var regName =   /^[a-zA-Z]+$/;
+          var regPhone =   /^[1-9]+$/;
+          var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+          let messageWrap = document.getElementById('errorToast');
+          let message =  document.getElementById('toastMsg');
+          console.log('dziala ' + (firstName.length < 3));
+          console.log('dziala ' + lastName);
+          console.log('dziala ' + phone);
+          console.log('dziala ' + email);
+          console.log('dziala ' + product);
+          console.log('dziala ' + company);
+          if(company){
+            console.log('true')
+          }
+          else{
+            console.log('false')
+          }
+          
+     
+
+          if((!regName.test(firstName)) || firstName.length < 3){
+            messageWrap.classList.toggle("slds-hide");
+            message.innerHTML = `<h3>First name should not contain special characters and be at least 3 characters long.</h3>`;
+            setTimeout(function(){
+              messageWrap.classList.toggle("slds-hide");
+            }, 5000);
+            return false;
+          }
+         
+          if((!regName.test(lastName)) || lastName.length < 3){
+            messageWrap.classList.toggle("slds-hide");
+            message.innerHTML = `<h3>Last name should not contain special characters and be at least 3 characters long.</h3>`;
+            setTimeout(function(){
+              messageWrap.classList.toggle("slds-hide");
+            }, 5000);
+            return false;
+          }
+          if((!regEmail.test(email))){
+            messageWrap.classList.toggle("slds-hide");
+            message.innerHTML = `<h3>Invalid email address.</h3>`;
+            setTimeout(function(){
+              messageWrap.classList.toggle("slds-hide");
+            }, 5000);
+            return false;
+          }
+          if((!regPhone.test(phone))){
+            messageWrap.classList.toggle("slds-hide");
+            message.innerHTML = `<h3>Invalid phone number.</h3>`;
+            setTimeout(function(){
+              messageWrap.classList.toggle("slds-hide");
+            }, 5000);
+            return false;
+          }
+          if((product == 'Business Premises' && company == '')){
+            messageWrap.classList.toggle("slds-hide");
+            message.innerHTML = `<h3>Company is required for business premises products.</h3>`;
+            setTimeout(function(){
+              messageWrap.classList.toggle("slds-hide");
+            }, 5000);
+            return false;
+          }
+               
+        }
+    </script>
+    
+</apex:page>
