@@ -18,11 +18,11 @@ jobs:
               tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
               ./sfdx-cli/install
         - name: 'Populate auth file with SFDX_URL secret'
-            shell: bash
-            run: 'echo ${{ secrets.YOURPLACESPROD }} > SFDX_Q'
+          shell: bash
+          run: 'echo ${{ secrets.YOURPLACESPROD }} > SFDX_Q'
 
         - name: 'Authenticate to Production Org'
-            run: sfdx auth:sfdxurl:store -f SFDX_Q
+          run: sfdx auth:sfdxurl:store -f SFDX_Q
   
         - name: 'Run checkonly deploy'
-            run: sfdx force:source:deploy -x manifest/package.xml --testlevel RunLocalTests --json --checkonly
+          run: sfdx force:source:deploy -x manifest/package.xml --testlevel RunLocalTests --json --checkonly
