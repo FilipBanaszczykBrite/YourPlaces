@@ -7,7 +7,7 @@ on:
       - 'feature/**'
 
 jobs:
-  push-to-org:
+  push-feature:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -17,12 +17,12 @@ jobs:
         mkdir sfdx-cli
         tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
         ./sfdx-cli/install
-    - name: 'Get authentication url'
+    - name: 'Get sfdx auth url'
       shell: bash
       run: |
         echo ${{ secrets.SFDX_AUTH_URL}} > ./AUTHORIZED_URL.txt
-    - name: 'Authenticate to development org'
-      run: sfdx auth:sfdxurl:store -f ./AUTHORIZED_URL.txt -s -a development
-    - name: 'Deploy source to org'
+    - name: 'Authenticate org'
+      run: sfdx auth:sfdxurl:store -f ./AUTHORIZED_URL.txt -s -a DevOrg
+    - name: 'Deploy with validation'
       run: |
-        sfdx force:source:deploy -p "force-app" -c
+        sfdx force:source:deploy -p "force-app" --checkonly
