@@ -18,7 +18,7 @@ jobs:
         if: ${{ github.actor != 'dependabot[bot]' }}
         steps:
             # Now we install nodejs in the VM, and specify version 14
-            - uses: actions/setup-node@v2
+     
               
 
             # The idea is that the VM can access your remote repository
