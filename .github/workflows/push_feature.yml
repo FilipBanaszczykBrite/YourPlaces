@@ -11,8 +11,6 @@ jobs:
         steps:
         - uses: actions/checkout@v2
         - uses: actions/setup-node@v1
-              with:
-                  node-version: '>=14'
         - name: Install Salesforce CLI
               run: wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
                   mkdir sfdx-cli
