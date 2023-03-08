@@ -10,7 +10,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v2
-    
         - name: 'Install Salesforce CLI'
           run: |
               wget https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz
@@ -23,11 +22,6 @@ jobs:
           shell: bash
           run: |
               echo ${{ secrets.YOURPLACESPROD}} > ./SFDX_DEVELOPMENT_URL.txt
-
-        - name: 'Create delta packages for new, modified or deleted metadata'
-          run: | 
-              mkdir changed-sources
-              sfdx sgd:source:delta --to "HEAD" --from "HEAD^" --output changed-sources/ --generate-delta --source force-app/ 
 
         - name: 'Authenticate to development org'
           run: sfdx auth:sfdxurl:store -f ./SFDX_DEVELOPMENT_URL.txt -s -a development
