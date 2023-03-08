@@ -2,8 +2,7 @@ name: Salesforce CI/CD
 
 on:
     push:
-        branches: [ feature/US-1 ]
-        types: [opened, synchronize, reopened]      
+        branches: [ feature/US-1 ]     
 jobs:
     build:
         runs-on: ubuntu-latest
