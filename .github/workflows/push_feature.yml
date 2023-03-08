@@ -1,0 +1,4 @@
+name: Deploy with validation
+on:
+    push
+jobs:
