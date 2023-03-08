@@ -1,6 +1,5 @@
 name: Deploy with validation on feature push
 
-# Definition when the workflow should run
 on:
     push:
       branches: 
