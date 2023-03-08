@@ -3,7 +3,7 @@ name: Deploy with validation on feature push
 on:
     push:
         branches:
-        - 'force-app/**'     
+            - 'force-app/**'     
 jobs:
     build:
         runs-on: ubuntu-latest
