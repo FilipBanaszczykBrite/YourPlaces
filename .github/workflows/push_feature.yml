@@ -34,7 +34,6 @@ jobs:
             # changed between commits, so that we can only deploy that metadata
             # to the destination org
 
-            - uses: actions/checkout@v2
 
             
             # Now, we need a way to let the developer specify which tests to run, which
