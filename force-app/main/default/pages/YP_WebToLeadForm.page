@@ -21,7 +21,7 @@
 
         position:relative;
         left: 10%;
-        top:27%;
+        top:22%;
         opacity: 0.93;
     }
     .input{
@@ -101,6 +101,7 @@
     .container{
       display: flex;
       flex-direction: row;
+      height: 100vh;
     }
 
     .thank{
@@ -134,66 +135,70 @@
         <p class="top-logo">Your Places</p>
         <p class="bottom-logo">Business &amp; Living</p>
       </div>
-      <div style="display: inline-flex; align-items: center; justify-content: center; margin-top:50px; flex: 2" id="toast">
-        <div style="position:absolute">
-            <div class="slds-notify_container slds-is-relative">
-                <div class="slds-notify slds-notify_toast slds-theme_error slds-hide" role="status"
-                     id="errorToast">
-                    <span class="slds-assistive-text">error</span>
-                    <span class="slds-icon_container slds-icon-utility-error slds-m-right_medium slds-no-flex slds-align-top">
-                     <svg class="slds-icon slds-icon_medium" xmlns:xlink="http://www.w3.org/2001/XMLSchema-instance"
-                          aria-hidden="true">
-                          <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#error')}"></use>
-                        </svg>
-                    </span>
-                    <apex:outputPanel id="toast">
-                        <div class="slds-notify__content" id="toastMsg">
-                            <p style="font-weight: 400 !important;" id="toastMsgp" class="slds-text-heading_medium"> </p>
-                        </div>
-                    </apex:outputPanel>
-      
-                </div>
-            </div>
+      <div style="flex: 2"></div>
+      <div style="display: flex; flex-direction: column; flex: 2">
+        <div style="display: inline-flex; align-items: center; justify-content: center; margin-top:100px;" id="toast">
+          <div style="position:absolute">
+              <div class="slds-notify_container slds-is-relative">
+                  <div class="slds-notify slds-notify_toast slds-theme_error slds-hide" role="status"
+                       id="errorToast">
+                      <span class="slds-assistive-text">error</span>
+                      <span class="slds-icon_container slds-icon-utility-error slds-m-right_medium slds-no-flex slds-align-top">
+                       <svg class="slds-icon slds-icon_medium" xmlns:xlink="http://www.w3.org/2001/XMLSchema-instance"
+                            aria-hidden="true">
+                            <use xlink:href="{!URLFOR($Asset.SLDS, 'assets/icons/utility-sprite/svg/symbols.svg#error')}"></use>
+                          </svg>
+                      </span>
+                      <apex:outputPanel id="toast">
+                          <div class="slds-notify__content" id="toastMsg">
+                              <p style="font-weight: 400 !important;" id="toastMsgp" class="slds-text-heading_medium"> </p>
+                          </div>
+                      </apex:outputPanel>
+        
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div>
+          <apex:outputLabel rendered="{!successValue}">
+              <div class="thank">
+                <p class="thank-text">Thank You!</p>
+                <p class="thank-text">We will contact You as soon as possible!</p>
+              </div>
+          </apex:outputLabel>
+  
+          <apex:outputLabel rendered="{! !successValue}">
+            <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" class="form" id="form" onsubmit="return checkForm()">
+          
+            
+              <input type="hidden" name="oid" value="00D68000000YM3f"/>
+              <input type="hidden" name="retURL" value="https://yourplaces-developer-edition.eu42.force.com?success=true"/> 
+       
+             
+             <label style="margin-top: 15px" for="first_name">First Name</label><input class="input" id="first_name" maxlength="40" name="first_name" size="20" type="text" />
+             
+             <label style="margin-top: 15px" for="last_name">Last Name</label><input class="input" id="last_name" maxlength="80" name="last_name" size="20" type="text" />
+             
+             <label style="margin-top: 15px" for="email">Email</label><input class="input" id="email" maxlength="80" name="email" size="20" type="text" />
+             
+             <label style="margin-top: 15px" for="phone">Phone</label><input class="input" id="phone" maxlength="40" name="phone" size="20" type="text" />
+             
+             <label style="margin-right: 17px" for="00N68000004VAYH">Product  Of Interest: </label> 
+              <select style="margin-top: 5px" class="select" id="00N68000004VAYH" name="00N68000004VAYH" title="Product  Of Interest">
+             <option value="Apartments">Apartments</option>
+             <option value="Business Premises">Business Premises</option>
+                  </select>
+             
+                  <label class="label" for="company">Company</label><input class="input" id="company" maxlength="40" name="company" size="20" type="text" />
+             
+                  <input class="submit" type="submit" name="submit"/>
+         
+         </form>
+          </apex:outputLabel>
+          
         </div>
       </div>
-      <div style="flex: 2">
-        <apex:outputLabel rendered="{!successValue}">
-            <div class="thank">
-              <p class="thank-text">Thank You!</p>
-              <p class="thank-text">We will contact You as soon as possible!</p>
-            </div>
-        </apex:outputLabel>
-
-        <apex:outputLabel rendered="{! !successValue}">
-          <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST" class="form" id="form" onsubmit="return checkForm()">
-        
-          
-            <input type="hidden" name="oid" value="00D68000000YM3f"/>
-            <input type="hidden" name="retURL" value="https://yourplaces-developer-edition.eu42.force.com?success=true"/> 
-     
-           
-           <label style="margin-top: 15px" for="first_name">First Name</label><input class="input" id="first_name" maxlength="40" name="first_name" size="20" type="text" />
-           
-           <label style="margin-top: 15px" for="last_name">Last Name</label><input class="input" id="last_name" maxlength="80" name="last_name" size="20" type="text" />
-           
-           <label style="margin-top: 15px" for="email">Email</label><input class="input" id="email" maxlength="80" name="email" size="20" type="text" />
-           
-           <label style="margin-top: 15px" for="phone">Phone</label><input class="input" id="phone" maxlength="40" name="phone" size="20" type="text" />
-           
-           <label style="margin-right: 17px" for="00N68000004VAYH">Product  Of Interest: </label> 
-            <select style="margin-top: 5px" class="select" id="00N68000004VAYH" name="00N68000004VAYH" title="Product  Of Interest">
-           <option value="Apartments">Apartments</option>
-           <option value="Business Premises">Business Premises</option>
-                </select>
-           
-                <label class="label" for="company">Company</label><input class="input" id="company" maxlength="40" name="company" size="20" type="text" />
-           
-                <input class="submit" type="submit" name="submit"/>
-       
-       </form>
-        </apex:outputLabel>
-        
-      </div>
+      
        
     </div>
     
@@ -201,7 +206,6 @@
 
 	<script type='text/javascript'>
         function checkForm(){
-          const formMessage = form.querySelector(".form-message");
           let firstName = document.forms["form"]["first_name"].value;
           let lastName = document.forms["form"]["last_name"].value;
           let phone = document.forms["form"]["phone"].value;
@@ -213,19 +217,6 @@
           var regEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
           let messageWrap = document.getElementById('errorToast');
           let message =  document.getElementById('toastMsg');
-          console.log('dziala ' + (firstName.length < 3));
-          console.log('dziala ' + lastName);
-          console.log('dziala ' + phone);
-          console.log('dziala ' + email);
-          console.log('dziala ' + product);
-          console.log('dziala ' + company);
-          if(company){
-            console.log('true')
-          }
-          else{
-            console.log('false')
-          }
-          
      
 
           if((!regName.test(firstName)) || firstName.length < 3){
