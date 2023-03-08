@@ -2,7 +2,9 @@ name: Salesforce CI/CD
 
 on:
     push:
-        branches: [ feature/US-1 ]     
+        branches: [ feature/US-1 ] 
+        paths:
+        - 'force-app/**'
 jobs:
     build:
         runs-on: ubuntu-latest
