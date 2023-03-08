@@ -3,7 +3,7 @@ name: Deploy with validation on feature push
 
 on:
     push:
-        paths:
+        branches:
         - 'force-app/**'     
 jobs:
     build:
