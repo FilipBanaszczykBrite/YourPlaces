@@ -9,29 +9,60 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
+            - uses: actions/setup-node@v2
+                  with:
+                     node-version: '14'
+
             - uses: actions/checkout@v2
-              with:
-                  ref: ${{ github.ref }}
-                  fetch-depth: 0
-                  if: github.event_name == 'push'
-            - uses: actions/setup-node@v1
-              with:
-                node-version: '>=14'
-                check-latest: true
-              
-            - name: Install Salesforce CLI
-              run: |
-                  wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
-                  mkdir sfdx-cli
-                  tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
-                  ./sfdx-cli/install
-                
-            - name: 'Populate auth file with SFDX_URL secret'
-                shell: bash
-                run: 'echo ${{ secrets.ITSHOP_PROD_URL}} > SFDX_QA'
-            
-            - name: 'Authenticate to Production Org'
-                run: sfdx auth:sfdxurl:store -f SFDX_QA -s -a production
-                
-            - name: 'Run checkonly deploy'
-                run: sfdx force:source:deploy -x manifest/package.xml --testlevel RunLocalTests --json --checkonly
+
+            - name: 'Read PR Body'
+                  env:
+                      PR_BODY: ${{github.event.push.body}}
+                  
+                  run: |
+                      echo $PR_BODY > ./pr_body.txt
+                      node ./parsePR.js              
+                      TESTS=$(cat testsSpecific.txt)       
+                      echo "APEX_TESTS=$TESTS" >> $GITHUB_ENV
+
+            - name: 'Parse all tests'
+                  run: |
+                      node ./parseAllTests.js             
+                      ALLTESTS=$(cat testsAll.txt)       
+                      echo "APEX_TESTS_ALL=$ALLTESTS" >> $GITHUB_ENV
+                      
+
+            - name: 'Install Salesforce CLI'
+                  run: |
+                      wget https://developer.salesforce.com/media/salesforce-cli/sfdx/channels/stable/sfdx-linux-x64.tar.xz
+                      mkdir ~/sfdx
+                      tar xJf sfdx-linux-x64.tar.xz -C ~/sfdx --strip-components 1
+                      echo "$HOME/sfdx/bin" >> $GITHUB_PATH
+                      ~/sfdx/bin/sfdx version 
+ 
+            - name: 'Populate auth file with SFDX_URL secret of development and staging orgs'
+                  shell: bash
+                  run: |
+                      echo ${{ secrets.YOURPLACESPROD}} > ./SFDX_DEVELOPMENT_URL.txt
+
+            - name: 'Create delta packages for new, modified or deleted metadata'
+                  run: | 
+                      mkdir changed-sources
+                      sfdx sgd:source:delta --to "HEAD" --from "HEAD^" --output changed-sources/ --generate-delta --source force-app/ 
+
+            - name: 'Authenticate to development org'
+                 run: sfdx auth:sfdxurl:store -f ./SFDX_DEVELOPMENT_URL.txt -s -a development
+
+            - name: 'Deploying to development org(s) - run specified tests in PR'
+                  if: ${{ env.APEX_TESTS != 'all' }}
+                  run: |
+                      echo ${{env.APEX_TESTS}}
+                      sfdx force:source:deploy -p "changed-sources/force-app" --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS}} --json
+            # If the env variable equals all, we run all tests
+            - name: 'Deploying to development org(s) - run all tests in repo'
+                  if: ${{ env.APEX_TESTS == 'all' }}
+                  run: |
+                      echo ${{env.APEX_TESTS_ALL}}
+                      sfdx force:source:deploy -p "changed-sources/force-app" --testlevel RunSpecifiedTests --runtests ${{env.APEX_TESTS_ALL}} --json
+            - name: 'Deploy destructive changes (if any)'
+                  run: sfdx force:mdapi:deploy -d "changed-sources/destructiveChanges" --checkonly --ignorewarnings 
