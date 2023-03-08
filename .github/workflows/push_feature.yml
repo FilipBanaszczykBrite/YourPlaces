@@ -4,7 +4,7 @@ name: Validation deploy on push
 # Definition when the workflow should run
 on:
     push:
-      paths:
+      branches:
         - 'force-app/**'
             
 
