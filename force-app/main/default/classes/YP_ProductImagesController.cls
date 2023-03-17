@@ -62,4 +62,20 @@ public with sharing class YP_ProductImagesController {
             System.debug('rror set profile');
         }
     }
+
+    @AuraEnabled
+    public static void deletePhoto(String docId){
+        System.debug('delete ' + docId);
+        try {
+            ContentDocument doc = [
+                SELECT
+                Id
+                FROM ContentDocument
+                WHERE Id =: docId
+                ][0];
+                delete doc;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }

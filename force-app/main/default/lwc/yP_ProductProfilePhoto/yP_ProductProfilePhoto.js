@@ -1,5 +1,4 @@
 import { LightningElement, wire, track, api} from 'lwc';
-import ImagePlaceHolder from '@salesforce/resourceUrl/YP_ProductImagePlaceholder';
 import getProfilePhoto from "@salesforce/apex/YP_ProductImagesController.getProfilePhoto";
 import setProfilePhoto from "@salesforce/apex/YP_ProductImagesController.setProfilePhoto";
 import PPMC from '@salesforce/messageChannel/YP_ProfilePhotoChoiceMessageChannel__c';
@@ -7,7 +6,9 @@ import { subscribe, APPLICATION_SCOPE, MessageContext } from 'lightning/messageS
 
 export default class YP_ProductProfilePhoto extends LightningElement {
     @api recordId;
-    @track imageSrc = ImagePlaceHolder;
+    @track imageSrc;
+    @track isLoading;
+    @track imageLoaded = false;
 
     @wire(MessageContext)
     messageContext;
@@ -15,6 +16,7 @@ export default class YP_ProductProfilePhoto extends LightningElement {
 
     connectedCallback(){
         this.subscribeMC();
+        this.isLoading = true;
         this.loadMainPhoto();
         
     }
@@ -29,9 +31,15 @@ export default class YP_ProductProfilePhoto extends LightningElement {
             this.messageContext,
             PPMC,
             (message) => { this.photoId = message.recordId;
-            setProfilePhoto({recordId: this.recordId, docId: this.photoId}).then(result =>{
+            if(this.photoId != ''){
+                setProfilePhoto({recordId: this.recordId, docId: this.photoId}).then(result =>{
+                    this.loadMainPhoto();
+                });
+            }
+            else{
                 this.loadMainPhoto();
-            });
+            }
+            
              },
             { scope: APPLICATION_SCOPE }
         );
@@ -45,6 +53,11 @@ export default class YP_ProductProfilePhoto extends LightningElement {
             result.Id +
             "&operationContext=CHATTER&contentId=" +
             result.ContentDocumentId;
+            this.imageLoaded = true;
+            this.isLoading = false;
+        }).catch(() => {
+            this.imageLoaded = false
+            this.isLoading = false;
         })
     }
 

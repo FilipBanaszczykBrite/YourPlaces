@@ -1,5 +1,21 @@
 <template>
-  <p class="title">Main photo:</p>
-    <img src={imageSrc} class="image">
+  <lightning-card>
+    <template if:true={isLoading}>
+      <lightning-spinner alternative-text="Loading" variant="brand"></lightning-spinner>
+    </template>
+    <template if:true={imageLoaded}>
+      <p class="title">Main photo:</p>
+    </template>
     
+    <div class="container">
+      <template if:true={imageLoaded}>
+        <img src={imageSrc} class="image">
+      </template>
+      <template if:false={imageLoaded}>
+        <p class="text">You haven't chosen main photo</p>
+      </template>
+      
+    </div>
+    
+  </lightning-card>
 </template>

@@ -1,4 +1,7 @@
 <template>
+  <template if:true={isLoading}>
+    <lightning-spinner alternative-text="Loading" variant="brand"></lightning-spinner>
+  </template>
     <lightning-file-upload
       name="fileUploader"
       accept={acceptedFormats}
@@ -25,6 +28,7 @@
               file={file}
               record-id={recordId}
               thumbnail={file.thumbnailFileCard}
+              ondelete={handleDelete}
             ></c-y-p_-photo-tile>
           </template>
         </template>
