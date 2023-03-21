@@ -1,3 +1,11 @@
 <template>
-    
+    <lightning-card>
+        <p class="filters-header">Filters</p>
+        <template if:true={filtersForBusiness}>
+            <c-y-p_-business-premises-filters></c-y-p_-business-premises-filters>
+        </template>
+        <template if:false={filtersForBusiness}>
+            <c-y-p_-apartments-filters></c-y-p_-apartments-filters>
+        </template>
+    </lightning-card>
 </template>

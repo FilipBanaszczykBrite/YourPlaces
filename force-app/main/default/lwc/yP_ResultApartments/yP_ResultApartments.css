@@ -1,0 +1,11 @@
+.container{
+    display: flex;
+}
+
+.image{
+    display: inline-block;
+}
+
+.info{
+    display: inline-block;
+}
