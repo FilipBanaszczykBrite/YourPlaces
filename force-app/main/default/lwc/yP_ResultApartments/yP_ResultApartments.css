@@ -1,9 +1,18 @@
 .container{
     display: flex;
+    border-radius: 5px;
+}
+
+.container:hover{
+    background-color: rgb(240, 240, 245);
 }
 
 .image{
+    height: 180px;
+    width: 320px;
     display: inline-block;
+    object-fit: contain;
+    
 }
 
 .info{

@@ -4,10 +4,12 @@ import getApartments from '@salesforce/apex/YP_ProductSearchController.getApartm
 export default class YP_SearchResults extends LightningElement {
 
     @track results = [];
+    @track displayResultCount;
     connectedCallback(){
         getApartments().then(result => {
             console.log("Apartments " + JSON.stringify(result));
             this.results = result;
+            this.displayResultCount = '(' + result.length + ')';
         })
     }
 }

@@ -1,6 +1,12 @@
 .results-header{
     margin-left: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 29px;
     font-size: 20px;
     font-weight: 300;
+}
+
+.results-list{
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
 }

@@ -5,7 +5,9 @@ export default class YP_ResultApartments extends LightningElement {
     @track imageSrc;
     connectedCallback(){
         console.log('connected')
-        this.imageSrc = "/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&operationContext=CHATTER&versionId=" +
-        this.item.ContentDocumentId;
+        this.imageSrc = "/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&versionId=" +
+        this.item.DisplayUrl +
+        "&operationContext=CHATTER&contentId=" +
+        this.item.ContentDocumentId__c;
     }
 }

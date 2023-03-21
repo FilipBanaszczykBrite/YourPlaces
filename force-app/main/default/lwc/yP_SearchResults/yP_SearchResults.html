@@ -1,16 +1,16 @@
 <template>
     <lightning-card>
-        <p class="results-header">Results</p>
+        <p class="results-header">Results {displayResultCount}</p>
         <template if:true={business}>
             <template for:each={results} for:item="result">
-                <div key={result}>
+                <div key={result} class="results-list">
                     <c-y-p_-result-business-premises item={result}></c-y-p_-result-business-premises>
                 </div>
             </template>
         </template>
         <template if:false={business}>
             <template for:each={results} for:item="result">
-                <div key={result}>
+                <div key={result} class="results-list">
                     <c-y-p_-result-apartments item={result}></c-y-p_-result-apartments>
                 </div>
             </template>

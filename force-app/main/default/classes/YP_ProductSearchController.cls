@@ -12,7 +12,7 @@ public with sharing class YP_ProductSearchController {
     @AuraEnabled (cacheable=true)
     public static List<Product2> getApartments(){
         try {
-            List<Product2> products = [SELECT Name, RecordType.Name, DisplayUrl, Area__c, Floors__c FROM Product2 WHERE RecordType.Name = 'Apartments'];
+            List<Product2> products = [SELECT Name, RecordType.Name, DisplayUrl, ContentDocumentId__c, Area__c, Floors__c FROM Product2 WHERE RecordType.Name = 'Apartments'];
 
             return products;
         } catch (Exception e) {
