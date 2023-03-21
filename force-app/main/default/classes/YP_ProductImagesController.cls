@@ -42,8 +42,7 @@ public with sharing class YP_ProductImagesController {
         FirstPublishLocationId
 		FROM ContentVersion
 		WHERE FirstPublishLocationId =:recordId
-        AND Id =: docId
-		][0];
+        AND Id =: docId LIMIT 1];
         
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -54,6 +53,7 @@ public with sharing class YP_ProductImagesController {
     public static void setProfilePhoto(String recordId, String docVerId, String docId){
         System.debug(docId);
         Product2 prod = [SELECT Id, DisplayUrl, ContentDocumentId__c FROM Product2 WHERE Id =:recordId][0];
+        System.debug('product change profile ' + prod);
         prod.DisplayUrl = docVerId;
         prod.ContentDocumentId__c = docId;
         try{
@@ -79,4 +79,5 @@ public with sharing class YP_ProductImagesController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
 }

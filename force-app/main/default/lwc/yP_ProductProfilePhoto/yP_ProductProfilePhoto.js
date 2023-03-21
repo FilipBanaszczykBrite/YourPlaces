@@ -1,8 +1,8 @@
 import { LightningElement, wire, track, api} from 'lwc';
 import getProfilePhoto from "@salesforce/apex/YP_ProductImagesController.getProfilePhoto";
-import setProfilePhoto from "@salesforce/apex/YP_ProductImagesController.setProfilePhoto";
+
 import PPMC from '@salesforce/messageChannel/YP_ProfilePhotoChoiceMessageChannel__c';
-import { subscribe, APPLICATION_SCOPE, MessageContext } from 'lightning/messageService';
+import { subscribe, unsubscribe, APPLICATION_SCOPE, MessageContext } from 'lightning/messageService';
 
 export default class YP_ProductProfilePhoto extends LightningElement {
     @api recordId;
@@ -15,10 +15,18 @@ export default class YP_ProductProfilePhoto extends LightningElement {
     photoId;
 
     connectedCallback(){
+        console.log('connected ' + this.recordId)
         this.subscribeMC();
         this.isLoading = true;
         this.loadMainPhoto();
         
+    }
+
+    disconnectedCallback(){
+        console.log('disconnected ' + this.recordId);
+        unsubscribe(this.subscription);
+        this.subscription = null;
+    
     }
 
     subscription = null;
@@ -30,15 +38,9 @@ export default class YP_ProductProfilePhoto extends LightningElement {
         this.subscription = subscribe(
             this.messageContext,
             PPMC,
-            (message) => { this.photoId = message.versionId;
-            if(this.photoId != ''){
-                setProfilePhoto({recordId: this.recordId, docVerId: this.photoId, docId: message.docId}).then(result =>{
-                    this.loadMainPhoto();
-                });
-            }
-            else{
-                this.loadMainPhoto();
-            }
+            (message) => { 
+            console.log('MESSAGE RECEIVED ' + this.recordId)
+            this.loadMainPhoto();
             
              },
             { scope: APPLICATION_SCOPE }
