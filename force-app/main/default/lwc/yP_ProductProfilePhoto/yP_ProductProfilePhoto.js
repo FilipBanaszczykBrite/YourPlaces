@@ -30,9 +30,9 @@ export default class YP_ProductProfilePhoto extends LightningElement {
         this.subscription = subscribe(
             this.messageContext,
             PPMC,
-            (message) => { this.photoId = message.recordId;
+            (message) => { this.photoId = message.versionId;
             if(this.photoId != ''){
-                setProfilePhoto({recordId: this.recordId, docId: this.photoId}).then(result =>{
+                setProfilePhoto({recordId: this.recordId, docVerId: this.photoId, docId: message.docId}).then(result =>{
                     this.loadMainPhoto();
                 });
             }

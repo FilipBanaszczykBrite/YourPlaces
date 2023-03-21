@@ -16,7 +16,7 @@ export default class YP_PhotoTile extends LightningElement {
     }
 
     sendMessageService() { 
-        publish(this.messageContext, PPMC, { recordId: this.file.Id });
+        publish(this.messageContext, PPMC, { versionId: this.file.Id, docId: this.file.ContentDocumentId });
     }
 
     chooseProfilePhoto(){

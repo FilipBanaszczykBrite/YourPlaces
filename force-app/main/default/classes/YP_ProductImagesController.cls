@@ -51,10 +51,11 @@ public with sharing class YP_ProductImagesController {
     }
 
     @AuraEnabled
-    public static void setProfilePhoto(String recordId, String docId){
+    public static void setProfilePhoto(String recordId, String docVerId, String docId){
         System.debug(docId);
-        Product2 prod = [SELECT Id, DisplayUrl FROM Product2 WHERE Id =:recordId][0];
-        prod.DisplayUrl = docId;
+        Product2 prod = [SELECT Id, DisplayUrl, ContentDocumentId__c FROM Product2 WHERE Id =:recordId][0];
+        prod.DisplayUrl = docVerId;
+        prod.ContentDocumentId__c = docId;
         try{
             update prod;
         }

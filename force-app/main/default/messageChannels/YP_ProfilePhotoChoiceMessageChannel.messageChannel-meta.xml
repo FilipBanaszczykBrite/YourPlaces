@@ -3,8 +3,11 @@
     <description></description>
     <isExposed>true</isExposed>
     <lightningMessageFields>
-        <description>This is the record Id that changed</description>
-        <fieldName>recordId</fieldName>
+        <fieldName>docId</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>versionId</fieldName>
+
     </lightningMessageFields>
     <masterLabel>ProfilePhotoMessageChannel</masterLabel>
 </LightningMessageChannel>
