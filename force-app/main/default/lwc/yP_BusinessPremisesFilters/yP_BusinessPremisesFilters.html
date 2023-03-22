@@ -1,3 +1,26 @@
 <template>
-    <p>Business</p>
+    <div class="bar">
+        <div class="input-container">
+            <div class="input-column-1">
+                <lightning-input type="number" class="input-row" label="Min. area [m2]" onchange={changeAreaMin} value={areaMin}></lightning-input>
+                <lightning-input type="number" class="input-row" label="Meeting rooms" onchange={changeMeetingRooms} value={meetingRooms}></lightning-input>
+                <lightning-input type="number" class="input-row" label="Utility Rooms" onchange={changeUtilityRooms} value={utilityRooms}></lightning-input>
+            </div>
+            <div class="column-2">
+                -
+            </div>
+            <div class="input-column-3">
+                <lightning-input type="number" class="input-row" label="Max. area [m2]" onchange={changeAreaMax} value={areaMax}></lightning-input>
+                <lightning-input type="number" class="input-row" label="Restrooms" onchange={changeRestrooms} value={restrooms}></lightning-input>
+                
+            </div>
+            
+        </div>
+        <div class="button-footer">
+            <div class="button-row">
+                <lightning-button variant="neutral" label="Clear" onclick={clear}></lightning-button>
+                <lightning-button variant="brand" class="button-search" label="Search" onclick={search}></lightning-button>
+            </div> 
+        </div>
+    </div> 
 </template>

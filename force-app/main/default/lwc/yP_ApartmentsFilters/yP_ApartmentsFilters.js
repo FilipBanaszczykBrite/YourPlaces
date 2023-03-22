@@ -1,5 +1,5 @@
 import { LightningElement, wire, track } from 'lwc';
-import FMC from '@salesforce/messageChannel/YP_FiltersMessageChannel__c';
+import FMC from '@salesforce/messageChannel/YP_ApartamentsFiltersMessageChannel__c';
 import { publish, MessageContext } from 'lightning/messageService';
 
 export default class YP_ApartmentsFilters extends LightningElement {
@@ -30,10 +30,23 @@ export default class YP_ApartmentsFilters extends LightningElement {
         this.bathrooms = event.detail.value;
     }
     changeAttic(event){
-        this.attic = event.detail.value;
+        console.log('change attic ' + this.attic)
+        if(event.detail.checked){
+            this.attic = event.detail.checked;
+        }
+        else{
+            this.attic = undefined;
+        }
+        
     }
     changeBasement(event){
-        this.basement = event.detail.value;
+        console.log('change basement ' + this.basement)
+        if(event.detail.checked){
+            this.basement = event.detail.checked;
+        }
+        else{
+            this.basement = undefined;
+        }
     }
 
     sendMessageService() { 
@@ -42,13 +55,14 @@ export default class YP_ApartmentsFilters extends LightningElement {
     }
 
     clear(){
-        this.areaMin = '';
-        this.areaMax = '';
-        this.floors = '';
-        this.bedrooms = '';
-        this.bathrooms = '';
-        this.attic = '';
-        this.basement = '';
+        this.areaMin = undefined;
+        this.areaMax = undefined;
+        this.floors = undefined;
+        this.bedrooms = undefined;
+        this.bathrooms = undefined;
+        this.attic = undefined;
+        this.basement = undefined;
+        this.search();
     }
 
     search(){

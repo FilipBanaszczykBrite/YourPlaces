@@ -9,16 +9,13 @@
         <fieldName>areaMax</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>bedrooms</fieldName>
+        <fieldName>meetingRooms</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>bathrooms</fieldName>
+        <fieldName>restrooms</fieldName>
     </lightningMessageFields>
     <lightningMessageFields>
-        <fieldName>attic</fieldName>
+        <fieldName>utilityRooms</fieldName>
     </lightningMessageFields>
-    <lightningMessageFields>
-        <fieldName>basement</fieldName>
-    </lightningMessageFields>
-    <masterLabel>FiltersMessageChannel</masterLabel>
+    <masterLabel>BPFiltersMessageChannel</masterLabel>
 </LightningMessageChannel>

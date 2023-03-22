@@ -2,23 +2,23 @@
     <div class="bar">
         <div class="input-container">
             <div class="input-column-1">
-                <lightning-input type="number" class="input-row" label="Min. area [m2]" onchange={changeAreaMin}></lightning-input>
-                <lightning-input type="number" class="input-row" label="Bedrooms" onchange={changeBedrooms}></lightning-input>
-                <lightning-input type="checkbox" class="input-row" label="Attic" onchange={changeAttic}></lightning-input>
+                <lightning-input type="number" class="input-row" label="Min. area [m2]" onchange={changeAreaMin} value={areaMin}></lightning-input>
+                <lightning-input type="number" class="input-row" label="Bedrooms" onchange={changeBedrooms} value={bedrooms}></lightning-input>
+                <lightning-input type="checkbox" class="input-row" label="Attic" onchange={changeAttic} value={attic}></lightning-input>
             </div>
             <div class="column-2">
                 -
             </div>
             <div class="input-column-3">
-                <lightning-input type="number" class="input-row" label="Max. area [m2]" onchange={changeAreaMax}></lightning-input>
-                <lightning-input type="number" class="input-row" label="Bahtrooms" onchange={changeBathrooms}></lightning-input>
-                <lightning-input type="checkbox" class="input-row" label="Basement" onchange={changeBasement}></lightning-input>
+                <lightning-input type="number" class="input-row" label="Max. area [m2]" onchange={changeAreaMax} value={areaMax}></lightning-input>
+                <lightning-input type="number" class="input-row" label="Bathrooms" onchange={changeBathrooms} value={bathrooms}></lightning-input>
+                <lightning-input type="checkbox" class="input-row" label="Basement" onchange={changeBasement} value={basement}></lightning-input>
             </div>
             
         </div>
         <div class="button-footer">
             <div class="button-row">
-                <lightning-button variant="neutral" label="Clear" onclick={clearFilters}></lightning-button>
+                <lightning-button variant="neutral" label="Clear" onclick={clear}></lightning-button>
                 <lightning-button variant="brand" class="button-search" label="Search" onclick={search}></lightning-button>
             </div> 
         </div>

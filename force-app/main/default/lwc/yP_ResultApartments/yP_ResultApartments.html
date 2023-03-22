@@ -1,16 +1,49 @@
 <template>
-    <div class="container">
-        <div class="image">
-            <img src={imageSrc} style="border-radius: 5px; object-fit: contain">
+    <div class="container"  onclick={navigateToRecordPage}>
+        <div>
+            <img src={imageSrc} class="image">
         </div>
         <div class="info">
-            <p>{item.Name}</p>
-            <p>{item.Area__c} m2</p>
-            <p>{item.Floors__c}</p>
-            <p>{item.Bedrooms__c}</p>
-            <p>{item.Bathrooms__c}</p>
-            <p>{item.Attic__c}</p>
-            <p>{item.Basement__c}</p>
+            <div class="info-main">
+                <p class="name">{item.Name}</p>
+            
+                <p class="area">Area: <span style="font-weight: 400;">{item.Area__c}m2</span></p>
+                <p class="price">Price: <span style="font-weight: 400;">100.000$</span></p>
+                
+            </div>
+            
+                
+            <div class="info-detail">
+                
+                <div class="info-row-left">
+                    
+                    <div>
+                        
+                        <p class="info-text">Floors: </p>
+                        <p class="info-text" >Bedrooms: </p>
+                        <p class="info-text">Bathrooms: </p>
+                    </div>
+                    <div>
+                        <p class="bold-text">{item.Floors__c}</p>
+                        <p class="bold-text">{item.Bedrooms__c}</p>
+                        <p class="bold-text">{item.Bathrooms__c}</p>
+                    </div>
+                    
+                </div>
+                
+                <div class="info-row-right">
+                    <div>
+                        <p class="info-text" >Attic: </p>
+                    
+                        <p class="info-text">Basement: </p>
+                    </div>
+                    <div>
+                        <p class="bold-text">{displayAttic}</p>
+                        <p class="bold-text">{displayBasement}</p>
+                    </div>
+                    
+                </div>   
+            </div>
         </div>
     </div>
 </template>
