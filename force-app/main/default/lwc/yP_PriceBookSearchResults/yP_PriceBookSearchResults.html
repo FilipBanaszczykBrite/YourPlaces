@@ -1,0 +1,21 @@
+<template>
+    <lightning-card>
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+        
+        <div class="header">
+            <lightning-button class="new-btn" label="New" onclick={openModal}></lightning-button>
+        </div>
+        <div>
+            <lightning-datatable
+            key-field="id"
+            data={priceBooks}
+            hide-checkbox-column
+            columns={columns}
+            onrowaction={handleRowAction}>
+        </lightning-datatable>
+        </div>
+        
+    </lightning-card>
+</template>
