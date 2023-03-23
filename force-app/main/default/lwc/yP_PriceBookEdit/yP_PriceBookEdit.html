@@ -12,6 +12,7 @@
                         <lightning-input-field field-name={activeField}> </lightning-input-field>
                         <lightning-input-field field-name={startField}> </lightning-input-field>
                         <lightning-input-field field-name={endField}> </lightning-input-field>
+                        <!-- <lightning-input-field field-name={targetField} readonly="true"> </lightning-input-field> -->
                         <lightning-button variant="brand" type="submit" label="Save" class="save-btn"></lightning-button>
                 
                     </lightning-record-edit-form>
@@ -23,14 +24,14 @@
                 <div style="margin-bottom: 15px;">
                     <lightning-input class="input" type="number" label="Percentage" onchange={changePercent}></lightning-input>
                     <div class="btn-row">
-                        <lightning-button class="price-btn" label="Add" onclick={addDiscount}></lightning-button>
-                        <lightning-button class="price-btn" label="Subtract" onclick={subDiscount} ></lightning-button>
+                        <lightning-button class="price-btn" label="Add" onclick={addDiscount} disabled={noSelected}></lightning-button>
+                        <lightning-button class="price-btn" label="Subtract" onclick={subDiscount} disabled={noSelected}></lightning-button>
                     </div>
                     
                     <lightning-input class="input" type="number" label="Flat amount"  onchange={changeFlat}></lightning-input>
                     <div class="btn-row">
-                        <lightning-button class="price-btn" label="Add" onclick={addFlat}></lightning-button>
-                        <lightning-button class="price-btn" label="Subtract" onclick={subFlat}></lightning-button>
+                        <lightning-button class="price-btn" label="Add" onclick={addFlat} disabled={noSelected}></lightning-button>
+                        <lightning-button class="price-btn" label="Subtract" onclick={subFlat} disabled={noSelected}></lightning-button>
                     </div>
                    
                 </div>
@@ -38,6 +39,7 @@
                     key-field="id"
                     data={products}
                     columns={columns} 
+                    onrowselection={refreshButtons}
                     >
                 </lightning-datatable>
                 </lightning-tab>

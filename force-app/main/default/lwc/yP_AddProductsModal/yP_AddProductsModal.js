@@ -37,7 +37,7 @@ export default class YP_AddProductsModal extends LightningModal {
             console.log(this.pbId);
             addProducts({products: ids, pbId: this.pbId});
            
-            this.close();
+            this.close({result: 'created'});
             setTimeout(() => {
                 publish(this.messageContext, APMC);
               }, "500");

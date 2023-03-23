@@ -4,6 +4,7 @@ import NAME_FIELD from '@salesforce/schema/Pricebook2.Name';
 import ACTIVE_FIELD from '@salesforce/schema/Pricebook2.IsActive';
 import START_FIELD from '@salesforce/schema/Pricebook2.StartDate__c';
 import END_FIELD from '@salesforce/schema/Pricebook2.EndDate__c';
+import TARGET_FIELD from '@salesforce/schema/Pricebook2.Target_Product__c';
 import EPBMC from '@salesforce/messageChannel/YP_EditPBMessageChannel__c';
 import NPBMC from '@salesforce/messageChannel/YP_NewPBMessageChannel__c';
 import APMC from '@salesforce/messageChannel/YP_AddProductsMessageChannel__c';
@@ -20,6 +21,7 @@ export default class YP_PriceBookEdit extends LightningElement {
     activeField = ACTIVE_FIELD;
     startField = START_FIELD;
     endField = END_FIELD;
+    targetField = TARGET_FIELD;
     @track gotRecord = false;
     subscriptionEdit = null;
     subscriptionAdd = null;
@@ -27,9 +29,10 @@ export default class YP_PriceBookEdit extends LightningElement {
     messageContext;
     recordId;
     @track products = [];
-    selectedRows = [];
+    @track selectedRows = [];
     @track discount;
     @track flat;
+    @track noSelected = true;
 
     columns = [
         { label: 'Product Name', fieldName: 'Name' },
@@ -42,6 +45,12 @@ export default class YP_PriceBookEdit extends LightningElement {
         this.subscribeMCAdd();
         //console.log('open edit ', this.recordId);
         
+    }
+
+    refreshButtons(){
+        this.getSelectedRows();
+        console.log(this.selectedRows.length);
+        this.noSelected = (this.selectedRows.length == 0);
     }
 
     getProductsForPB(){
@@ -136,7 +145,9 @@ export default class YP_PriceBookEdit extends LightningElement {
 
         });
         console.log(result);
-        this.showToast('Success', 'success', 'New products added.');
+        if(result.result == 'created'){
+            this.showToast('Success', 'success', 'New products added.');
+        }
     }
     changePercent(event){
         this.discount = event.detail.value;
@@ -212,6 +223,7 @@ export default class YP_PriceBookEdit extends LightningElement {
     }
 
     getSelectedRows(){
+        this.selectedRows = [];
         var selectedRecords =  this.template.querySelector("lightning-datatable").getSelectedRows();
         if(selectedRecords.length > 0){
             console.log('selectedRecords are ', selectedRecords);

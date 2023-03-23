@@ -99,7 +99,10 @@ export default class YP_PriceBookSearchResults extends LightningElement {
      
         });
         console.log(result);
-        this.showToast('Success', 'success', 'New Pricebook created.');
+        if(result.result == 'created'){
+            this.showToast('Success', 'success', 'New Pricebook created.');
+        }
+        
     }
 
     showToast(tit, vari, mess) {

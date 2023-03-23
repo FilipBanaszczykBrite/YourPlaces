@@ -18,6 +18,6 @@ export default class YP_NewPriceBookModal extends LightningModal {
     handleAccountCreated(){
         console.log('created')
         publish(this.messageContext, NPBMC);
-        this.close();
+        this.close({result: 'created'});
     }
 }
