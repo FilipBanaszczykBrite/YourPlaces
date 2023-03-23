@@ -55,7 +55,7 @@
 }
 .info-detail{
     margin-left: 80px;
-    margin-top: 50px;
+    margin-top: 10px;
     display: inline-flex;
     flex-direction: row;
     flex: 5;
