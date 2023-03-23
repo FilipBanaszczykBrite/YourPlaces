@@ -6,6 +6,7 @@ import NPBMC from '@salesforce/messageChannel/YP_NewPBMessageChannel__c';
 import EPBMC from '@salesforce/messageChannel/YP_EditPBMessageChannel__c';
 import { subscribe, APPLICATION_SCOPE, MessageContext, publish } from 'lightning/messageService';
 import NewPBModal from 'c/yP_NewPriceBookModal';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 
 export default class YP_PriceBookSearchResults extends LightningElement {
@@ -98,6 +99,17 @@ export default class YP_PriceBookSearchResults extends LightningElement {
      
         });
         console.log(result);
+        this.showToast('Success', 'success', 'New Pricebook created.');
+    }
+
+    showToast(tit, vari, mess) {
+        const event = new ShowToastEvent({
+            title: tit,
+            variant: vari,
+            message:
+                mess,
+        });
+        this.dispatchEvent(event);
     }
 
     handleRowAction(event) {

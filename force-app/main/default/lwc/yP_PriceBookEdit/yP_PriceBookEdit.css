@@ -1,4 +1,33 @@
 .add-btn{
-    margin-left: calc(65%);
+    margin-left: calc(79%);
+    margin-bottom: 15px;
+ }
+
+ .btn-row{
+    display: flex;
+    flex-direction: row;
+    margin-left: calc(74%);
+ }
+
+ .price-btn{
+  
+    margin-bottom: 15px;
+    margin-right: 5px;
+    display: inline-block;
+ }
+
+ .save-btn{
+    margin-left: calc(87%);
+    margin-bottom: 15px;
+ }
+
+
+ .table{
+    margin-top: 10px;
+ }
+
+ .input{
+    margin-left: 15px;
+    margin-right: 15px;
     margin-bottom: 15px;
  }

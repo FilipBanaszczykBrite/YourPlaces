@@ -1,20 +1,50 @@
 <template>
     <template if:true={gotRecord}>
         <lightning-card>
-            <lightning-button class="add-btn" label="Add Products" onclick={handleAdd}></lightning-button>
-            <lightning-record-edit-form
-            object-api-name={objectApiName}
-            record-id={recordId}
-            onsubmit={handleSubmit}>
-            <lightning-input-field field-name={nameField}> </lightning-input-field>
-            <lightning-input-field field-name={activeField}> </lightning-input-field>
-            <lightning-input-field field-name={startField}> </lightning-input-field>
-            <lightning-input-field field-name={endField}> </lightning-input-field>
-            <div class="slds-var-m-top_medium">
-                <lightning-button variant="brand" type="submit" label="Save">
-                </lightning-button>
-            </div>
-        </lightning-record-edit-form>
+            <lightning-tabset>
+                <lightning-tab label="Details">
+                    <lightning-record-edit-form
+                        object-api-name={objectApiName}
+                        record-id={recordId}
+                        onsubmit={handleSubmit}
+                        onerror={handleError}>
+                        <lightning-input-field field-name={nameField}> </lightning-input-field>
+                        <lightning-input-field field-name={activeField}> </lightning-input-field>
+                        <lightning-input-field field-name={startField}> </lightning-input-field>
+                        <lightning-input-field field-name={endField}> </lightning-input-field>
+                        <lightning-button variant="brand" type="submit" label="Save" class="save-btn"></lightning-button>
+                
+                    </lightning-record-edit-form>
+
+                </lightning-tab>
+                <lightning-tab label="Products">
+                    <lightning-button class="add-btn" label="Add Products" onclick={handleAdd}></lightning-button>
+                    <p style="font-size: 18px; font-weight: 300; margin-left: 10px">Change prices</p>
+                <div style="margin-bottom: 15px;">
+                    <lightning-input class="input" type="number" label="Percentage" onchange={changePercent}></lightning-input>
+                    <div class="btn-row">
+                        <lightning-button class="price-btn" label="Add" onclick={addDiscount}></lightning-button>
+                        <lightning-button class="price-btn" label="Subtract" onclick={subDiscount} ></lightning-button>
+                    </div>
+                    
+                    <lightning-input class="input" type="number" label="Flat amount"  onchange={changeFlat}></lightning-input>
+                    <div class="btn-row">
+                        <lightning-button class="price-btn" label="Add" onclick={addFlat}></lightning-button>
+                        <lightning-button class="price-btn" label="Subtract" onclick={subFlat}></lightning-button>
+                    </div>
+                   
+                </div>
+                    <lightning-datatable class="table"
+                    key-field="id"
+                    data={products}
+                    columns={columns} 
+                    >
+                </lightning-datatable>
+                </lightning-tab>
+            </lightning-tabset>
+           
+            
+       
         </lightning-card>
     </template>
     
