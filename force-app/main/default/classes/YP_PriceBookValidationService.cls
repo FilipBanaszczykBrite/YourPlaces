@@ -16,27 +16,24 @@ public with sharing class YP_PriceBookValidationService {
         getPriceBooks();
         System.debug('old PBS ' + allPriceBooks);
         for(Pricebook2 pb : newPriceBooks){
-            if(pb.IsActive){
-                validatePriceBooks(pb, getPriceBooksForTarget(pb.Target_Product__c));
-              
-            }
+            validatePriceBooks(pb, getPriceBooksForTarget(pb.RecordTypeId));
             
         }
         return  responses;
     }
     
     private void getPriceBooks(){
-        allPriceBooks = [SELECT Id, Name, IsStandard, IsActive, StartDate__c, EndDate__c, Target_Product__c FROM Pricebook2 WHERE IsActive = true
-        AND IsStandard = false];
+        allPriceBooks = [SELECT Id, Name, IsStandard, IsActive, StartDate__c, EndDate__c, RecordTypeId FROM Pricebook2 WHERE IsStandard = false];
     }
 
     private List<Pricebook2> getPriceBooksForTarget(String target){
         List<Pricebook2> targetPBs = new List<Pricebook2>();
         for(Pricebook2 pb : allPriceBooks){
-            if(pb.Target_Product__c == target){
+            if(pb.RecordTypeId == target){
                 targetPBs.add(pb);
             }
         }
+        System.debug(targetPBs);
         return targetPBs;
 
     }

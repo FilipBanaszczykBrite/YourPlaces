@@ -32,19 +32,58 @@ export default class YP_PriceBookEdit extends LightningElement {
     @track selectedRows = [];
     @track discount;
     @track flat;
+    @track newPrice;
     @track noSelected = true;
 
     columns = [
         { label: 'Product Name', fieldName: 'Name' },
         { label: 'Standard Price', fieldName: 'Price', type: 'currency'},
        
+    ];
+
+    options = [
+        { label: 'New price', value: 'set' },
+        { label: 'Percent', value: 'percent' },
+        { label: 'Flat amount', value: 'flat' },
+        
     ]
+    @track optionSelected;
+    @track flatChosen = false;
+    @track setChosen = true;
+    @track percentChosen = false;
 
     connectedCallback(){
         this.subscribeMCEdit();
         this.subscribeMCAdd();
         //console.log('open edit ', this.recordId);
+        this.optionSelected = this.options[0].value;
         
+        
+    }
+
+    changeModifier(event){
+        this.optionSelected = event.detail.value;
+        switch (this.optionSelected){
+            case 'set':
+                this.setChosen = true;
+                this.flatChosen = false;
+                this.percentChosen = false;
+                break;
+            case 'flat':
+                this.setChosen = false;
+                this.flatChosen = true;
+                this.percentChosen = false;
+                break;
+            case 'percent':
+                this.setChosen = false;
+                this.flatChosen = false;
+                this.percentChosen = true;
+                break;
+            default:
+                this.setChosen = true;
+                this.flatChosen = false;
+                this.percentChosen = false;
+        }
     }
 
     refreshButtons(){
@@ -155,6 +194,26 @@ export default class YP_PriceBookEdit extends LightningElement {
 
     changeFlat(event){
         this.flat = event.detail.value;
+    }
+
+    changeSet(event){
+        this.newPrice = event.detail.value;
+    }
+
+    setNewPrice(){
+        this.getSelectedRows();
+        let ids = [];
+        let newPrices = [];
+        console.log('add flat')
+        for(let i = 0; i< this.selectedRows.length; i++){
+            console.log('ids', ids);
+            ids.push(this.selectedRows[i].Id);
+            newPrices.push(this.newPrice);
+
+        }
+        changePrices({ids: ids, newPrices: newPrices}).then(() => {
+            this.getProductsForPB();
+        })
     }
 
     addDiscount(){

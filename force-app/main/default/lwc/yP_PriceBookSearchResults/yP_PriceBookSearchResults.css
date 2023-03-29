@@ -3,6 +3,10 @@
 }
 
 .new-btn{
-   margin-left: calc(90%);
    margin-bottom: 15px;
+}
+
+.btn-row{
+    position: relative;
+    height: 30px;
 }

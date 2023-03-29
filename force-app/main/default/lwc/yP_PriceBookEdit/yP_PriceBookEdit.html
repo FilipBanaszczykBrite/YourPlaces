@@ -3,36 +3,80 @@
         <lightning-card>
             <lightning-tabset>
                 <lightning-tab label="Details">
-                    <lightning-record-edit-form
-                        object-api-name={objectApiName}
-                        record-id={recordId}
-                        onsubmit={handleSubmit}
-                        onerror={handleError}>
-                        <lightning-input-field field-name={nameField}> </lightning-input-field>
-                        <lightning-input-field field-name={activeField}> </lightning-input-field>
-                        <lightning-input-field field-name={startField}> </lightning-input-field>
-                        <lightning-input-field field-name={endField}> </lightning-input-field>
-                        <!-- <lightning-input-field field-name={targetField} readonly="true"> </lightning-input-field> -->
-                        <lightning-button variant="brand" type="submit" label="Save" class="save-btn"></lightning-button>
-                
-                    </lightning-record-edit-form>
+                    <div style="padding-left: 10px; padding-right: 10px">
+                        <lightning-record-edit-form
+                    
+                            object-api-name={objectApiName}
+                            record-id={recordId}
+                            onsubmit={handleSubmit}
+                            onerror={handleError}>
+                            <lightning-input-field style="margin-left: 0px; margin-right: 20px" field-name={nameField}> </lightning-input-field>
+                            <lightning-output-field style="margin-left: 0px; margin-right: 20px" field-name={activeField}> </lightning-output-field>
+                            <lightning-input-field style="margin-left: 0px; margin-right: 20px" field-name={startField}> </lightning-input-field>
+                            <lightning-input-field style="margin-left: 0px; margin-right: 20px" field-name={endField}> </lightning-input-field>
+                            <!-- <lightning-input-field field-name={targetField} readonly="true"> </lightning-input-field> -->
+                            <div class="btn-row">
+                                <div style="position: absolute; right: 5px; margin-top: 5px;">
+                                    <lightning-button variant="brand" type="submit" label="Save" class="save-btn"></lightning-button>
+                                </div>
+                                
+                            </div>
+                            
+                    
+                        </lightning-record-edit-form>
+                    </div>
+                    
 
                 </lightning-tab>
                 <lightning-tab label="Products">
-                    <lightning-button class="add-btn" label="Add Products" onclick={handleAdd}></lightning-button>
-                    <p style="font-size: 18px; font-weight: 300; margin-left: 10px">Change prices</p>
-                <div style="margin-bottom: 15px;">
-                    <lightning-input class="input" type="number" label="Percentage" onchange={changePercent}></lightning-input>
                     <div class="btn-row">
-                        <lightning-button class="price-btn" label="Add" onclick={addDiscount} disabled={noSelected}></lightning-button>
-                        <lightning-button class="price-btn" label="Subtract" onclick={subDiscount} disabled={noSelected}></lightning-button>
+                        <div class="btn-container">
+                            <lightning-button class="add-btn" label="Add Products" onclick={handleAdd}></lightning-button>
+                        </div>
+                        
                     </div>
                     
-                    <lightning-input class="input" type="number" label="Flat amount"  onchange={changeFlat}></lightning-input>
-                    <div class="btn-row">
-                        <lightning-button class="price-btn" label="Add" onclick={addFlat} disabled={noSelected}></lightning-button>
-                        <lightning-button class="price-btn" label="Subtract" onclick={subFlat} disabled={noSelected}></lightning-button>
-                    </div>
+                    <p style="font-size: 18px; font-weight: 300; margin-left: 10px">Change prices</p>
+                <div style="margin-bottom: 15px;">
+                    <lightning-combobox 
+                    class="input"
+                    options={options}
+                    value={optionSelected}
+                    onchange={changeModifier}>
+
+                    </lightning-combobox>
+                    <template if:true={setChosen}>
+                        <lightning-input class="input" type="number" label="New price" onchange={changeSet}></lightning-input>
+                        <div class="btn-row">
+                            <div class="btn-container">
+                                <lightning-button class="price-btn" label="Change" onclick={setNewPrice} disabled={noSelected}></lightning-button>
+                            </div>
+                            
+                           
+                        </div>
+                    </template>
+                    <template if:true={percentChosen}>
+                        <lightning-input class="input" type="number" label="Percentage" onchange={changePercent}></lightning-input>
+                        <div class="btn-row">
+                            <div class="btn-container">
+                                <lightning-button  label="Add" onclick={addDiscount} disabled={noSelected}></lightning-button>
+                                <lightning-button class="price-btn" label="Subtract" onclick={subDiscount} disabled={noSelected}></lightning-button>
+                            </div>
+                            
+                        </div>
+                    </template>
+                    
+                    <template if:true={flatChosen}>
+                        <lightning-input class="input" type="number" label="Flat amount"  onchange={changeFlat}></lightning-input>
+                        <div class="btn-row">
+                            <div class="btn-container">
+                                <lightning-button  label="Add" onclick={addFlat} disabled={noSelected}></lightning-button>
+                                <lightning-button class="price-btn" label="Subtract" onclick={subFlat} disabled={noSelected}></lightning-button>
+                            </div>
+                            
+                        </div>
+                    </template>
+                    
                    
                 </div>
                     <lightning-datatable class="table"

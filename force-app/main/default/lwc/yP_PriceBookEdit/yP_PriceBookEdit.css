@@ -1,24 +1,28 @@
 .add-btn{
-    margin-left: calc(79%);
+    display: inline-block;
     margin-bottom: 15px;
  }
 
  .btn-row{
     display: flex;
     flex-direction: row;
-    margin-left: calc(74%);
+    position: relative;
+    height:43px;
  }
 
  .price-btn{
-  
-    margin-bottom: 15px;
-    margin-right: 5px;
     display: inline-block;
+    margin-left: 5px;
+
  }
 
  .save-btn{
-    margin-left: calc(87%);
     margin-bottom: 15px;
+    display: inline-block;
+ }
+ .btn-container{
+    position: absolute;
+    right: 15px;
  }
 
 

@@ -11,6 +11,15 @@ public with sharing class YP_PriceBookManagerController {
     }
 
     @AuraEnabled
+    public static List<Pricebook2> getCustomPriceBooks(){
+        try {
+            return [SELECT Id, Name, IsActive, IsStandard, RecordType.Name, StartDate__c, EndDate__c FROM Pricebook2 WHERE IsStandard = false];
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled
     public static List<Pricebook2> searchPriceBooks(String search){
         try {
             System.debug(search);
@@ -24,7 +33,7 @@ public with sharing class YP_PriceBookManagerController {
     @AuraEnabled
     public static List<Product2> getProductsForAdd(String pbId){
         try {
-            Pricebook2 pb = [SELECT Id, IsStandard, Target_Product__c FROM Pricebook2 WHERE Id =: pbId LIMIT 1];
+            Pricebook2 pb = [SELECT Id, IsStandard, RecordType.Name FROM Pricebook2 WHERE Id =: pbId LIMIT 1];
             if(pb.IsStandard){
                 List<PricebookEntry> entries = [SELECT Id, Product2Id, Pricebook2Id FROM PricebookEntry WHERE Pricebook2Id =: pbId];
                 List<String> productIds = new List<String>();
@@ -43,7 +52,7 @@ public with sharing class YP_PriceBookManagerController {
                 for(PricebookEntry entry : entriesStandard){
                     standardIds.add(entry.Product2Id);
                 }
-                if(pb.Target_Product__c == 'Apartaments'){
+                if(pb.RecordType.Name == 'Apartaments'){
                     System.debug('apartments pb ' + standardIds);
                     List<Product2> prods = [SELECT Id, RecordType.Name FROM Product2 WHERE RecordType.Name = 'Apartments' AND Id IN :standardIds];
                     System.debug('apartments pb ' + prods);
@@ -55,7 +64,7 @@ public with sharing class YP_PriceBookManagerController {
                     System.debug('apartments pb ' + entriesStandard);
                     
                 }
-                else if(pb.Target_Product__c == 'Business Premises'){
+                else if(pb.RecordType.Name == 'Business Premises'){
                     List<Product2> prods = [SELECT Id, RecordType.Name FROM Product2 WHERE RecordType.Name = 'Business Premises' AND Id IN :standardIds];
                     List<String> prodIds = new List<String>();
                     for(Product2 prod : prods){
@@ -147,6 +156,15 @@ public with sharing class YP_PriceBookManagerController {
             PricebookEntry entry = [SELECT Id, UnitPrice FROM PricebookEntry WHERE Id = :id LIMIT 1];
             
             delete entry;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static List<RecordType> getPBRecordTypes(){
+        try {
+            return [SELECT Id, Name FROM RecordType WHERE sObjectType='Pricebook2'];
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

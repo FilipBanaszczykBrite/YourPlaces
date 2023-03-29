@@ -3,19 +3,34 @@
         <template if:true={isLoading}>
             <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
         </template>
+        <lightning-tabset>
+            <lightning-tab label="Timeline">
+                <c-y-p_-price-book-gantt></c-y-p_-price-book-gantt>
+            </lightning-tab>
+            <lightning-tab label="Price books">
+                <div class="header">
+                    <div class="btn-row">
+                        <div style="position: absolute; right: 20px">
+                            <lightning-button class="new-btn" label="New" onclick={openModal}></lightning-button>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div>
+                    <lightning-datatable
+                    key-field="id"
+                    data={priceBooks}
+                    hide-checkbox-column
+                    columns={columns}
+                    onrowaction={handleRowAction}>
+                </lightning-datatable>
+                </div>
+            </lightning-tab>
+           
+        </lightning-tabset>
         
-        <div class="header">
-            <lightning-button class="new-btn" label="New" onclick={openModal}></lightning-button>
-        </div>
-        <div>
-            <lightning-datatable
-            key-field="id"
-            data={priceBooks}
-            hide-checkbox-column
-            columns={columns}
-            onrowaction={handleRowAction}>
-        </lightning-datatable>
-        </div>
+       
         
     </lightning-card>
 </template>
