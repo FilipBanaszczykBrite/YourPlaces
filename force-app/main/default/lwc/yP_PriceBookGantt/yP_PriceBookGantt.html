@@ -1,5 +1,8 @@
 <template>
-    <div class="slds-m-around_medium">
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
+    <div class="slds-m-around_medium" style="margin-left: 20px;">
         <p class="header">Price books for apartaments</p>
         <svg
             class="b2c"
@@ -8,7 +11,7 @@
             lwc:dom="manual"
             style="font-size: 20px;"
         ></svg>
-        <p class="header">Price books for business premises</p>
+        <p class="header" style="margin-top: 10px;">Price books for business premises</p>
         <svg
         class="b2b"
         width=90%

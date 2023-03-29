@@ -3,6 +3,7 @@ import {  loadScript, loadStyle } from 'lightning/platformResourceLoader';
 import getPriceBooks from '@salesforce/apex/YP_PriceBookManagerController.getCustomPriceBooks';
 import D3 from '@salesforce/resourceUrl/d3';
 import NPBMC from '@salesforce/messageChannel/YP_NewPBMessageChannel__c';
+import EPBMC from '@salesforce/messageChannel/YP_EditPBMessageChannel__c';
 import { subscribe, APPLICATION_SCOPE, MessageContext, publish } from 'lightning/messageService';
 
 export default class YP_PriceBookGantt extends LightningElement {
@@ -147,7 +148,7 @@ export default class YP_PriceBookGantt extends LightningElement {
         let svg = d3.select(this.template.querySelector('svg.' + tag));
         
         const render = data => {
-            const margin = { top: 50, right: 40, bottom: 77, left: 150 };
+            const margin = { top: 50, right: 40, bottom: 77, left: 170 };
             this.svgHeight = data.length * 30 + margin.top + margin.bottom;
             const innerWidth = this.svgWidth - margin.left - margin.right;
             const innerHeight = this.svgHeight - margin.top - margin.bottom;
@@ -157,8 +158,11 @@ export default class YP_PriceBookGantt extends LightningElement {
                 .domain([d3.min(data, function(d) {return d.GanttStartDate;}) ,
                 d3.max(data, function(d) {return d.EndDate__c;})])
                 .range([0, innerWidth]);
+            
+            var ticks = timeScale.ticks();
+     
             const xAxis = d3.axisTop(timeScale)
-            //.tickValues(this.getTicks(data));
+            
             const yScale = d3.scaleBand()
             .domain(data.map(d => d.Name))
             .range([0, innerHeight])
@@ -171,6 +175,7 @@ export default class YP_PriceBookGantt extends LightningElement {
             
             yAxis(g.append('g')
             .style('font-size', "13px"));
+
             g.append('g')
             .style('font-size', "13px")
             .call(xAxis)
@@ -180,32 +185,54 @@ export default class YP_PriceBookGantt extends LightningElement {
             .attr("dy", ".15em")
             .attr("transform", "rotate(35)");
 
+            var today = new Date();
+
+           
 
             g.selectAll('rect').data(products)
             .enter()
             .append('rect')
             .attr('y', d=> yScale(d.Name))
             .attr('x', d => {
-             
                 const diffTime = Math.abs(d.StartDate__c);
-                //console.log(JSON.stringify(d))
-                //console.log(timeScale(diffTime));
                 return timeScale(diffTime)})
             .attr('width', d => {
-             
                 const diffTime = Math.abs(d.EndDate__c - d.StartDate__c + d.GanttStartDate);
-              
                 return timeScale(diffTime)})
             .attr('height', yScale.bandwidth())
             .attr('rx', 7)
+            .on("click", d => {
+                publish(this.messageContext, EPBMC, { record: d });
+            })
+            .on("mouseover", function(d, i) {
+                d3.select(this)
+                  .style("fill", d => { 
+                    return (d.RecordType.Name == 'Apartaments' ? '#66a2d4' : '#3070a4')});
+            })
+            .on("mouseout", function() {
+                d3.select(this)
+                  .style("fill", d => { 
+                    return (d.RecordType.Name == 'Apartaments' ? '#4682b4' : '#105084')});
+            })
             .style('fill', d => { 
-                //console.log(d.RecordType.Name)
                 return (d.RecordType.Name == 'Apartaments' ? '#4682b4' : '#105084')});
-     
-
+                
+            g.append("line")
+            .attr("x1", timeScale(today))  
+            .attr("y1", -10)
+            .attr("x2", timeScale(today))  
+            .attr("y2", this.svgHeight - margin.top - margin.bottom)
+            .style("stroke-width", 2)
+            .style("stroke", "#EECC22")
+            .style("fill", "none");
         };
+        
 
         render(products);
     
+    }
+
+    showDetails(pb){
+        console.log(JSON.stringify(pb));
     }
 }

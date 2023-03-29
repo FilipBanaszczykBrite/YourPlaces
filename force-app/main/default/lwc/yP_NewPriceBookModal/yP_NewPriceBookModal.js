@@ -13,11 +13,11 @@ import getRecordTypes from '@salesforce/apex/YP_PriceBookManagerController.getPB
 export default class YP_NewPriceBookModal extends LightningModal {
 
     object = PB_OBJECT;
-    myFields = [NAME_FIELD, ACTIVE_FIELD, START_FIELD, END_FIELD];
+    myFields = [NAME_FIELD, START_FIELD, END_FIELD];
     @wire (MessageContext)
     messageContext;
     @track value;
-
+    @track typeSelected = false;
     recordTypes;
     @track options;
 
@@ -42,8 +42,8 @@ export default class YP_NewPriceBookModal extends LightningModal {
     handleSubmit(event) {
         event.preventDefault();
         const fields = event.detail.fields;
-        console.log(this.template.querySelector('lightning-combobox').value);
-        fields.RecordTypeId = this.template.querySelector('lightning-combobox').value;
+        console.log(this.value);
+        fields.RecordTypeId = this.value;
 
         this.template.querySelector('lightning-record-form').submit(fields);
        
@@ -56,5 +56,9 @@ export default class YP_NewPriceBookModal extends LightningModal {
 
     handleChange(event){
         this.value = event.detail.value;
+    }
+
+    selectType(event){
+        this.typeSelected = true;
     }
 }
