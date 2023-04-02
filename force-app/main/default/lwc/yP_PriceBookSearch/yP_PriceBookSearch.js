@@ -8,7 +8,6 @@ export default class YP_PriceBookSearch extends LightningElement {
     @track query;
 
     search() { 
-        console.log('search ' + this.query);
         publish(this.messageContext, PBSMC, { name: this.query });
     }
 

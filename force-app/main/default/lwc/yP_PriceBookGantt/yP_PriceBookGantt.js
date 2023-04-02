@@ -25,15 +25,12 @@ export default class YP_PriceBookGantt extends LightningElement {
         this.d3Initialized = true;
         
         Promise.all([
-            
             loadScript(this, D3 + '/d3.v5.min.js'),
             loadStyle(this, D3 + '/style.css'),
            
         ])
             .then(() => {
-      
                 this.getAllPB();
-               
             })
             .catch(error => {
                 this.dispatchEvent(
@@ -62,7 +59,6 @@ export default class YP_PriceBookGantt extends LightningElement {
             this.messageContext,
             NPBMC,
             () => { 
-                console.log('got edit message')
                 this.clearChart();
                 this.getAllPB();
             
@@ -84,19 +80,16 @@ export default class YP_PriceBookGantt extends LightningElement {
       
 
     getAllPB(){
-        console.log('get pbs')
         this.apartaments = [];
         this.b2b = [];
         getPriceBooks().then(result =>{
             result.sort( this.compare );
             this.priceBooks = result;
             for(let i = 0; i < this.priceBooks.length; i++){
-                //console.log(JSON.stringify(this.priceBooks[i]));
                 this.priceBooks[i].StartDate__c = Date.parse(this.priceBooks[i].StartDate__c);
                 this.priceBooks[i].EndDate__c = Date.parse(this.priceBooks[i].EndDate__c);
                 this.priceBooks[i].GanttStartDate = this.priceBooks[0].StartDate__c;
-                //console.log(this.priceBooks[i].RecordType.Name)
-                if(this.priceBooks[i].RecordType.Name == 'Apartaments'){
+                if(this.priceBooks[i].RecordType.Name == 'Apartments'){
                     this.apartaments.push(this.priceBooks[i]);
                 }
                 else if(this.priceBooks[i].RecordType.Name == 'Business premises'){
@@ -112,21 +105,15 @@ export default class YP_PriceBookGantt extends LightningElement {
             for(let i = 0; i < this.b2b.length; i++){
                 this.b2b[i].GanttStartDate = this.b2b[0].StartDate__c - 20000000;                   
             }
-            //console.log(this.apartaments.length, this.b2b.length)
-            
-            
             this.isLoading = false;
-            //this.test();
             if(this.apartaments.length > 0){
                 this.svgHeight = this.apartaments.length * 70 + 50;
                 this.drawGantt(this.apartaments, 'b2c');
             }
-            console.log('height ' + this.svgHeight)
             if(this.b2b.length > 0){
                 this.svgHeight = this.b2b.length * 70 + 50;
                 this.drawGantt(this.b2b, 'b2b');
             }
-            //console.log('height ' + this.svgHeight)
         }).catch(() => {
             this.isLoading = false;
         })
@@ -138,13 +125,11 @@ export default class YP_PriceBookGantt extends LightningElement {
             dates.push(data[i].StartDate__c - 20000000);
             dates.push(data[i].EndDate__c - 20000000);
         }
-        console.log('dates ' + dates);
         return dates;
     }
 
 
     drawGantt(products, tag){
-        console.log('height gantt' + this.svgHeight)
         let svg = d3.select(this.template.querySelector('svg.' + tag));
         
         const render = data => {
@@ -167,7 +152,6 @@ export default class YP_PriceBookGantt extends LightningElement {
             .domain(data.map(d => d.Name))
             .range([0, innerHeight])
             .padding(0.3);
-            //console.log(JSON.stringify(timeScale.domain()))
 
             const yAxis = d3.axisLeft(yScale);
             const g = svg.append('g')
@@ -186,8 +170,6 @@ export default class YP_PriceBookGantt extends LightningElement {
             .attr("transform", "rotate(35)");
 
             var today = new Date();
-
-           
 
             g.selectAll('rect').data(products)
             .enter()
@@ -226,13 +208,9 @@ export default class YP_PriceBookGantt extends LightningElement {
             .style("stroke", "#EECC22")
             .style("fill", "none");
         };
-        
 
         render(products);
     
     }
 
-    showDetails(pb){
-        console.log(JSON.stringify(pb));
-    }
 }

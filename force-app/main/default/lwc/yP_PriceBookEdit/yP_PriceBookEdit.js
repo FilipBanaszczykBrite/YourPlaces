@@ -55,10 +55,7 @@ export default class YP_PriceBookEdit extends LightningElement {
     connectedCallback(){
         this.subscribeMCEdit();
         this.subscribeMCAdd();
-        //console.log('open edit ', this.recordId);
         this.optionSelected = this.options[0].value;
-        
-        
     }
 
     changeModifier(event){
@@ -88,14 +85,12 @@ export default class YP_PriceBookEdit extends LightningElement {
 
     refreshButtons(){
         this.getSelectedRows();
-        console.log(this.selectedRows.length);
         this.noSelected = (this.selectedRows.length == 0);
     }
 
     getProductsForPB(){
         getProducts({pbId: this.recordId}).then(result =>{
             this.products = [];
-            //console.log('get prods ' + JSON.stringify(result));
             for(let i = 0; i < result.length; i++) {
                 let productsPrice = {
                     Id: result[i].Id,
@@ -104,12 +99,9 @@ export default class YP_PriceBookEdit extends LightningElement {
                     Price: result[i].UnitPrice,
                    
                     }
-
-
                 this.products.push(productsPrice);
             }
-            
-           // console.log('prods ' + JSON.stringify(this.products))
+
         });
     }
 
@@ -123,10 +115,7 @@ export default class YP_PriceBookEdit extends LightningElement {
             (message) => { 
                 this.gotRecord = true;
                 this.recordId = message.record.Id;
-                //console.log('got message edit ' + JSON.stringify(message))
                 this.getProductsForPB();
-            
-            
              },
             { scope: APPLICATION_SCOPE }
         );
@@ -141,11 +130,7 @@ export default class YP_PriceBookEdit extends LightningElement {
             APMC,
             () => { 
                 this.gotRecord = true;
-                
-                //console.log('added ')
                 this.getProductsForPB();
-            
-            
              },
             { scope: APPLICATION_SCOPE }
         );
@@ -177,13 +162,11 @@ export default class YP_PriceBookEdit extends LightningElement {
     }
 
     async openModal() {
-        //console.log('open add modal')
         const result = await AddModal.open({
             size: 'medium',
             pbId : this.recordId
 
         });
-        console.log(result);
         if(result.result == 'created'){
             this.showToast('Success', 'success', 'New products added.');
         }
@@ -204,9 +187,7 @@ export default class YP_PriceBookEdit extends LightningElement {
         this.getSelectedRows();
         let ids = [];
         let newPrices = [];
-        console.log('add flat')
         for(let i = 0; i< this.selectedRows.length; i++){
-            console.log('ids', ids);
             ids.push(this.selectedRows[i].Id);
             newPrices.push(this.newPrice);
 
@@ -220,9 +201,7 @@ export default class YP_PriceBookEdit extends LightningElement {
         this.getSelectedRows();
         let ids = [];
         let newPrices = [];
-        console.log('add flat')
         for(let i = 0; i< this.selectedRows.length; i++){
-            console.log('ids', ids);
             ids.push(this.selectedRows[i].Id);
             newPrices.push(Number(this.selectedRows[i].Price) * (1 + Number(this.discount)/100));
 
@@ -236,9 +215,7 @@ export default class YP_PriceBookEdit extends LightningElement {
         this.getSelectedRows();
         let ids = [];
         let newPrices = [];
-        console.log('add flat')
         for(let i = 0; i< this.selectedRows.length; i++){
-            console.log('ids', ids);
             ids.push(this.selectedRows[i].Id);
             newPrices.push(Number(this.selectedRows[i].Price) + Number(this.flat))
 
@@ -253,9 +230,7 @@ export default class YP_PriceBookEdit extends LightningElement {
         this.getSelectedRows();
         let ids = [];
         let newPrices = [];
-        console.log('add flat')
         for(let i = 0; i< this.selectedRows.length; i++){
-            console.log('ids', ids);
             ids.push(this.selectedRows[i].Id);
             newPrices.push(Number(this.selectedRows[i].Price) * (1 - Number(this.discount)/100));
 
@@ -269,9 +244,7 @@ export default class YP_PriceBookEdit extends LightningElement {
         this.getSelectedRows();
         let ids = [];
         let newPrices = [];
-        console.log('add flat')
         for(let i = 0; i< this.selectedRows.length; i++){
-            console.log('ids', ids);
             ids.push(this.selectedRows[i].Id);
             newPrices.push(Number(this.selectedRows[i].Price) - Number(this.flat))
 
@@ -285,7 +258,6 @@ export default class YP_PriceBookEdit extends LightningElement {
         this.selectedRows = [];
         var selectedRecords =  this.template.querySelector("lightning-datatable").getSelectedRows();
         if(selectedRecords.length > 0){
-            console.log('selectedRecords are ', selectedRecords);
             this.selectedRows = selectedRecords;
             
         }   

@@ -26,23 +26,18 @@ export default class YP_NewPriceBookModal extends LightningModal {
         getRecordTypes().then(result => {
             this.options = [];
             this.recordTypes = result;
-            console.log('types ' + JSON.stringify(result));
-            console.log('types ' + JSON.stringify(this.recordTypes));
-            console.log('types ' + this.recordTypes.length);
             for(let i = 0; i < this.recordTypes.length; i++){
                 this.options.push({ label: this.recordTypes[i].Name, value: this.recordTypes[i].Id });
             }
             if(this.options.length > 0){
                 this.value = this.options[0].value;
             }
-            console.log('types ' + JSON.stringify(this.options));
         }) 
     }
 
     handleSubmit(event) {
         event.preventDefault();
         const fields = event.detail.fields;
-        console.log(this.value);
         fields.RecordTypeId = this.value;
 
         this.template.querySelector('lightning-record-form').submit(fields);

@@ -73,7 +73,6 @@ export default class YP_PriceBookSearchResults extends LightningElement {
             this.messageContext,
             NPBMC,
             () => { 
-                console.log('poke')
                 this.getAllPB();
             
              },
@@ -92,8 +91,7 @@ export default class YP_PriceBookSearchResults extends LightningElement {
         })
     }
 
-    async openModal() {
-      
+    async openModal() {    
         const result = await NewPBModal.open({
             size: 'large',
      
@@ -127,7 +125,6 @@ export default class YP_PriceBookSearchResults extends LightningElement {
     }
 
     showEdit(row){
-        console.log('edit ' + JSON.stringify(row));
         publish(this.messageContext, EPBMC, { record: row });
     }
 

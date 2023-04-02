@@ -14,7 +14,7 @@ export default class YP_AddProductsModal extends LightningModal {
     @track isLoading;
     connectedCallback(){
         this.isLoading = true;
-        console.log('connected add modal')
+ 
         getProducts({pbId: this.pbId}).then(result => {
             console.log(JSON.stringify(result))
             this.products = result;
@@ -28,13 +28,11 @@ export default class YP_AddProductsModal extends LightningModal {
     getSelectedRec() {
         var selectedRecords =  this.template.querySelector("lightning-datatable").getSelectedRows();
         if(selectedRecords.length > 0){
-            console.log('selectedRecords are ', selectedRecords);
             let ids = [];
             for(let i = 0; i < selectedRecords.length; i++){
                 ids.push(selectedRecords[i].Id);
             }
-            console.log(ids);
-            console.log(this.pbId);
+  
             addProducts({products: ids, pbId: this.pbId});
            
             this.close({result: 'created'});
