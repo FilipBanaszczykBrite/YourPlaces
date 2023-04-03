@@ -1,0 +1,5 @@
+<messaging:emailTemplate subject="Quote created for Opportunity" recipientType="Contact" relatedToType="Quote">
+    <messaging:htmlEmailBody >  
+        <c:YP_QuoteMailTemplate quoteId='{!relatedTo.Id}'/>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

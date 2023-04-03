@@ -1,0 +1,19 @@
+<apex:component controller="YP_QuoteMailController" access="global">
+    <apex:attribute name="quoteId" type="string" description="test" assignTo="{!recordId}"/>
+    quoteId= {!quoteId}
+    Products:
+    <apex:repeat value="{!rows}" var="row">
+        <div style="display: flex; flex-direction: column; margin-top: 20px; margin-left: 20px">
+            <!-- <apex:image id="theImage" value="{!row.imageSrc}" width="320" height="180" /> -->
+            <img src="{!row.imageSrc}" width="160" height="90" />
+            <div style="margin-left: 10px; margin-top: 10px">
+                {!row.name}
+                <br/>
+                Total price: {!row.price}
+                <br/>
+                Quantity: {!row.quantity}
+            </div>
+        </div>
+    </apex:repeat>
+
+</apex:component>
