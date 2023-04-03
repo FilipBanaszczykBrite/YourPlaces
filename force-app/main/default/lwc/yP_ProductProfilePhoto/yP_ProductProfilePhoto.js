@@ -51,10 +51,7 @@ export default class YP_ProductProfilePhoto extends LightningElement {
         console.log('load photo')
         getProfilePhoto({recordId: this.recordId}).then(result => {
             console.log('get profile ' + JSON.stringify(result))
-            this.imageSrc = "/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&versionId=" +
-            result.Id +
-            "&operationContext=CHATTER&contentId=" +
-            result.ContentDocumentId;
+            this.imageSrc = result;
             this.imageLoaded = true;
             this.isLoading = false;
         }).catch(() => {
