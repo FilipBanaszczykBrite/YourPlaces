@@ -17,7 +17,7 @@ public with sharing class YP_QuoteMailController {
             productIds.add(item.Product2Id);
         }
         
-        products = [SELECT Id, Name,  DisplayUrl, ContentDocumentId__c FROM Product2 WHERE Id IN :productIds];
+        products = [SELECT Id, Name,  DisplayUrl FROM Product2 WHERE Id IN :productIds];
         return products;
     }
  
@@ -26,7 +26,7 @@ public with sharing class YP_QuoteMailController {
         getProducts();
         for(Integer i = 0 ; i < products.size(); i ++){
             rows.add(new YP_QuoteMailProductRow(products[i].Name, quoteProducts[i].TotalPrice, quoteProducts[i].Quantity,
-            products[i].DisplayUrl, products[i].ContentDocumentId__c ));
+            products[i].DisplayUrl));
             
         }
         return rows;

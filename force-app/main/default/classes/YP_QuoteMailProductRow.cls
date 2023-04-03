@@ -5,15 +5,11 @@ public with sharing class YP_QuoteMailProductRow {
     public Decimal quantity {get; set;}
     public String imageSrc {get; set;}
     
-    public YP_QuoteMailProductRow(String name, Decimal price, Decimal quantity, String conVerId, String conDocId) {
+    public YP_QuoteMailProductRow(String name, Decimal price, Decimal quantity, String url) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
-        this.imageSrc = '/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&versionId=' +
-        conVerId +
-        '&operationContext=CHATTER&contentId=' +
-        conDocId;
-        //this.imageSrc = '/sfc/servlet.shepherd/document/download/' + conDocId;
+        this.imageSrc = url;
         
     }
 }
