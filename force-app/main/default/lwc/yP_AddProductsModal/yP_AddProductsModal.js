@@ -3,6 +3,7 @@ import { wire, track, api } from 'lwc';
 import getProducts from '@salesforce/apex/YP_PriceBookManagerController.getProductsForAdd';
 import addProducts from '@salesforce/apex/YP_PriceBookManagerController.addProductsToPB';
 import APMC from '@salesforce/messageChannel/YP_AddProductsMessageChannel__c';
+import CANCELBUTTON from '@salesforce/label/YP_CancelButton';
 import { publish, MessageContext } from 'lightning/messageService';
 export default class YP_AddProductsModal extends LightningModal {
     columns = [
