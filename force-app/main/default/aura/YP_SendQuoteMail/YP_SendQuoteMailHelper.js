@@ -10,5 +10,6 @@
             }
         }
         component.set("v.attachments", attachments);
+        component.set("v.loaded", true);
     }
 })

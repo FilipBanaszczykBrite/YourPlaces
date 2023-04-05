@@ -693,4 +693,11 @@
         <shortDescription>YP_EmailInfo</shortDescription>
         <value>Email sent to:</value>
     </labels>
+    <labels>
+        <fullName>YP_TotalPrice</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_YP_TotalPrice</shortDescription>
+        <value>Total price</value>
+    </labels>
 </CustomLabels>

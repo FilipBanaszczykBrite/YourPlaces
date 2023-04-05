@@ -59,7 +59,7 @@ public with sharing class YP_QuoteMailController {
             
             email.setFileAttachments(attachments); 
             Messaging.SingleEmailMessage[] messages =   new List<Messaging.SingleEmailMessage> {email};
-            //Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
+            Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
