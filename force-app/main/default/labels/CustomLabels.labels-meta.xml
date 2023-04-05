@@ -673,10 +673,129 @@
         <value>View</value>
     </labels>
     <labels>
+        <fullName>YP_AddBtn</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_AddBtn</shortDescription>
+        <value>Add</value>
+    </labels>
+    <labels>
+        <fullName>YP_AddProducts</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_AddProducts</shortDescription>
+        <value>Add products</value>
+    </labels>
+    <labels>
+        <fullName>YP_Attachments</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_Attachments</shortDescription>
+        <value>Attachments:</value>
+    </labels>
+    <labels>
         <fullName>YP_CancelButton</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>YP_CancelButton</shortDescription>
         <value>Cancel</value>
+    </labels>
+    <labels>
+        <fullName>YP_ChangeBtn</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_ChangeBtn</shortDescription>
+        <value>Change</value>
+    </labels>
+    <labels>
+        <fullName>YP_EmailInfo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_EmailInfo</shortDescription>
+        <value>Email sent to:</value>
+    </labels>
+    <labels>
+        <fullName>YP_Flat</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_Flat</shortDescription>
+        <value>Flat amount</value>
+    </labels>
+    <labels>
+        <fullName>YP_NewPriceBook</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_NewPriceBook</shortDescription>
+        <value>New Pricebook</value>
+    </labels>
+    <labels>
+        <fullName>YP_NewPriceLabel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_NewPriceLabel</shortDescription>
+        <value>New price</value>
+    </labels>
+    <labels>
+        <fullName>YP_NextBtn</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_NextBtn</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>YP_PBApartaments</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_PBApartaments</shortDescription>
+        <value>Price books for apartaments</value>
+    </labels>
+    <labels>
+        <fullName>YP_PBBusiness</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_PBBusiness</shortDescription>
+        <value>Price books for business premises</value>
+    </labels>
+    <labels>
+        <fullName>YP_PBSearchPlaceholder</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_PBSearchPlaceholder</shortDescription>
+        <value>Enter price book name...</value>
+    </labels>
+    <labels>
+        <fullName>YP_Percentage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_Percentage</shortDescription>
+        <value>Percentage</value>
+    </labels>
+    <labels>
+        <fullName>YP_ProductName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_ProductName</shortDescription>
+        <value>Product name</value>
+    </labels>
+    <labels>
+        <fullName>YP_SaveBtn</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_SaveBtn</shortDescription>
+        <value>Save</value>
+    </labels>
+    <labels>
+        <fullName>YP_StandardPrice</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_StandardPrice</shortDescription>
+        <value>Standard price</value>
+    </labels>
+    <labels>
+        <fullName>YP_SubtractBtn</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_SubtractBtn</shortDescription>
+        <value>Subtract</value>
     </labels>
 </CustomLabels>

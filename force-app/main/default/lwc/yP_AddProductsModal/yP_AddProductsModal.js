@@ -3,21 +3,28 @@ import { wire, track, api } from 'lwc';
 import getProducts from '@salesforce/apex/YP_PriceBookManagerController.getProductsForAdd';
 import addProducts from '@salesforce/apex/YP_PriceBookManagerController.addProductsToPB';
 import APMC from '@salesforce/messageChannel/YP_AddProductsMessageChannel__c';
-import CANCELBUTTON from '@salesforce/label/YP_CancelButton';
+import CANCELBUTTON from '@salesforce/label/c.YP_CancelButton';
+import ADDBTN from '@salesforce/label/c.YP_AddBtn';
+import ADDPRODS from '@salesforce/label/c.YP_AddProducts';
+import PRODNAME from '@salesforce/label/c.YP_ProductName';
 import { publish, MessageContext } from 'lightning/messageService';
 export default class YP_AddProductsModal extends LightningModal {
+    labels = {
+        ADDPRODS,
+        CANCELBUTTON,
+        ADDBTN
+    };
     columns = [
-        { label: 'Name', fieldName: 'Name' }
+        { label: PRODNAME, fieldName: 'Name' }
         
     ];
     @api pbId;
     @track products;
     @track isLoading;
     connectedCallback(){
+        console.log(this.labels);
         this.isLoading = true;
- 
         getProducts({pbId: this.pbId}).then(result => {
-            console.log(JSON.stringify(result))
             this.products = result;
             this.isLoading = false;
         })
