@@ -1,0 +1,18 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader, force:hasRecordId"> 
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="email" type="String"/>
+    <aura:attribute name="attachments" type="String[]"/>
+    <c:yP_QuoteMailAction recordId="{!v.recordId}" 
+    onsend="{!c.close}"/>
+    <p style="margin-bottom: 10px; font-size: 20px;
+    font-weight: 400;">{!$Label.c.YP_EmailInfo} {!v.email}</p>
+    
+    <p style="font-size: 18px;
+    font-weight: 400;">{!$Label.c.YP_Attachments}</p>
+
+    <aura:iteration items="{!v.attachments}" var="item">
+        <p style="font-size: 15px;
+        font-weight: 350; color: rgb(8, 45, 70)">{!item}</p>
+    </aura:iteration>
+    
+</aura:component>	

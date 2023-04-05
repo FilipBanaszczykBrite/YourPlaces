@@ -31,4 +31,38 @@ public with sharing class YP_QuoteMailController {
         }
         return rows;
     }
+
+    @AuraEnabled
+    public static List<String> sendMail(String recordId){
+        List<String> resultData = new List<String>();
+        try {
+            Quote quote = [SELECT Id, ContactId, Email FROM Quote WHERE Id =: recordId LIMIT 1];
+            List<QuoteDocument> quoteDocuments = [SELECT Name, Document, ContentVersionDocumentId
+             FROM QuoteDocument
+             WHERE QuoteId = :recordId
+             WITH SECURITY_ENFORCED
+            ];
+            resultData.add(quote.Email);
+            EmailTemplate emailTemplate =[SELECT Id, Subject, Description,
+                                 HtmlValue,DeveloperName,Body
+                                 FROM EmailTemplate
+                                 WHERE name = 'Quote with images template'];
+            Messaging.SingleEmailMessage email = Messaging.renderStoredEmailTemplate(emailTemplate.Id, quote.ContactId, quote.Id);
+            List<Messaging.EmailFileAttachment> attachments = new List<Messaging.EmailFileAttachment>();
+            for (QuoteDocument qd: quoteDocuments) {
+                Messaging.EmailFileAttachment emailFileAttachment = new Messaging.EmailFileAttachment();
+                emailFileAttachment.setFileName(qd.Name);
+                resultData.add(qd.Name);
+                emailFileAttachment.setBody(qd.Document);
+                attachments.add(emailFileAttachment);
+            }
+            
+            email.setFileAttachments(attachments); 
+            Messaging.SingleEmailMessage[] messages =   new List<Messaging.SingleEmailMessage> {email};
+            //Messaging.SendEmailResult[] results = Messaging.sendEmail(messages);
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+        return resultData;
+    }
 }
