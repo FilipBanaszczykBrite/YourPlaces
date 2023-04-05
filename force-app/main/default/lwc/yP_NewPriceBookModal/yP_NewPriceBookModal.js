@@ -5,13 +5,19 @@ import NAME_FIELD from '@salesforce/schema/Pricebook2.Name';
 import ACTIVE_FIELD from '@salesforce/schema/Pricebook2.IsActive';
 import START_FIELD from '@salesforce/schema/Pricebook2.StartDate__c';
 import END_FIELD from '@salesforce/schema/Pricebook2.EndDate__c';
-import TARGET_FIELD from '@salesforce/schema/Pricebook2.Target_Product__c';
+import CANCELBUTTON from '@salesforce/label/c.YP_CancelButton';
+import NEXTBTN from '@salesforce/label/c.YP_NextBtn';
+import NEWPB from '@salesforce/label/c.YP_NewPriceBook';
 import NPBMC from '@salesforce/messageChannel/YP_NewPBMessageChannel__c';
 import { publish, MessageContext } from 'lightning/messageService';
 import getRecordTypes from '@salesforce/apex/YP_PriceBookManagerController.getPBRecordTypes';
 
 export default class YP_NewPriceBookModal extends LightningModal {
-
+    labels = {
+        NEWPB,
+        CANCELBUTTON,
+        NEXTBTN
+    };
     object = PB_OBJECT;
     myFields = [NAME_FIELD, START_FIELD, END_FIELD];
     @wire (MessageContext)

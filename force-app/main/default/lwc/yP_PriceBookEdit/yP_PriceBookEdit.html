@@ -2,7 +2,7 @@
     <template if:true={gotRecord}>
         <lightning-card>
             <lightning-tabset>
-                <lightning-tab label="Details">
+                <lightning-tab label={labels.DETAILS}>
                     <div style="padding-left: 10px; padding-right: 10px">
                         <lightning-record-edit-form
                     
@@ -17,7 +17,7 @@
                             <!-- <lightning-input-field field-name={targetField} readonly="true"> </lightning-input-field> -->
                             <div class="btn-row">
                                 <div style="position: absolute; right: 5px; margin-top: 5px;">
-                                    <lightning-button variant="brand" type="submit" label="Save" class="save-btn"></lightning-button>
+                                    <lightning-button variant="brand" type="submit" label={labels.SAVEBTN} class="save-btn"></lightning-button>
                                 </div>
                                 
                             </div>
@@ -28,15 +28,15 @@
                     
 
                 </lightning-tab>
-                <lightning-tab label="Products">
+                <lightning-tab label={labels.PRODS}>
                     <div class="btn-row">
                         <div class="btn-container">
-                            <lightning-button class="add-btn" label="Add Products" onclick={handleAdd}></lightning-button>
+                            <lightning-button class="add-btn" label={labels.ADDPRODS} onclick={handleAdd}></lightning-button>
                         </div>
                         
                     </div>
                     
-                    <p style="font-size: 18px; font-weight: 300; margin-left: 10px">Change prices</p>
+                    <p style="font-size: 18px; font-weight: 300; margin-left: 10px">{labels.CHANGEPRICES}</p>
                 <div style="margin-bottom: 15px;">
                     <lightning-combobox 
                     class="input"
@@ -46,32 +46,32 @@
 
                     </lightning-combobox>
                     <template if:true={setChosen}>
-                        <lightning-input class="input" type="number" label="New price" onchange={changeSet}></lightning-input>
+                        <lightning-input class="input" type="number" label={labels.NEWPRICE} onchange={changeSet}></lightning-input>
                         <div class="btn-row">
                             <div class="btn-container">
-                                <lightning-button class="price-btn" label="Change" onclick={setNewPrice} disabled={noSelected}></lightning-button>
+                                <lightning-button class="price-btn" label={labels.CHANGEBTN} onclick={setNewPrice} disabled={noSelected}></lightning-button>
                             </div>
                             
                            
                         </div>
                     </template>
                     <template if:true={percentChosen}>
-                        <lightning-input class="input" type="number" label="Percentage" onchange={changePercent}></lightning-input>
+                        <lightning-input class="input" type="number" label={labels.PERCENTAGE} onchange={changePercent}></lightning-input>
                         <div class="btn-row">
                             <div class="btn-container">
-                                <lightning-button  label="Add" onclick={addDiscount} disabled={noSelected}></lightning-button>
-                                <lightning-button class="price-btn" label="Subtract" onclick={subDiscount} disabled={noSelected}></lightning-button>
+                                <lightning-button  label={labels.ADDBTN} onclick={addDiscount} disabled={noSelected}></lightning-button>
+                                <lightning-button class="price-btn" label={labels.SUBBTN} onclick={subDiscount} disabled={noSelected}></lightning-button>
                             </div>
                             
                         </div>
                     </template>
                     
                     <template if:true={flatChosen}>
-                        <lightning-input class="input" type="number" label="Flat amount"  onchange={changeFlat}></lightning-input>
+                        <lightning-input class="input" type="number" label={labels.FLAT}  onchange={changeFlat}></lightning-input>
                         <div class="btn-row">
                             <div class="btn-container">
-                                <lightning-button  label="Add" onclick={addFlat} disabled={noSelected}></lightning-button>
-                                <lightning-button class="price-btn" label="Subtract" onclick={subFlat} disabled={noSelected}></lightning-button>
+                                <lightning-button  label={labels.ADDBTN} onclick={addFlat} disabled={noSelected}></lightning-button>
+                                <lightning-button class="price-btn" label={labels.SUBBTN} onclick={subFlat} disabled={noSelected}></lightning-button>
                             </div>
                             
                         </div>

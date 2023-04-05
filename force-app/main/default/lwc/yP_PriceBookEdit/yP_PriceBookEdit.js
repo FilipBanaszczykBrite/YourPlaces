@@ -9,6 +9,19 @@ import EPBMC from '@salesforce/messageChannel/YP_EditPBMessageChannel__c';
 import NPBMC from '@salesforce/messageChannel/YP_NewPBMessageChannel__c';
 import APMC from '@salesforce/messageChannel/YP_AddProductsMessageChannel__c';
 import AddModal from 'c/yP_AddProductsModal';
+import ADDBTN from '@salesforce/label/c.YP_AddBtn';
+import SAVEBTN from '@salesforce/label/c.YP_SaveBtn';
+import SUBBTN from '@salesforce/label/c.YP_SubtractBtn';
+import CHANGEBTN from '@salesforce/label/c.YP_ChangeBtn';
+import NEWPRICE from '@salesforce/label/c.YP_NewPriceLabel';
+import FLAT from '@salesforce/label/c.YP_Flat';
+import PERCENTAGE from '@salesforce/label/c.YP_Percentage';
+import STANDARDPRICE from '@salesforce/label/c.YP_StandardPrice';
+import PRODNAME from '@salesforce/label/c.YP_ProductName';
+import PRODS from '@salesforce/label/c.YP_Products';
+import ADDPRODS from '@salesforce/label/c.YP_AddProducts';
+import DETAILS from '@salesforce/label/c.YP_Details';
+import CHANGEPRICES from '@salesforce/label/c.YP_ChangePrices';
 import { subscribe, APPLICATION_SCOPE, MessageContext, publish } from 'lightning/messageService';
 import getProducts from '@salesforce/apex/YP_PriceBookManagerController.getProducts';
 import changePrices from '@salesforce/apex/YP_PriceBookManagerController.changePrices';
@@ -16,6 +29,21 @@ import deleteProduct from '@salesforce/apex/YP_PriceBookManagerController.change
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class YP_PriceBookEdit extends LightningElement {
+    labels = {
+        ADDBTN,
+        SAVEBTN,
+        SUBBTN,
+        CHANGEBTN,
+        NEWPRICE,
+        FLAT,
+        PERCENTAGE,
+        STANDARDPRICE,
+        PRODNAME,
+        PRODS,
+        ADDPRODS,
+        DETAILS,
+        CHANGEPRICES
+    }
     objectApiName = PB_OBJECT;
     nameField = NAME_FIELD;
     activeField = ACTIVE_FIELD;
@@ -34,17 +62,18 @@ export default class YP_PriceBookEdit extends LightningElement {
     @track flat;
     @track newPrice;
     @track noSelected = true;
-
+    
+    
     columns = [
-        { label: 'Product Name', fieldName: 'Name' },
-        { label: 'Standard Price', fieldName: 'Price', type: 'currency'},
+        { label: PRODNAME, fieldName: 'Name' },
+        { label: STANDARDPRICE, fieldName: 'Price', type: 'currency'},
        
     ];
 
     options = [
-        { label: 'New price', value: 'set' },
-        { label: 'Percent', value: 'percent' },
-        { label: 'Flat amount', value: 'flat' },
+        { label: NEWPRICE, value: 'set' },
+        { label: PERCENTAGE, value: 'percent' },
+        { label: FLAT, value: 'flat' },
         
     ]
     @track optionSelected;

@@ -798,4 +798,81 @@
         <shortDescription>YP_SubtractBtn</shortDescription>
         <value>Subtract</value>
     </labels>
+    <labels>
+        <fullName>YP_Details</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_Details</shortDescription>
+        <value>Details</value>
+    </labels>
+    <labels>
+        <fullName>YP_Products</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_Products</shortDescription>
+        <value>Products</value>
+    </labels>
+    <labels>
+        <fullName>YP_ChangePrices</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_ChangePrices</shortDescription>
+        <value>Change prices</value>
+    </labels>
+    <labels>
+        <fullName>YP_PriceBooks</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_PriceBooks</shortDescription>
+        <value>Price books</value>
+    </labels>
+    <labels>
+        <fullName>YP_NewBtn</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_NewBtn</shortDescription>
+        <value>New</value>
+    </labels>
+    <labels>
+        <fullName>YP_NameLabel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_NameLabel</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
+        <fullName>YP_ActiveLabel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_ActiveLabel</shortDescription>
+        <value>Active</value>
+    </labels>
+    <labels>
+        <fullName>YP_StartDateLabel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_StartDateLabel</shortDescription>
+        <value>Start date</value>
+    </labels>
+    <labels>
+        <fullName>YP_EndDateLabel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_EndDateLabel</shortDescription>
+        <value>End date</value>
+    </labels>
+    <labels>
+        <fullName>YP_Timeline</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_Timeline</shortDescription>
+        <value>Timeline</value>
+    </labels>
+    <labels>
+        <fullName>YP_Edit</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_Edit</shortDescription>
+        <value>Edit</value>
+    </labels>
 </CustomLabels>

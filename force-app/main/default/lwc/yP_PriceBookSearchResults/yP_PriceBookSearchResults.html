@@ -5,11 +5,11 @@
         </template>
         <lightning-tabset>
             
-            <lightning-tab label="Price books">
+            <lightning-tab label={labels.PBS}>
                 <div class="header">
                     <div class="btn-row">
                         <div style="position: absolute; right: 20px">
-                            <lightning-button class="new-btn" label="New" onclick={openModal}></lightning-button>
+                            <lightning-button class="new-btn" label={labels.NEWBTN} onclick={openModal}></lightning-button>
                         </div>
                         
                     </div>
@@ -25,7 +25,7 @@
                 </lightning-datatable>
                 </div>
             </lightning-tab>
-            <lightning-tab label="Timeline">
+            <lightning-tab label={labels.TIMELINE}>
                 <c-y-p_-price-book-gantt></c-y-p_-price-book-gantt>
             </lightning-tab>
         </lightning-tabset>

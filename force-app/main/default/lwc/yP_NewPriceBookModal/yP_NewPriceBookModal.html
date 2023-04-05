@@ -1,5 +1,5 @@
 <template>
-    <lightning-modal-header label="New Price Book"></lightning-modal-header>
+    <lightning-modal-header label={labels.NEWPB}></lightning-modal-header>
    
     <lightning-modal-body>
         <template if:false={typeSelected}>
@@ -12,8 +12,8 @@
             ></lightning-combobox>
             <div style="position: relative; height: 50px; margin-top: 15px">
                 <div style="position: absolute; right: 10px">
-                    <lightning-button label="Cancel" onclick={close} style="margin-right: 5px"></lightning-button>
-                    <lightning-button label="Next" onclick={selectType} variant="brand" style="margin-right: 5px"></lightning-button>
+                    <lightning-button label={labels.CANCELBUTTON} onclick={close} style="margin-right: 5px"></lightning-button>
+                    <lightning-button label={labels.NEXTBTN} onclick={selectType} variant="brand" style="margin-right: 5px"></lightning-button>
                 </div>
                 
             </div>

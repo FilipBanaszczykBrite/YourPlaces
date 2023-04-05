@@ -2,12 +2,17 @@ import { LightningElement, wire } from 'lwc';
 import {  loadScript, loadStyle } from 'lightning/platformResourceLoader';
 import getPriceBooks from '@salesforce/apex/YP_PriceBookManagerController.getCustomPriceBooks';
 import D3 from '@salesforce/resourceUrl/d3';
+import APART from '@salesforce/label/c.YP_PBApartaments';
+import BUSINESS from '@salesforce/label/c.YP_PBBusiness';
 import NPBMC from '@salesforce/messageChannel/YP_NewPBMessageChannel__c';
 import EPBMC from '@salesforce/messageChannel/YP_EditPBMessageChannel__c';
 import { subscribe, APPLICATION_SCOPE, MessageContext, publish } from 'lightning/messageService';
 
 export default class YP_PriceBookGantt extends LightningElement {
-
+    labels = {
+        APART,
+        BUSINESS
+    }
     svgWidth = 800;
     svgHeight;
     priceBooks;
