@@ -193,9 +193,20 @@ public with sharing class YP_ProductSearchController {
                     products[i].Meeting_Rooms__c,
                     products[i].Utility_Rooms__c );
                 wrappers.add(wrapper);
+                
             }
-            
             return wrappers;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static string getCurrency(){
+        try {
+            ConnectApi.OrganizationSettings  orgSettings = ConnectApi.Organization.getSettings();
+            return orgSettings.UserSettings.currencySymbol;
+         
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

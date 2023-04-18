@@ -10,6 +10,9 @@ export default class YP_ProductSearchFilters extends LightningElement {
     @track utilityRooms;
     @track priceMin;
     @track priceMax;
+    @track invalidFilters = false;
+    @track invalidPrice = false;
+    @track invalidArea = false;
 
 
     @wire (MessageContext)
@@ -17,16 +20,48 @@ export default class YP_ProductSearchFilters extends LightningElement {
 
     changeAreaMin(event){
         this.areaMin = event.target.value;
+        if( this.areaMin > this.areaMax){
+            this.invalidFilters = true;
+            this.invalidArea = true;
+        }
+        else{
+            this.invalidFilters = false;
+            this.invalidArea = false;
+        }
     }
     changeAreaMax(event){
         this.areaMax = event.target.value;
+        if( this.areaMin > this.areaMax){
+            this.invalidFilters = true;
+            this.invalidArea = true;
+        }
+        else{
+            this.invalidFilters = false;
+            this.invalidArea = false;
+        }
     }
 
     changePriceMin(event){
         this.priceMin = event.target.value;
+        if( this.priceMin > this.priceMax){
+            this.invalidFilters = true;
+            this.invalidPrice = true;
+        }
+        else{
+            this.invalidFilters = false;
+            this.invalidPrice = false;
+        }
     }
     changePriceMax(event){
         this.priceMax = event.target.value;
+        if( this.priceMin > this.priceMax){
+            this.invalidFilters = true;
+            this.invalidPrice = true;
+        }
+        else{
+            this.invalidFilters = false;
+            this.invalidPrice = false;
+        }
     }
     changeFloors(event){
         this.floors = event.target.value;
@@ -51,6 +86,9 @@ export default class YP_ProductSearchFilters extends LightningElement {
     }
 
     clear(){
+        this.invalidFilters = false;
+        this.invalidArea = false;
+        this.invalidPrice = false;
         this.areaMin = undefined;
         this.areaMax = undefined;
         this.priceMin = undefined;

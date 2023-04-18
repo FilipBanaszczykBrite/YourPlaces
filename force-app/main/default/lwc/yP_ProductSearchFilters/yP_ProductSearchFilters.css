@@ -1,6 +1,7 @@
 .container{
     background-color: rgb(23, 57, 88);
     border-radius: 5px;
+    padding-top: 10px;
 }
 
 .input-container{
@@ -11,6 +12,18 @@
     
 }
 
+.errors{
+    width: 50%;
+    margin-left: 25%;
+    text-align: center;
+}
+
+.error{
+    font-size: 17px;
+    font-weight: 400;
+ 
+    color:rgb(255, 80, 80) ;
+}
 .input-column-1{
     display: inline-block;
 

@@ -1,5 +1,5 @@
 import { LightningElement, track, wire } from 'lwc';
-;
+
 import getBusinessPremises from '@salesforce/apex/YP_ProductSearchController.getBusinessPremisesCommunity';
 import getAllBusinessPremises from '@salesforce/apex/YP_ProductSearchController.getAllBusinessPremisesCommunity';
 
@@ -26,6 +26,9 @@ export default class YP_ProductSearchResults extends LightningElement {
         getAllBusinessPremises().then(result => {
             this.results = result;
             this.pageCount = Math.ceil(result.length/this.pageSize);
+            if(this.pageCount == 0){
+                this.pageCount = 1;
+            }
             this.updateRecords();
             
             this.displayResultCount = '(' + result.length + ')';
@@ -86,6 +89,9 @@ export default class YP_ProductSearchResults extends LightningElement {
             this.results = result;
             this.displayResultCount = '(' + result.length + ')';
             this.pageCount = Math.ceil(result.length/this.pageSize);
+            if(this.pageCount == 0){
+                this.pageCount = 1;
+            }
             this.updateRecords();
         })
     }
