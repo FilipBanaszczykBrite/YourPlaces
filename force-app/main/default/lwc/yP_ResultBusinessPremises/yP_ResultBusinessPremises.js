@@ -9,13 +9,27 @@ export default class YP_ResultBusinessPremises extends NavigationMixin(Lightning
     }
 
     navigateToRecordPage() {
-        this[NavigationMixin.Navigate]({
-            type: 'standard__recordPage',
-            attributes: {
-                recordId: this.item.Id,
-                objectApiName: 'Product2',
-                actionName: 'view'
-            }
-        });
-}
+        if(this.isCommunity) {
+            this[NavigationMixin.Navigate]({
+                type: 'comm__namedPage',
+                attributes: {
+                    name: 'BusinessPremisesProductPage'
+                },
+                state: {
+                    recordId: this.product.Id
+                }
+            });
+        }
+        else{
+            this[NavigationMixin.Navigate]({
+                type: 'standard__recordPage',
+                attributes: {
+                    recordId: this.item.Id,
+                    objectApiName: 'Product2',
+                    actionName: 'view'
+                }
+            });
+        }
+        
+    }
 }

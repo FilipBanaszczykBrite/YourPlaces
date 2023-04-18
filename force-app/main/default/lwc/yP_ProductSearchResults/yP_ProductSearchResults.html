@@ -1,11 +1,11 @@
 <template>
-    <template if:true={isLoading}>
-        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
-    </template>
+   
     <c-y-p_-product-search-filters onsearch={searchBP}></c-y-p_-product-search-filters >
     <div class="container">
       
-           
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
             <div >
                 <p class="results-header">Results {displayResultCount}</p>
                 <template for:each={resultsShown} for:item="result">
