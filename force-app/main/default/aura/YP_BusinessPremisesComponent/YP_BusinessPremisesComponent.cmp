@@ -1,0 +1,4 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    <c:yP_BusinessPremisesDetail></c:yP_BusinessPremisesDetail>
+
+</aura:component>	
