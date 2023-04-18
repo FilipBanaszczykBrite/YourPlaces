@@ -1,44 +1,54 @@
 <template>
-    <lightning-card >
-        <template if:true={isLoading}>
-            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
-        </template>
-        <div>
-            <p class="results-header">Results {displayResultCount}</p>
-            <template if:true={business}>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
+    <c-y-p_-product-search-filters onsearch={searchBP}></c-y-p_-product-search-filters >
+    <div class="container">
+      
+           
+            <div >
+                <p class="results-header">Results {displayResultCount}</p>
                 <template for:each={resultsShown} for:item="result">
                     <div key={result} class="results-list">
                         <c-y-p_-result-business-premises item={result}></c-y-p_-result-business-premises>
                     </div>
                 </template>
-            </template>
-            <template if:false={business}>
-                <template for:each={resultsShown} for:item="result">
-                    <div key={result} class="results-list">
-                        <c-y-p_-result-apartments item={result}></c-y-p_-result-apartments>
-                    </div>
+                <!-- <template if:true={business}>
+                    <template for:each={resultsShown} for:item="result">
+                        <div key={result} class="results-list">
+                            <c-y-p_-result-business-premises item={result}></c-y-p_-result-business-premises>
+                        </div>
+                    </template>
                 </template>
-            </template>
-            <lightning-layout>
-                <lightning-layout-item>
-                    <lightning-button label="Previous" 
-                    icon-name="utility:chevronleft"
-                    onclick={previousHandler}
-                    disabled={disablePrevious} style="margin-left: 15px;"></lightning-button>
-                </lightning-layout-item>
-                <lightning-layout-item flexibility="grow">
-                    <p class="slds-text-align_center results-header">Page {currentPage} of {pageCount}</p>
-                </lightning-layout-item>
-                <lightning-layout-item>
-                    <lightning-button label="next" 
-                    icon-name="utility:chevronright"
-                    icon-position="right"
-                    onclick={nextHandler}
-                    disabled={disableNext} style="margin-right: 15px;"></lightning-button>
-                </lightning-layout-item>
-            </lightning-layout>
-        </div>
-
-        
-    </lightning-card>
+                <template if:false={business}>
+                    <template for:each={resultsShown} for:item="result">
+                        <div key={result} class="results-list">
+                            <c-y-p_-result-apartments item={result}></c-y-p_-result-apartments>
+                        </div>
+                    </template>
+                </template> -->
+                <lightning-layout>
+                    <lightning-layout-item>
+                        <lightning-button label="Previous" 
+                        icon-name="utility:chevronleft"
+                        onclick={previousHandler}
+                        disabled={disablePrevious} style="margin-left: 15px;"></lightning-button>
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="grow">
+                        <p class="slds-text-align_center results-header">Page {currentPage} of {pageCount}</p>
+                    </lightning-layout-item>
+                    <lightning-layout-item>
+                        <lightning-button label="next" 
+                        icon-name="utility:chevronright"
+                        icon-position="right"
+                        onclick={nextHandler}
+                        disabled={disableNext} style="margin-right: 15px;"></lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+    
+            
+       
+    </div>
+    
 </template>

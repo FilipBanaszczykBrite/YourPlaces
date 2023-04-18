@@ -1,0 +1,53 @@
+<template>
+    <div class="container">
+        <div class="bar">
+            <div class="input-container">
+                <div class="input-column-1">
+                    <label class="input-label-left" for="minArea">Min. area [m2]</label></br>
+                    <input class="input" type="number" onchange={changeAreaMin} name="minArea" value={areaMin}></br>
+            
+                    <label class="input-label-left" for="meet">Meeting rooms</label></br>
+                    <input class="input" type="number" onchange={changeMeetingRooms} value={meetingRooms} name="meet"></br>
+                    
+                </div>
+                <div class="column-2">-</div>
+                <div class="input-column-3">
+                    <label class="input-label" for="maxArea">Max. area [m2]</label></br>
+                    <input class="input-right" type="number" onchange={changeAreaMax} value={areaMax} name="maxArea"></br>
+                
+                    <label class="input-label" for="rest">Restrooms</label></br>
+                    <input class="input-right" type="number" onchange={changeRestrooms} value={restrooms} name="rest"></br>
+                    
+                    
+                </div>
+           
+                <div class="input-column-1">
+           
+                    <label class="input-label-left" for="minPrice">Min. price</label></br>
+                    <input class="input" type="number" onchange={changePriceMin} name="minPrice" value={priceMin}></br>
+                   
+                    <label class="input-label-left" for="util">Utility rooms</label></br>
+                    <input class="input" type="number" onchange={changeUtilityRooms} value={utilityRooms} name="util"></br>
+                    
+                </div>
+                <div class="column-2">-</div>
+                <div class="input-column-3">
+           
+                    <label class="input-label" for="maxPrice">Max. price </label></br>
+                    <input class="input-right" type="number" onchange={changePriceMax} name="maxPrice" value={priceMax}></br>
+                  
+                    
+                </div>
+                
+            </div>
+            <div class="button-footer">
+                <div class="button-row">
+                    <button class="button-search" onclick={clear}>Clear</button>
+                    <button class="button-search" onclick={search}>Search</button>
+         
+                </div> 
+            </div>
+        </div> 
+    </div>
+    
+</template>

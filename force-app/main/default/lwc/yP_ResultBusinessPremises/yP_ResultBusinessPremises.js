@@ -5,10 +5,7 @@ export default class YP_ResultBusinessPremises extends NavigationMixin(Lightning
     @track imageSrc;
 
     connectedCallback(){
-        this.imageSrc = "/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&versionId=" +
-        this.item.DisplayUrl +
-        "&operationContext=CHATTER&contentId=" +
-        this.item.ContentDocumentId__c;
+        this.imageSrc =  this.item.DisplayUrl;
     }
 
     navigateToRecordPage() {

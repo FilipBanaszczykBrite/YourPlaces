@@ -1,0 +1,119 @@
+.container{
+    background-color: rgb(23, 57, 88);
+    border-radius: 5px;
+}
+
+.input-container{
+    display: flex;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+}
+
+.input-column-1{
+    display: inline-block;
+
+    flex: 10;
+}
+.column-2{
+    font-size: 14px;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    flex: 1;
+    padding-top: 27px;
+}
+.input-column-3{
+    display: inline-block;
+    flex: 10;
+    
+}
+
+.input-label{
+    font-size: 14px;
+    color: white;
+    margin-bottom: 3px;
+   
+    margin-top: 5px;
+}
+
+.input-label-left{
+    font-size: 14px;
+    color: white;
+    margin-bottom: 3px;
+    margin-left: 50%;
+    margin-top: 5px;
+}
+
+.input{
+    background-color: rgb(23, 57, 88);
+    font-size: 14px;
+    color: white;
+    margin-left: 50%;
+    padding-left: 7px;
+    width: 50%;
+    height: 35px;
+    border: 2px solid white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.input:focus{
+    background-color: rgb(43, 77, 108);
+    outline: none;
+  
+    box-shadow: 0px 0px 3px rgb(255, 255, 255);
+}
+
+.input-right{
+    background-color: rgb(23, 57, 88);
+    font-size: 14px;
+    color: white;
+    padding-left: 7px;
+    width: 50%;
+    height: 35px;
+    border: 2px solid white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.input-right:focus{
+    background-color: rgb(43, 77, 108);
+    outline: none;
+  
+    box-shadow: 0px 0px 3px rgb(255, 255, 255);
+}
+
+.input-row{
+    margin-bottom: 10px;
+    -webkit-text-fill-color: rgb(231, 227, 227);
+}
+.button-footer{
+    position: relative;
+    height: 40px;
+    
+}
+.button-row{
+    position: absolute;
+    right: 2%;
+    bottom: 2px;
+    margin-bottom: 20px;
+}
+.button-search{
+    background-color: rgb(23, 57, 88);
+    font-size: 14px;
+    color: white;
+    margin-left: 10px;
+    width: 75px;
+    height: 32px;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+.button-search:hover {
+    background-color: rgb(43, 77, 108);
+}
+

@@ -1,0 +1,36 @@
+.input-container{
+    display: flex;
+}
+
+.input-column-1{
+    display: inline-block;
+    margin-left: 10px;
+    flex: 6;
+}
+.column-2{
+    display: inline-block;
+    text-align: center;
+    flex: 1;
+    padding-top: 27px;
+}
+.input-column-3{
+    display: inline-block;
+    flex: 6;
+    margin-right: 10px;
+}
+
+.input-row{
+    margin-bottom: 10px;
+}
+.button-footer{
+    position: relative;
+    height: 40px;
+}
+.button-row{
+    position: absolute;
+    right: 2%;
+    bottom: 2px;
+}
+.button-search{
+    margin-left: 5px;
+}

@@ -1,6 +1,7 @@
 <aura:component implements="forceCommunity:availableForAllPageTypes" access="global" controller="GuestUserEventAuraController">
     <aura:attribute name="searchText" type="String" default=""/>
-    Hello
+    
     <c:yP_ProductSearchResults/>
+    
     
 </aura:component>
