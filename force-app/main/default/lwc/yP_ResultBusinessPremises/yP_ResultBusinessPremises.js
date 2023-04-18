@@ -9,14 +9,13 @@ export default class YP_ResultBusinessPremises extends NavigationMixin(Lightning
     }
 
     navigateToRecordPage() {
-        console.log('on click')
         this[NavigationMixin.Navigate]({
             type: 'comm__namedPage',
             attributes: {
                 name: 'BusinessPremisesProductPage__c'
             },
             state: {
-                recordId: this.item.Id
+                recordId: this.item.id
             }
         });
         // if(this.isCommunity) {

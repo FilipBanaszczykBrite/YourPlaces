@@ -1,4 +1,7 @@
 public with sharing class YP_BusinessPremisesWrapper {
+
+    @AuraEnabled
+    public String id;
     @AuraEnabled
     public String name;
 
@@ -19,7 +22,8 @@ public with sharing class YP_BusinessPremisesWrapper {
     @AuraEnabled
     public Decimal utilityRooms;
 
-    public YP_BusinessPremisesWrapper(String name, String photoUrl, String address, Decimal price, Decimal area, Decimal floors, Decimal restrooms, Decimal meetingRooms, Decimal utilityRooms) {
+    public YP_BusinessPremisesWrapper(String id, String name, String photoUrl, String address, Decimal price, Decimal area, Decimal floors, Decimal restrooms, Decimal meetingRooms, Decimal utilityRooms) {
+        this.id = id;
         this.name = name;
         this.photoUrl = photoUrl;
         this.address = address;

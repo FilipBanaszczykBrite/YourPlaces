@@ -24,7 +24,6 @@ export default class YP_ProductSearchResults extends LightningElement {
     connectedCallback(){
         this.isLoading = true;
         getAllBusinessPremises().then(result => {
-    
             this.results = result;
             const formatter = new Intl.NumberFormat('en-US', {
                 style: 'currency',
