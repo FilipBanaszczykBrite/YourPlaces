@@ -1,0 +1,3 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    <c:yP_ImageBanner></c:yP_ImageBanner>
+</aura:component>	
