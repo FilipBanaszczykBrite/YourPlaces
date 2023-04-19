@@ -40,19 +40,10 @@ public with sharing class YP_ProductImagesController {
 
     @AuraEnabled
     public static void setProfilePhoto(String recordId, String docVerId, String docId){
-        Product2 prod = [SELECT Id, DisplayUrl, ContentDocumentId__c FROM Product2 WHERE Id =:recordId][0];
-        ContentDistribution cd = new ContentDistribution();
-        cd.Name = recordId + ' profile photo';
-        cd.ContentVersionId = docVerId;
-        cd.PreferencesAllowViewInBrowser= true;
-        cd.PreferencesLinkLatestVersion=true;
-        cd.PreferencesNotifyOnVisit=false;
-        cd.PreferencesPasswordRequired=false;
-        cd.PreferencesAllowOriginalDownload= true;
-        insert cd;
-        cd = [SELECT ContentVersionId, ContentDownloadUrl FROM ContentDistribution WHERE ContentVersionId =: docVerId][0];
+        Product2 prod = [SELECT Id, DisplayUrl FROM Product2 WHERE Id =:recordId][0];
+        ContentDistribution cd = [SELECT ContentVersionId, ContentDownloadUrl FROM ContentDistribution WHERE ContentVersionId =: docVerId][0];
         prod.DisplayUrl = cd.ContentDownloadUrl;
-        prod.ContentDocumentId__c = docId;
+       
         try{
             update prod;
         }
