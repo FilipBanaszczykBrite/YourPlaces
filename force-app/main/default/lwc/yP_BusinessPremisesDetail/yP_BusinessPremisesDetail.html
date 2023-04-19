@@ -1,3 +1,35 @@
 <template>
-    Hello asdas
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
+    <div class="container">
+        <div class="image-container">
+            <template if:false={isLoading}>
+                <c-y-p_-product-image-gallery images={images}></c-y-p_-product-image-gallery>
+            </template>
+        </div>
+        <div class="info">
+            <p class="name-row">{recordName}</p>
+            <p class="info-row">{recordPrice}</p>
+            <p class="info-row">Area: {recordArea}m2</p>
+            <p class="info-row">{recordAddress}</p>
+            <div style="margin-top: 130px; display:flex; flex-direction: row">
+                <div style="display: inline-block;">
+                    <p class="detail-row">Floors:</p>
+                    <p class="detail-row">Meeting rooms:</p>
+                    <p class="detail-row">Restrooms:</p>
+                    <p class="detail-row">Utility rooms:</p>
+                </div>
+                <div style="margin-left: 50px; display: inline-block; text-align: right">
+                    <p class="detail-row"><strong>{floors}</strong></p>
+                    <p class="detail-row"><strong>{meetingRooms}</strong></p>
+                    <p class="detail-row"><strong>{restrooms}</strong></p>
+                    <p class="detail-row"><strong>{utilityRooms}</strong></p>
+                </div>
+            </div>
+            
+         
+        </div>
+    </div>
+
 </template>

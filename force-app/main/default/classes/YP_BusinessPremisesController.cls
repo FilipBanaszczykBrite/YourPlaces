@@ -1,4 +1,4 @@
-public with sharing class YP_BusinessPremisesController {
+public without sharing class YP_BusinessPremisesController {
     
     @AuraEnabled
     public static YP_BusinessPremisesWrapper getDetails(String recordId){
@@ -8,6 +8,7 @@ public with sharing class YP_BusinessPremisesController {
             Product2 product = [SELECT Name, RecordType.Name, DisplayUrl, ContentDocumentId__c, Area__c, Floors__c,
             Meeting_Rooms__c, Restrooms__c, Utility_Rooms__c, Address__c  FROM Product2 WHERE Id =: recordId LIMIT 1];
             YP_BusinessPremisesWrapper wrapper = new YP_BusinessPremisesWrapper(
+                product.Id,
                 product.Name,
                 product.DisplayUrl,
                 product.Address__c,
@@ -23,13 +24,18 @@ public with sharing class YP_BusinessPremisesController {
         }
     }
 
-    // @AuraEnabled
-    // public static List<String> getImages(String recordId){
-    //     try {
-    //         List<ContentVersion> versions = [SELECT ]
-    //     } catch (Exception e) {
-    //         throw new AuraHandledException(e.getMessage());
-    //     }
-    // }
+    @AuraEnabled
+    public static List<String> getImages(String recordId){
+        try {
+            List<ContentDistribution> dists = [SELECT ContentDownloadUrl, Name FROM ContentDistribution WHERE Name =: recordId];
+            List<String> links = new List<String>();
+            for(ContentDistribution dist : dists){
+                links.add(dist.ContentDownloadUrl);
+            }
+            return links;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 
 }

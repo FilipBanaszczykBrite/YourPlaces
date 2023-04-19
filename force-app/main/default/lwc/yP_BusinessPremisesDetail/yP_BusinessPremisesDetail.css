@@ -1,0 +1,39 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    
+}
+
+
+
+.info{
+    flex: 1;
+    margin-left: 40px;
+}
+
+.image-container{
+    flex: 1;
+}
+
+.image{
+    height: 400px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.info-row{
+    font-size: 24px;
+    font-weight: 350;
+}
+
+.name-row{
+    font-size: 30px;
+    font-weight: 350;
+    margin-bottom: 10px;
+}
+
+.detail-row{
+    font-size: 19px;
+    font-weight: 300;
+}

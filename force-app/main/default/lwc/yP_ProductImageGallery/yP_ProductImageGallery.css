@@ -1,0 +1,76 @@
+.container{
+    position: relative;
+}
+
+.image-container{
+    text-align: center;
+    
+}
+
+.image{
+    margin: auto;
+    height: 400px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.prev{
+    position: absolute;
+    top: 45%;
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: 700;
+    font-size: 17px;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.prev:hover{
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.next{
+    position: absolute;
+    top: 45%;
+    right: 0;
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: 700;
+    font-size: 17px;
+    cursor: pointer;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.next:hover{
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.slide-counter{
+    position: absolute;
+    top: 0%;
+    color: white;
+    font-weight: 400;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.dot{
+   
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #ccc;
+    margin: 0 3px;
+    display: inline-block;
+}
+
+.active, .dot:hover{
+    background-color: #446aa1;
+}
+
