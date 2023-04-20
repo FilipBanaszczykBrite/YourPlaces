@@ -2,39 +2,54 @@
     <template if:true={isLoading}>
         <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
     </template>
-    <div class="container">
+
+    <div class="container slds-align_absolute-center">
         <div class="image-container">
+           <img src={recordPhoto} class="image">
+        </div>
+        <div class="info">
+            <p class="name-row" >{recordName}</p>
+            <p class="info-row" >{recordPrice}</p>
+            <p class="info-row" ><span style="font-weight: 350;">{labels.AREA}:</span> {recordArea}m2</p>
+            <p class="info-row" >{recordAddress}</p> 
+        </div>
+    </div>
+
+    <div class="mid-container slds-align_absolute-center">
+        <div class="description-container slds-align_absolute-center">
+            <p class="description slds-align_absolute-center">{recordDescription}</p>
+        </div>
+        <img class="mid-image" src={midImage}/>
+    </div>
+
+    <div class="bottom-container">
+        <div class="details-container slds-align_absolute-center">
+            <div class="details slds-align_absolute-center">
+                <div style="display: inline-block;">
+                    <p class="detail-row">{labels.FLOORS}</p>
+                    <p class="detail-row">{labels.MROOMS}</p>
+                    <p class="detail-row">{labels.RROOMS}</p>
+                    <p class="detail-row">{labels.UROOMS}</p>
+                </div>
+                <div style="margin-left: 70px; display: inline-block; text-align: right">
+                    <p class="detail-row"><span>{floors}</span></p>
+                    <p class="detail-row"><span>{meetingRooms}</span></p>
+                    <p class="detail-row"><span>{restrooms}</span></p>
+                    <p class="detail-row"><span>{utilityRooms}</span></p>
+                </div>
+            </div>
+        </div>
+        <img class="bottom-image" src={bottomImage}/>
+    </div>
+
+    <p class="gallery-header">{labels.PRGAL}:</p>
+    <div style="display: flex; flex-direction: row">
+        <div style="flex: 1;"></div>
+        <div style="flex: 3;">
             <template if:false={isLoading}>
                 <c-y-p_-product-image-gallery images={images}></c-y-p_-product-image-gallery>
             </template>
         </div>
-        <div class="info">
-            <p class="name-row">{recordName}</p>
-            <p class="info-row">{recordPrice}</p>
-            <p class="info-row"><span style="font-weight: 400;">Area:</span> {recordArea}m2</p>
-            <p class="info-row">{recordAddress}</p>
-            <p class="detail-row" style="color: white; margin-top:20px; margin-right:10px; text-align:justify">{recordDescription}</p>
-           
-            
-         
-        </div>
+        <div style="flex: 1;"></div>
     </div>
-    <div style="margin-left: 40px;margin-top: 20px;">
-        <p class="detail-row">Details:</p>
-        <div style="margin-top: 10px; display:flex; flex-direction: row">
-            <div style="display: inline-block;">
-                <p class="detail-row">Floors</p>
-                <p class="detail-row">Meeting rooms</p>
-                <p class="detail-row">Restrooms</p>
-                <p class="detail-row">Utility rooms</p>
-            </div>
-            <div style="margin-left: 50px; display: inline-block; text-align: right">
-                <p class="detail-row"><span>{floors}</span></p>
-                <p class="detail-row"><span>{meetingRooms}</span></p>
-                <p class="detail-row"><span>{restrooms}</span></p>
-                <p class="detail-row"><span>{utilityRooms}</span></p>
-            </div>
-        </div>
-    </div>
-
 </template>

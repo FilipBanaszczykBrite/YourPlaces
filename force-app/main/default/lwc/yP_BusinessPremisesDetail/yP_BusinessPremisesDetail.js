@@ -1,7 +1,22 @@
 import { LightningElement, api, track} from 'lwc';
 import getDetails from '@salesforce/apex/YP_BusinessPremisesController.getDetails';
 import getImages from '@salesforce/apex/YP_BusinessPremisesController.getImages';
+import AREA from '@salesforce/label/c.YP_Area';
+import FLOORS from '@salesforce/label/c.YP_Floors';
+import MROOMS from '@salesforce/label/c.YP_MeetingRooms';
+import RROOMS from '@salesforce/label/c.YP_Restrooms';
+import UROOMS from '@salesforce/label/c.YP_UtilityRooms';
+import PRGAL from '@salesforce/label/c.YP_ProductGallery';
 export default class YP_BusinessPremisesDetails extends LightningElement {
+
+    labels = {
+        AREA,
+        FLOORS,
+        MROOMS,
+        RROOMS,
+        UROOMS,
+        PRGAL
+    }
 
     @api recordId;
     @track isLoading;
@@ -16,6 +31,8 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
     @track restrooms;
     @track utilityRooms;
     @track images;
+    @track bottomImage;
+    @track midImage;
 
     connectedCallback(){
         this.isLoading = true;
@@ -42,6 +59,13 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
                         this.images.push({image: result[i]})
                     }
                 }
+                if(this.images.length > 2){
+                    this.midImage = this.images[1].image;
+                }
+                else{
+                    this.images[this.images.length - 1].image
+                }
+                this.bottomImage = this.images[this.images.length - 1].image;
                 this.isLoading = false;
             })
         })  
