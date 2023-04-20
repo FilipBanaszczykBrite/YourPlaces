@@ -1,5 +1,6 @@
 .container{
     position: relative;
+    
 }
 
 .image-container{
@@ -24,11 +25,11 @@
     font-size: 17px;
     cursor: pointer;
     border-radius: 3px;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .prev:hover{
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .next{
@@ -42,11 +43,11 @@
     font-size: 17px;
     cursor: pointer;
     border-radius: 3px;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .next:hover{
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .slide-counter{
@@ -65,12 +66,12 @@
     width: 15px;
     border-radius: 50%;
     cursor: pointer;
-    background-color: #ccc;
+    background-color: #aaa;
     margin: 0 3px;
     display: inline-block;
 }
 
 .active, .dot:hover{
-    background-color: #446aa1;
+    background-color: #fff;
 }
 

@@ -6,10 +6,11 @@ public without sharing class YP_BusinessPremisesController {
             PriceBook2 pb = [SELECT RecordType.Name, IsActive FROM PriceBook2 WHERE RecordType.Name = 'Business premises' AND IsActive = true LIMIT 1];
             PriceBookEntry entry = [SELECT Product2Id, 	UnitPrice, PriceBook2Id FROM PriceBookEntry WHERE PriceBook2Id =: pb.Id AND Product2Id =: recordId LIMIT 1];
             Product2 product = [SELECT Name, RecordType.Name, DisplayUrl, ContentDocumentId__c, Area__c, Floors__c,
-            Meeting_Rooms__c, Restrooms__c, Utility_Rooms__c, Address__c  FROM Product2 WHERE Id =: recordId LIMIT 1];
+            Meeting_Rooms__c, Restrooms__c, Utility_Rooms__c, Address__c, Description  FROM Product2 WHERE Id =: recordId LIMIT 1];
             YP_BusinessPremisesWrapper wrapper = new YP_BusinessPremisesWrapper(
                 product.Id,
                 product.Name,
+                product.Description,
                 product.DisplayUrl,
                 product.Address__c,
                 entry.UnitPrice,

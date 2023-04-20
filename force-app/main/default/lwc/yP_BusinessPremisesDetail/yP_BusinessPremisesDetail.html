@@ -11,24 +11,29 @@
         <div class="info">
             <p class="name-row">{recordName}</p>
             <p class="info-row">{recordPrice}</p>
-            <p class="info-row">Area: {recordArea}m2</p>
+            <p class="info-row"><span style="font-weight: 400;">Area:</span> {recordArea}m2</p>
             <p class="info-row">{recordAddress}</p>
-            <div style="margin-top: 130px; display:flex; flex-direction: row">
-                <div style="display: inline-block;">
-                    <p class="detail-row">Floors:</p>
-                    <p class="detail-row">Meeting rooms:</p>
-                    <p class="detail-row">Restrooms:</p>
-                    <p class="detail-row">Utility rooms:</p>
-                </div>
-                <div style="margin-left: 50px; display: inline-block; text-align: right">
-                    <p class="detail-row"><strong>{floors}</strong></p>
-                    <p class="detail-row"><strong>{meetingRooms}</strong></p>
-                    <p class="detail-row"><strong>{restrooms}</strong></p>
-                    <p class="detail-row"><strong>{utilityRooms}</strong></p>
-                </div>
-            </div>
+            <p class="detail-row" style="color: white; margin-top:20px; margin-right:10px; text-align:justify">{recordDescription}</p>
+           
             
          
+        </div>
+    </div>
+    <div style="margin-left: 40px;margin-top: 20px;">
+        <p class="detail-row">Details:</p>
+        <div style="margin-top: 10px; display:flex; flex-direction: row">
+            <div style="display: inline-block;">
+                <p class="detail-row">Floors</p>
+                <p class="detail-row">Meeting rooms</p>
+                <p class="detail-row">Restrooms</p>
+                <p class="detail-row">Utility rooms</p>
+            </div>
+            <div style="margin-left: 50px; display: inline-block; text-align: right">
+                <p class="detail-row"><span>{floors}</span></p>
+                <p class="detail-row"><span>{meetingRooms}</span></p>
+                <p class="detail-row"><span>{restrooms}</span></p>
+                <p class="detail-row"><span>{utilityRooms}</span></p>
+            </div>
         </div>
     </div>
 

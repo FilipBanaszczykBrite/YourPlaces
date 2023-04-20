@@ -6,6 +6,7 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
     @api recordId;
     @track isLoading;
     @track recordName;
+    @track recordDescription;
     @track recordPrice;
     @track recordArea;
     @track recordPhoto;
@@ -24,6 +25,7 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
                 style: 'currency',
                 currency: 'EUR' });
             this.recordPrice = formatter.format(result.price);
+            this.recordDescription = result.description;
             this.recordArea = result.area;
             this.recordPhoto = result.photoUrl;
             this.recordAddress = result.address;
@@ -33,15 +35,15 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
             this.utilityRooms = result.utilityRooms;
             this.images = [];
             this.images.push({image: result.photoUrl})
+            
             getImages({recordId: this.recordId}).then(result => {
-                console.log(result.length)
                 for(let i = 0 ; i< result.length; i++){
-                    this.images.push({image: result[i]})
+                    if(this.recordPhoto.slice(-120) != result[i].slice(-120)){
+                        this.images.push({image: result[i]})
+                    }
                 }
                 this.isLoading = false;
             })
-        })
-
-        
+        })  
     }
 }
