@@ -108,7 +108,7 @@ public with sharing class YP_ProductSearchController {
     @AuraEnabled
     public static List<YP_BusinessPremisesWrapper> getAllBusinessPremisesCommunity(){
         try {
-           
+            System.debug('get prods');
             PriceBook2 pb = [SELECT RecordType.Name, IsActive FROM PriceBook2 WHERE RecordType.Name = 'Business premises' AND IsActive = true LIMIT 1];
             List<PriceBookEntry> entries = [SELECT Product2Id, 	UnitPrice, PriceBook2Id FROM PriceBookEntry WHERE PriceBook2Id =: pb.Id];
             List<String> productIds = new List<String>();
@@ -122,6 +122,7 @@ public with sharing class YP_ProductSearchController {
                 YP_BusinessPremisesWrapper wrapper = new YP_BusinessPremisesWrapper(
                     products[i].Id,
                     products[i].Name,
+                    '',
                     products[i].DisplayUrl,
                     products[i].Address__c,
                     entries[i].UnitPrice,
@@ -130,9 +131,10 @@ public with sharing class YP_ProductSearchController {
                     products[i].Restrooms__c,
                     products[i].Meeting_Rooms__c,
                     products[i].Utility_Rooms__c );
+                System.debug(wrapper);
                 wrappers.add(wrapper);
             }
-            
+            System.debug(wrappers);
             return wrappers;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -188,6 +190,7 @@ public with sharing class YP_ProductSearchController {
                 YP_BusinessPremisesWrapper wrapper = new YP_BusinessPremisesWrapper(
                     products[i].Id,
                     products[i].Name,
+                    '',
                     products[i].DisplayUrl,
                     products[i].Address__c,
                     entries[i].UnitPrice,
