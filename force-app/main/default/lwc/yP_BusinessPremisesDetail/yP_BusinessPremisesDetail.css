@@ -46,7 +46,6 @@
 
 .mid-container{
     height: 310px;
-    color: white;
     
     margin: 40px;
     margin-top: 100px;
@@ -62,7 +61,7 @@
 
 .description-container{
     padding-left: 30px;
-    background-color: #27425f;
+    border: 1px solid #222222;
     height: 100%;
     border-radius: 5px;
 }
@@ -74,7 +73,7 @@
     text-align:justify;
     border-radius: 5px;
     padding: 15px;
-    border: 1px solid #ccc;
+    
 }
 
 .mid-image{

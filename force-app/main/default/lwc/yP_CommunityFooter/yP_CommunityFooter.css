@@ -1,0 +1,12 @@
+.container{
+    height: 350px;
+    background-color: rgb(31, 62, 87);
+    text-align: center;
+}
+
+.text{
+    font-size: 15px;
+    margin-top: 40px;
+    color: white;
+    font-size: 13px;
+}
