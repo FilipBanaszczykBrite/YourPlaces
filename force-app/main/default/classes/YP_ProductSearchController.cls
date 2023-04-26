@@ -219,4 +219,13 @@ public with sharing class YP_ProductSearchController {
         }
     }
 
+    @AuraEnabled
+    public static void markProductAsRecentlyViewed(String recordId) {
+        Product2 prod = [
+            SELECT Id, Name
+            FROM Product2
+            WHERE Id = :recordId
+            FOR VIEW
+        ];
+    }
 }
