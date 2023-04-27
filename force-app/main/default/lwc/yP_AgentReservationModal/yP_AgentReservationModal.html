@@ -1,0 +1,50 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
+    <lightning-card>
+        <div class="container">
+            <div class="calendar">
+                <div class="date-selector">
+                    
+                    <p class="date-range">{dateRangeLabels.start} - {dateRangeLabels.end}</p>
+                    <button class="prev" onclick={prevRange} disabled={firstDateRange}>&#10094;</button>
+                    <button class="next" onclick={nextRange}>&#10095;</button>
+                </div>
+                <div class="day-headers">
+                    <template for:each={days} for:item="day">
+                        <p class="day-header" key={day}>{day}</p>
+                    </template>
+                </div>
+                <div class="days slds-scrollable_y" style="height: 550px;">
+                    <template for:each={daySlots} for:item="day" for:index="index">
+                        <div class="slots" key={day}>
+                            <template for:each={day} for:item="timeSlot">
+                                <div class={timeSlot.class} key={timeSlot} onclick={selectTime} data-time={timeSlot.value} data-day={index}>{timeSlot.value}</div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            <div class="info">
+                <template if:false={isLoading}>
+                    <img src={agentInfo.FullPhotoUrl} class="agent-image"/>
+                    <div class="agent-contact">
+                        {agentInfo.Name}
+                    </br>
+                        666 666 666
+                    </br>
+                        filipbanaszczyk@email.com
+                    </div>
+                    <div class="reservation">
+                    </br>
+                        Selected date: {selectedDateLabel}
+                    </div>
+                </template>
+                
+                <button class="confirm-button" disabled={isSelected} onclick={confirmReservation}>Confirm</button>
+            </div>
+        </div>
+       
+    </lightning-card>
+</template>

@@ -7,6 +7,7 @@ import MROOMS from '@salesforce/label/c.YP_MeetingRooms';
 import RROOMS from '@salesforce/label/c.YP_Restrooms';
 import UROOMS from '@salesforce/label/c.YP_UtilityRooms';
 import PRGAL from '@salesforce/label/c.YP_ProductGallery';
+import ReservationModal from 'c/yP_AgentReservationModal';
 export default class YP_BusinessPremisesDetails extends LightningElement {
 
     labels = {
@@ -69,5 +70,12 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
                 this.isLoading = false;
             })
         })  
+    }
+
+    async openReservation(event){
+        const result = await ReservationModal.open({ 
+            size: 'large',
+            productId: this.recordId
+        });
     }
 }
