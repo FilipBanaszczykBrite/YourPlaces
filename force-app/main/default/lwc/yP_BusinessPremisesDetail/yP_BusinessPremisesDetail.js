@@ -1,6 +1,7 @@
 import { LightningElement, api, track} from 'lwc';
 import getDetails from '@salesforce/apex/YP_BusinessPremisesController.getDetails';
 import getImages from '@salesforce/apex/YP_BusinessPremisesController.getImages';
+import hasReservation from '@salesforce/apex/YP_BusinessPremisesController.hasReservation';
 import AREA from '@salesforce/label/c.YP_Area';
 import FLOORS from '@salesforce/label/c.YP_Floors';
 import MROOMS from '@salesforce/label/c.YP_MeetingRooms';
@@ -8,8 +9,12 @@ import RROOMS from '@salesforce/label/c.YP_Restrooms';
 import UROOMS from '@salesforce/label/c.YP_UtilityRooms';
 import PRGAL from '@salesforce/label/c.YP_ProductGallery';
 import ReservationModal from 'c/yP_AgentReservationModal';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import Id from '@salesforce/user/Id';
+
 export default class YP_BusinessPremisesDetails extends LightningElement {
 
+    userId = Id;
     labels = {
         AREA,
         FLOORS,
@@ -18,6 +23,8 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
         UROOMS,
         PRGAL
     }
+    @track loggedUser = false;
+    @track demoReserved = false;
 
     @api recordId;
     @track isLoading;
@@ -53,7 +60,12 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
             this.utilityRooms = result.utilityRooms;
             this.images = [];
             this.images.push({image: result.photoUrl})
-            
+            this.loggedUser = (this.userId != undefined);
+            if(this.loggedUser){
+                hasReservation({userId: this.userId, ownerId: result.agentId}).then(result => {
+                    this.demoReserved = result;
+                })
+            }
             getImages({recordId: this.recordId}).then(result => {
                 for(let i = 0 ; i< result.length; i++){
                     if(this.recordPhoto.slice(-120) != result[i].slice(-120)){
@@ -77,5 +89,13 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
             size: 'large',
             productId: this.recordId
         });
+        if (result.isSuccess){
+            const event = new ShowToastEvent({
+                title: 'Success',
+                variant: 'success',
+                message: 'Business premise demonstration planned for ' + result.selectedDate + ' ' + result.selectedTime
+            });
+            this.dispatchEvent(event);
+        }
     }
 }

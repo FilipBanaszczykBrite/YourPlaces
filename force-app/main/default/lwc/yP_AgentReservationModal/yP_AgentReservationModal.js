@@ -3,9 +3,12 @@ import { track, api } from 'lwc';
 import createReservation from '@salesforce/apex/YP_BusinessPremisesController.createReservation';
 import getReservations from '@salesforce/apex/YP_BusinessPremisesController.getReservations';
 import getAgentInfo from '@salesforce/apex/YP_BusinessPremisesController.getAgentInfo';
-import getAgentContact from '@salesforce/apex/YP_BusinessPremisesController.getAgentContact';
+import hasAgent from '@salesforce/apex/YP_BusinessPremisesController.hasAgent';
+import Id from '@salesforce/user/Id';
+
 export default class YP_AgentReservationModal extends LightningModal {
 
+    userId = Id;
     startHour = 9;
     endHour = 15;
     @api productId;
@@ -24,6 +27,7 @@ export default class YP_AgentReservationModal extends LightningModal {
     dateRangeIndex = 0;
     @track firstDateRange = true;
     @track selectedDateLabel;
+    @track selectedTimeLabel;
     @track agentInfo;
     @track agentContact;
     reservations;
@@ -43,30 +47,31 @@ export default class YP_AgentReservationModal extends LightningModal {
             start: this.dateRange.start.toString().slice(4, 15),
             end: this.dateRange.end.toString().slice(4, 15),
         }
-        getAgentInfo().then(result => {
-            this.agentInfo = result;
-            // getAgentContact({contactId: this.agentInfo.ContactId}).then(contact => {
-            //     this.agentContact = contact;
-            //     console.log(JSON.stringify(contact))
-            // })
-            getReservations().then(result => {
-                this.reservations = [];
-                for(let i = 0; i < result.length; i++){
-                    let date = new Date(result[i].StartDateTime)
-                    this.reservations.push({
-                        'year': date.getYear(),
-                        'month': date.getMonth(),
-                        'day': date.getDay(),
-                        'date': date.getDate(),
-                        'hour': date.getHours(),
-                        'minute': date.getMinutes()
+        hasAgent({recordId: this.productId}).then(agentAssigned => {
+            console.log(agentAssigned);
+            if(agentAssigned){
+                getAgentInfo({recordId: this.productId}).then(result => {
+                    this.agentInfo = result;
+                    console.log(JSON.stringify(result));
+                    getReservations({recordId: this.agentInfo.Id}).then(result => {
+                        this.reservations = [];
+                        for(let i = 0; i < result.length; i++){
+                            let date = new Date(result[i].StartDateTime)
+                            this.reservations.push({
+                                'year': date.getYear(),
+                                'month': date.getMonth(),
+                                'day': date.getDay(),
+                                'date': date.getDate(),
+                                'hour': date.getHours(),
+                                'minute': date.getMinutes()
+                            });
+                        }
+                        this.fillSlots();  
+                        this.isLoading = false;
                     });
-                }
-                this.fillSlots();  
-                this.isLoading = false;
-            });
-        })
-        
+                })
+            }
+        }) 
     }
 
     fillSlots(){
@@ -76,9 +81,11 @@ export default class YP_AgentReservationModal extends LightningModal {
             let s = new Date(this.dateRange.start);
             s.setDate(s.getDate() + j)
             for(let i = this.startHour; i < this.endHour; i++){
-                timeSlots.push({value : i.toString() + ':00 - ' + i.toString() + ':30',
+                timeSlots.push({value : i.toString() + ':00',
+                                range: i.toString() + ':00 - ' + i.toString() + ':30',
                                 class: this.getSlotClass(s, j, i, 0)});
-                timeSlots.push({value: i.toString() + ':30 - ' + (i + 1).toString() + ':00',
+                timeSlots.push({value: i.toString() + ':30',
+                                range: i.toString() + ':30 - ' + (i + 1).toString() + ':00',
                                 class: this.getSlotClass(s, j, i, 30)});
             }
             this.daySlots.push(timeSlots);
@@ -93,6 +100,10 @@ export default class YP_AgentReservationModal extends LightningModal {
             'date': date.getDate(),
             'hour': hour,
             'minute': minute
+        }
+        let now = new Date();
+        if(date <= now){
+            return 'slot unavailable'
         }
         if (this.reservations.find(e => 
             e.year == dateTime.year &&
@@ -127,13 +138,18 @@ export default class YP_AgentReservationModal extends LightningModal {
             this.daySlots[day - 1][timeIndex].class = 'selected';
             this.selectedDate.setDate(this.selectedDate.getDate() + (day - this.selectedDate.getDay()));
             this.selectedDate.setHours(Number(hour), Number(minutes), 0);
-            this.selectedDateLabel = this.selectedDate.toString().slice(0, 21);
+            this.selectedDateLabel = this.selectedDate.toString().slice(0, 15);
+            this.selectedTimeLabel = this.daySlots[day - 1][timeIndex].range;
             this.isSelected = false;
         }
     }
 
     confirmReservation(){
-        createReservation({reservationDate: this.selectedDate});
+        createReservation({reservationDate: this.selectedDate, userId: this.userId, ownerId: this.agentInfo.Id, productId: this.productId}).then(() =>{
+            this.close({isSuccess: true, selectedDate: this.selectedDateLabel, selectedTime: this.selectedTimeLabel});
+        });
+        
+        
     }
 
     nextRange(){
@@ -153,6 +169,7 @@ export default class YP_AgentReservationModal extends LightningModal {
             }
         }
         this.fillSlots();
+        this.isSelected = true;
     }
 
     prevRange(){
@@ -172,5 +189,6 @@ export default class YP_AgentReservationModal extends LightningModal {
             }
         }
         this.fillSlots();
+        this.isSelected = true;
     }
 }

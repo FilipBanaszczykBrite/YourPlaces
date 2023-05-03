@@ -28,18 +28,28 @@
             </div>
             <div class="info">
                 <template if:false={isLoading}>
+                    <div class="reservation" style="font-size: 20px;">Your Agent</div>
                     <img src={agentInfo.FullPhotoUrl} class="agent-image"/>
                     <div class="agent-contact">
-                        {agentInfo.Name}
+                        {agentInfo.FirstName} {agentInfo.LastName}
                     </br>
-                        666 666 666
+                        {agentInfo.Phone}
                     </br>
-                        filipbanaszczyk@email.com
+                    {agentInfo.Email}
                     </div>
-                    <div class="reservation">
-                    </br>
-                        Selected date: {selectedDateLabel}
-                    </div>
+                    <template if:false={isSelected}>
+                        <div class="reservation">
+                        </br>
+                            Demonstration date:
+                        </br>
+                        <p class="reservation-info">{selectedDateLabel}</p>
+                        </br>
+                            Demonstration time:
+                        </br>
+                        <p class="reservation-info">{selectedTimeLabel}</p>
+                        </div>
+                    </template>
+                    
                 </template>
                 
                 <button class="confirm-button" disabled={isSelected} onclick={confirmReservation}>Confirm</button>
