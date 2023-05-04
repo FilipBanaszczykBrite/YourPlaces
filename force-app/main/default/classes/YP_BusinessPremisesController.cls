@@ -41,8 +41,9 @@ public without sharing class YP_BusinessPremisesController {
     }
 
     @AuraEnabled
-    public static void createReservation(DateTime reservationDate, String userId, String ownerId, String productId){
+    public static Event createReservation(DateTime reservationDate, String userId, String ownerId, String productId){
         try {
+            System.debug(reservationDate);
             User user = [SELECT ContactId FROM User WHERE Id =: userId];
             Event reservation = new Event();
             reservation.OwnerId = ownerId;
@@ -51,20 +52,38 @@ public without sharing class YP_BusinessPremisesController {
             reservation.Subject = 'Business premises demonstration';
             reservation.StartDateTime = reservationDate;
             reservation.EndDateTime = reservationDate.addMinutes(30);
-            insert reservation;
+            List<Event> agentReservations = [SELECT StartDateTime, OwnerId FROM Event 
+                                    WHERE StartDateTime =: reservationDate 
+                                    AND OwnerId =: ownerId];
+            if(agentReservations.size() == 0){
+                insert reservation;
+            }
+            return reservation;
+        }  
+        catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static Event hasReservation(String userId, String ownerId){
+        try {
+            User user = [SELECT ContactId FROM User WHERE Id =: userId];
+            System.debug(user);
+            System.debug(ownerId);
+            return [SELECT Id, OwnerId, Subject, StartDateTime, EndDateTime, WhoId FROM Event 
+            WHERE OwnerId =: ownerId AND WhoId =: user.ContactId AND StartDateTime >= TODAY LIMIT 1];
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
     }
 
     @AuraEnabled
-    public static boolean hasReservation(String userId, String ownerId){
+    public static void cancelReservation(String recordId){
         try {
-            User user = [SELECT ContactId FROM User WHERE Id =: userId];
-            System.debug(user);
-            System.debug(ownerId);
-            return [SELECT OwnerId, Subject, StartDateTime, EndDateTime, WhoId FROM Event 
-            WHERE OwnerId =: ownerId AND WhoId =: user.ContactId AND StartDateTime >= TODAY LIMIT 1].size() > 0;
+            Event reservation = [SELECT Id FROM Event 
+            WHERE Id =: recordId LIMIT 1];
+            delete reservation;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

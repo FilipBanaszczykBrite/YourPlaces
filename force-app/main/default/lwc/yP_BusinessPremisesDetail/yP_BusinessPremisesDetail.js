@@ -2,12 +2,15 @@ import { LightningElement, api, track} from 'lwc';
 import getDetails from '@salesforce/apex/YP_BusinessPremisesController.getDetails';
 import getImages from '@salesforce/apex/YP_BusinessPremisesController.getImages';
 import hasReservation from '@salesforce/apex/YP_BusinessPremisesController.hasReservation';
+import cancelReservation from '@salesforce/apex/YP_BusinessPremisesController.cancelReservation';
 import AREA from '@salesforce/label/c.YP_Area';
 import FLOORS from '@salesforce/label/c.YP_Floors';
 import MROOMS from '@salesforce/label/c.YP_MeetingRooms';
 import RROOMS from '@salesforce/label/c.YP_Restrooms';
 import UROOMS from '@salesforce/label/c.YP_UtilityRooms';
 import PRGAL from '@salesforce/label/c.YP_ProductGallery';
+import CNCBT from '@salesforce/label/c.YP_CancelBtn';
+import RESLB from '@salesforce/label/c.YP_DemoLabel';
 import ReservationModal from 'c/yP_AgentReservationModal';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import Id from '@salesforce/user/Id';
@@ -21,7 +24,9 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
         MROOMS,
         RROOMS,
         UROOMS,
-        PRGAL
+        PRGAL,
+        CNCBT,
+        RESLB
     }
     @track loggedUser = false;
     @track demoReserved = false;
@@ -41,6 +46,9 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
     @track images;
     @track bottomImage;
     @track midImage;
+    @track reservationLabel;
+    agentId;
+    reservationId;
 
     connectedCallback(){
         this.isLoading = true;
@@ -59,11 +67,14 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
             this.restrooms = result.restrooms;
             this.utilityRooms = result.utilityRooms;
             this.images = [];
+            this.agentId = result.agentId
             this.images.push({image: result.photoUrl})
             this.loggedUser = (this.userId != undefined);
             if(this.loggedUser){
-                hasReservation({userId: this.userId, ownerId: result.agentId}).then(result => {
-                    this.demoReserved = result;
+                hasReservation({userId: this.userId, ownerId: this.agentId}).then(result => {
+                    this.demoReserved = (result != []);
+                    this.reservationId = result.Id;
+                    this.reservationLabel = result.StartDateTime.slice(0,10) + ' ' + result.StartDateTime.slice(11,16);
                 })
             }
             getImages({recordId: this.recordId}).then(result => {
@@ -96,6 +107,24 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
                 message: 'Business premise demonstration planned for ' + result.selectedDate + ' ' + result.selectedTime
             });
             this.dispatchEvent(event);
+            hasReservation({userId: this.userId, ownerId: this.agentId}).then(result => {
+                this.demoReserved = (result != []);
+                this.reservationId = result.Id;
+                this.reservationLabel = result.StartDateTime.slice(0,10) + ' ' + result.StartDateTime.slice(11,16);
+            })
         }
+        else{
+            const event = new ShowToastEvent({
+                title: 'Error',
+                variant: 'error',
+                message: 'Error occured during reservation. Please refresh the page and try again'
+            });
+            this.dispatchEvent(event);
+        }
+    }
+
+    cancel(){
+        cancelReservation({recordId: this.reservationId});
+        this.demoReserved = false;
     }
 }

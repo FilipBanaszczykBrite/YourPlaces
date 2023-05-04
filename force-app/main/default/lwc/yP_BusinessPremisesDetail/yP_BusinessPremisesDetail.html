@@ -18,7 +18,8 @@
                 </template>
                 
                 <template if:true={demoReserved}>
-                    <button class="reserve-button" onclick={openReservation}>Change Demo Date</button>
+                    <p class="info-row" style="font-size: 17px;">{labels.RESLB}: {reservationLabel}</p>
+                    <button class="reserve-button" onclick={cancel}>{labels.CNCBT}</button>
                 </template>
             </template>
             

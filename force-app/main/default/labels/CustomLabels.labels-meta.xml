@@ -924,4 +924,18 @@
         <shortDescription>YP_ProductGallery</shortDescription>
         <value>Gallery</value>
     </labels>
+       <labels>
+        <fullName>YP_CancelBtn</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_CancelBtn</shortDescription>
+        <value>Cancel Demo</value>
+    </labels>
+    <labels>
+        <fullName>YP_DemoLabel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_DemoLabel</shortDescription>
+        <value>Demo planned for</value>
+    </labels>
 </CustomLabels>

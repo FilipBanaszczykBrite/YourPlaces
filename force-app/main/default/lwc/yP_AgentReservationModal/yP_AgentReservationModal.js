@@ -140,13 +140,21 @@ export default class YP_AgentReservationModal extends LightningModal {
             this.selectedDate.setHours(Number(hour), Number(minutes), 0);
             this.selectedDateLabel = this.selectedDate.toString().slice(0, 15);
             this.selectedTimeLabel = this.daySlots[day - 1][timeIndex].range;
+            
             this.isSelected = false;
         }
     }
 
     confirmReservation(){
-        createReservation({reservationDate: this.selectedDate, userId: this.userId, ownerId: this.agentInfo.Id, productId: this.productId}).then(() =>{
-            this.close({isSuccess: true, selectedDate: this.selectedDateLabel, selectedTime: this.selectedTimeLabel});
+        console.log(this.selectedDate)
+        createReservation({reservationDate: this.selectedDate, userId: this.userId, ownerId: this.agentInfo.Id, productId: this.productId}).then(result =>{
+            if(result.Id == null){
+                this.close({isSuccess: false, selectedDate: this.selectedDateLabel, selectedTime: this.selectedTimeLabel});
+            }
+            else{
+                this.close({isSuccess: true, selectedDate: this.selectedDateLabel, selectedTime: this.selectedTimeLabel});
+            }
+            
         });
         
         
