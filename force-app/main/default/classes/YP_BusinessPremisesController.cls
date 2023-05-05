@@ -43,7 +43,7 @@ public without sharing class YP_BusinessPremisesController {
     @AuraEnabled
     public static Event createReservation(DateTime reservationDate, String userId, String ownerId, String productId){
         try {
-            System.debug(reservationDate);
+            reservationDate = reservationDate.addHours(2);
             User user = [SELECT ContactId FROM User WHERE Id =: userId];
             Event reservation = new Event();
             reservation.OwnerId = ownerId;
@@ -69,8 +69,6 @@ public without sharing class YP_BusinessPremisesController {
     public static Event hasReservation(String userId, String ownerId){
         try {
             User user = [SELECT ContactId FROM User WHERE Id =: userId];
-            System.debug(user);
-            System.debug(ownerId);
             return [SELECT Id, OwnerId, Subject, StartDateTime, EndDateTime, WhoId FROM Event 
             WHERE OwnerId =: ownerId AND WhoId =: user.ContactId AND StartDateTime >= TODAY LIMIT 1];
         } catch (Exception e) {
@@ -92,7 +90,7 @@ public without sharing class YP_BusinessPremisesController {
     @AuraEnabled
     public static List<Event> getReservations(String recordId){
         try {
-            return [SELECT OwnerId, Subject, StartDateTime, EndDateTime FROM Event 
+            return [SELECT Id, OwnerId, Subject, StartDateTime, EndDateTime FROM Event 
             WHERE OwnerId =: recordId AND Subject = 'Business premises demonstration' AND StartDateTime > LAST_WEEK];
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());

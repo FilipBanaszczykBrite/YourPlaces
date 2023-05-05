@@ -72,6 +72,7 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
             this.loggedUser = (this.userId != undefined);
             if(this.loggedUser){
                 hasReservation({userId: this.userId, ownerId: this.agentId}).then(result => {
+                    console.log('my reserv', JSON.stringify(result))
                     this.demoReserved = (result != []);
                     this.reservationId = result.Id;
                     this.reservationLabel = result.StartDateTime.slice(0,10) + ' ' + result.StartDateTime.slice(11,16);

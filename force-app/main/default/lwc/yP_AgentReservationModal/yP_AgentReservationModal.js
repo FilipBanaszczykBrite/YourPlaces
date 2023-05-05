@@ -48,12 +48,11 @@ export default class YP_AgentReservationModal extends LightningModal {
             end: this.dateRange.end.toString().slice(4, 15),
         }
         hasAgent({recordId: this.productId}).then(agentAssigned => {
-            console.log(agentAssigned);
             if(agentAssigned){
                 getAgentInfo({recordId: this.productId}).then(result => {
                     this.agentInfo = result;
-                    console.log(JSON.stringify(result));
                     getReservations({recordId: this.agentInfo.Id}).then(result => {
+                        
                         this.reservations = [];
                         for(let i = 0; i < result.length; i++){
                             let date = new Date(result[i].StartDateTime)
@@ -62,7 +61,7 @@ export default class YP_AgentReservationModal extends LightningModal {
                                 'month': date.getMonth(),
                                 'day': date.getDay(),
                                 'date': date.getDate(),
-                                'hour': date.getHours(),
+                                'hour': date.getUTCHours(),
                                 'minute': date.getMinutes()
                             });
                         }
@@ -146,7 +145,6 @@ export default class YP_AgentReservationModal extends LightningModal {
     }
 
     confirmReservation(){
-        console.log(this.selectedDate)
         createReservation({reservationDate: this.selectedDate, userId: this.userId, ownerId: this.agentInfo.Id, productId: this.productId}).then(result =>{
             if(result.Id == null){
                 this.close({isSuccess: false, selectedDate: this.selectedDateLabel, selectedTime: this.selectedTimeLabel});
