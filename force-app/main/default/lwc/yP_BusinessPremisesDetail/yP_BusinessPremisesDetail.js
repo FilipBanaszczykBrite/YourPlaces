@@ -11,6 +11,8 @@ import UROOMS from '@salesforce/label/c.YP_UtilityRooms';
 import PRGAL from '@salesforce/label/c.YP_ProductGallery';
 import CNCBT from '@salesforce/label/c.YP_CancelBtn';
 import RESLB from '@salesforce/label/c.YP_DemoLabel';
+import DEMOSUCCESS from '@salesforce/label/c.YP_DemoAgentSuccess';
+import DEMOFAIL from '@salesforce/label/c.YP_DemoAgentFail';
 import ReservationModal from 'c/yP_AgentReservationModal';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import Id from '@salesforce/user/Id';
@@ -72,7 +74,6 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
             this.loggedUser = (this.userId != undefined);
             if(this.loggedUser){
                 hasReservation({userId: this.userId, ownerId: this.agentId}).then(result => {
-                    console.log('my reserv', JSON.stringify(result))
                     this.demoReserved = (result != []);
                     this.reservationId = result.Id;
                     this.reservationLabel = result.StartDateTime.slice(0,10) + ' ' + result.StartDateTime.slice(11,16);
@@ -105,7 +106,7 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
             const event = new ShowToastEvent({
                 title: 'Success',
                 variant: 'success',
-                message: 'Business premise demonstration planned for ' + result.selectedDate + ' ' + result.selectedTime
+                message: DEMOSUCCESS + ' ' + result.selectedDate + ' ' + result.selectedTime
             });
             this.dispatchEvent(event);
             hasReservation({userId: this.userId, ownerId: this.agentId}).then(result => {
@@ -118,7 +119,7 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
             const event = new ShowToastEvent({
                 title: 'Error',
                 variant: 'error',
-                message: 'Error occured during reservation. Please refresh the page and try again'
+                message: DEMOFAIL
             });
             this.dispatchEvent(event);
         }

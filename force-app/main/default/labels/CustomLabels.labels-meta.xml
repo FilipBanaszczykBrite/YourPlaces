@@ -938,4 +938,19 @@
         <shortDescription>YP_DemoLabel</shortDescription>
         <value>Demo planned for</value>
     </labels>
+        </labels>
+       <labels>
+        <fullName>YP_DemoAgentSuccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_DemoAgentSuccess</shortDescription>
+        <value>Business premise demonstration planned for</value>
+    </labels>
+    <labels>
+        <fullName>YP_DemoAgentFail</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>YP_DemoAgentFail</shortDescription>
+        <value>Error occured during reservation. Please refresh the page and try again</value>
+    </labels>
 </CustomLabels>
