@@ -54,7 +54,6 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
 
     connectedCallback(){
         this.isLoading = true;
-        console.log('conncted')
         getDetails({recordId: this.recordId}).then(result => {
             this.recordName = result.name;
             const formatter = new Intl.NumberFormat('en-US', {
