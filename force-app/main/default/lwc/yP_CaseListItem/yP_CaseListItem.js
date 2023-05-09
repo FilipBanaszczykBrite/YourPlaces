@@ -7,7 +7,8 @@ export default class YP_CaseListItem extends LightningElement {
     @track closedDateLabel;
     @track statusClass;
 
-    connectedCallback(){
+    renderedCallback(){
+        
         this.createdDateLabel = this.item.CreatedDate.toString().slice(0, 10);
         if(this.item.ClosedDate != null){
             this.closedDateLabel = 'Closed on: ' + this.item.ClosedDate.toString().slice(0, 10);
@@ -28,15 +29,13 @@ export default class YP_CaseListItem extends LightningElement {
 
     navigateToCasePage(){
         console.log('go to case page', this.item.Id)
-        this[NavigationMixin.Navigate]({
-            type: 'comm__namedPage',
-            attributes: {
-                name: 'Case_Page__c'
-            },
-            state: {
-                recordId: this.item.Id
-            }
-        });
-        console.log('after')
+        window.location.assign('https://your-places-developer-edition.eu42.force.com/yourplaces/s/detail/' + this.item.Id);
+        // this[NavigationMixin.Navigate]({
+        //     type: 'standard__webPage',
+        //     attributes: {
+        //         url: 'https://your-places-developer-edition.eu42.force.com/yourplaces/s/detail/' + this.item.Id
+        //     }
+        // });
+        // console.log('after')
     }
 }

@@ -4,7 +4,7 @@ public with sharing class YP_CaseController {
     @AuraEnabled
     public static List<Case> getUserCases(String userId){
         try {
-            return [SELECT Id, Subject, Description, CreatedDate, ClosedDate, Status FROM Case];
+            return [SELECT Id, Subject, Description, CreatedDate, ClosedDate, Status FROM Case ORDER BY CreatedDate ASC];
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
