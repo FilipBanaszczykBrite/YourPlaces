@@ -33,7 +33,10 @@ export default class YP_CaseListItem extends LightningElement {
             attributes: {
                 name: 'Case_Page__c'
             },
-            
+            state: {
+                recordId: this.item.Id
+            }
         });
+        console.log('after')
     }
 }

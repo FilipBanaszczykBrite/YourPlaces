@@ -1,6 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import markAsViewed from '@salesforce/apex/YP_ProductSearchController.markProductAsRecentlyViewed'
+
 export default class YP_ResultBusinessPremises extends NavigationMixin(LightningElement) {
     @api item;
     @track imageSrc;
@@ -10,30 +10,19 @@ export default class YP_ResultBusinessPremises extends NavigationMixin(Lightning
     }
 
     navigateToRecordPage() {
-        markAsViewed().then(() => {
+       
+        
+     
             this[NavigationMixin.Navigate]({
                 type: 'comm__namedPage',
                 attributes: {
                     name: 'BusinessPremisesProductPage__c'
                 },
                 state: {
-                    recordId: this.item.id
+                    recordId: this.item.Id
                 }
             });
-        })
-       
         
-        // if(this.isCommunity) {
-        //     this[NavigationMixin.Navigate]({
-        //         type: 'comm__namedPage',
-        //         attributes: {
-        //             name: 'BusinessPremisesProductPage'
-        //         },
-        //         state: {
-        //             recordId: this.product.Id
-        //         }
-        //     });
-        // }
         // else{
         //     this[NavigationMixin.Navigate]({
         //         type: 'standard__recordPage',
