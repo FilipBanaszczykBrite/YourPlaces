@@ -29,7 +29,7 @@ export default class YP_CaseListItem extends LightningElement {
 
     navigateToCasePage(){
         console.log('go to case page', this.item.Id)
-        window.location.assign('https://your-places-developer-edition.eu42.force.com/yourplaces/s/detail/' + this.item.Id);
+        window.location.assign('https://your-places-developer-edition.eu42.force.com/businessandliving/s/detail/' + this.item.Id);
         // this[NavigationMixin.Navigate]({
         //     type: 'standard__webPage',
         //     attributes: {
