@@ -1,6 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import markAsViewed from '@salesforce/apex/YP_ProductSearchController.markProductAsRecentlyViewed'
+
 export default class YP_ResultBusinessPremises extends NavigationMixin(LightningElement) {
     @api item;
     @track imageSrc;
@@ -21,6 +21,7 @@ export default class YP_ResultBusinessPremises extends NavigationMixin(Lightning
         //         }
         //     });
         // })
+        console.log(this.item.id)
         this[NavigationMixin.Navigate]({
             type: 'comm__namedPage',
             attributes: {
