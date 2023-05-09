@@ -25,7 +25,7 @@ export default class YP_ResultBusinessPremises extends NavigationMixin(Lightning
         this[NavigationMixin.Navigate]({
             type: 'comm__namedPage',
             attributes: {
-                name: 'BusinessPremisesProductPage__c'
+                name: 'Business_Premise_Details__c'
             },
             state: {
                 recordId: this.item.id
