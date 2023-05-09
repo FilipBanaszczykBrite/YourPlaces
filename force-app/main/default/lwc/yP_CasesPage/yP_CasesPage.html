@@ -1,3 +1,18 @@
 <template>
+    <p class="text-header">Submit new Case</p>
+    <div style="width: 70%; margin-left: 15%">
+        <template if:false={hideCaseForm}>
+            
+            <c-y-p_-new-case onsubmitted={hideNewCaseForm} ></c-y-p_-new-case>
+        </template>
+        <template if:true={hideCaseForm}>
+            <p class="text-thank">Thank You for Your submission!
     
+            </br> Our employee will contact You soon!</p>
+        </template>
+    </div>
+    
+    
+    <p class="text-header">My Cases</p>
+    <c-y-p_-case-list></c-y-p_-case-list>
 </template>

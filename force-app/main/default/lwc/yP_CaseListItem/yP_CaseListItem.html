@@ -1,3 +1,12 @@
 <template>
-    
+    <div class="container" onclick={navigateToCasePage}>
+        <div>
+            <p class="subject">{item.Subject}</p>
+            <p class="date">Submitted on: {createdDateLabel}</p>
+        </div>
+        <div style="position: absolute; right: 20px;">
+            <p class={statusClass} style="text-align: right;">{item.Status}</p>
+            <p class="date">{closedDateLabel}</p>
+        </div>
+    </div>
 </template>

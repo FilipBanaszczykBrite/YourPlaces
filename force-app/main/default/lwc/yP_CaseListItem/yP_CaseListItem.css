@@ -1,0 +1,54 @@
+.container{
+    margin-left: 15%;
+    width: 70%;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #888;
+    padding-top: 10px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.container:hover{
+    cursor: pointer;
+    background-color: rgb(233, 244, 255);
+}
+
+.subject{
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+.date{
+    color: #777;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+
+.new{
+    font-size: 18px;
+    font-weight: 400;
+    color: rgb(55, 102, 163);
+}
+
+.working{
+    font-size: 18px;
+    color: peru;
+    font-weight: 400;
+}
+
+.escalated{
+    font-size: 18px;
+    color: rgb(0, 152, 179);
+    font-weight: 400;
+}
+
+.closed{
+    font-size: 18px;
+    color: rgb(0, 168, 50);
+    font-weight: 400;
+}

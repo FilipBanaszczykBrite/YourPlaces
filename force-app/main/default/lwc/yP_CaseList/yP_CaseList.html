@@ -1,3 +1,10 @@
 <template>
-    
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
+    <template for:each={cases} for:item="caseItem">
+        <div key={caseItem}>
+            <c-y-p_-case-list-item item={caseItem}></c-y-p_-case-list-item>
+        </div>
+    </template>
 </template>
