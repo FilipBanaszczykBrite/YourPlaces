@@ -11,8 +11,8 @@ import UROOMS from '@salesforce/label/c.YP_UtilityRooms';
 import PRGAL from '@salesforce/label/c.YP_ProductGallery';
 import CNCBT from '@salesforce/label/c.YP_CancelBtn';
 import RESLB from '@salesforce/label/c.YP_DemoLabel';
-import DEMOSUCCESS from '@salesforce/label/c.YP_DemoAgentSuccess';
-import DEMOFAIL from '@salesforce/label/c.YP_DemoAgentFail';
+// import DEMOSUCCESS from '@salesforce/label/c.YP_DemoAgentSuccess';
+// import DEMOFAIL from '@salesforce/label/c.YP_DemoAgentFail';
 import ReservationModal from 'c/yP_AgentReservationModal';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import Id from '@salesforce/user/Id';
@@ -54,6 +54,7 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
 
     connectedCallback(){
         this.isLoading = true;
+        console.log('conncted')
         getDetails({recordId: this.recordId}).then(result => {
             this.recordName = result.name;
             const formatter = new Intl.NumberFormat('en-US', {
@@ -106,7 +107,7 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
             const event = new ShowToastEvent({
                 title: 'Success',
                 variant: 'success',
-                message: DEMOSUCCESS + ' ' + result.selectedDate + ' ' + result.selectedTime
+                message: 'DEMOSUCCESS' + ' ' + result.selectedDate + ' ' + result.selectedTime
             });
             this.dispatchEvent(event);
             hasReservation({userId: this.userId, ownerId: this.agentId}).then(result => {
@@ -119,7 +120,7 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
             const event = new ShowToastEvent({
                 title: 'Error',
                 variant: 'error',
-                message: DEMOFAIL
+                message: 'DEMOFAIL'
             });
             this.dispatchEvent(event);
         }
