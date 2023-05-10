@@ -1,8 +1,8 @@
 <template>
-    <div class="container" onclick={navigateToCasePage}>
+    <div class="container" onclick={goToCaseDetails}>
         <div>
             <p class="subject">{item.Subject}</p>
-            <p class="date">Submitted on: {createdDateLabel}</p>
+            <p class="date">{labels.SUBM}: {createdDateLabel}</p>
         </div>
         <div style="position: absolute; right: 20px;">
             <p class={statusClass} style="text-align: right;">{item.Status}</p>

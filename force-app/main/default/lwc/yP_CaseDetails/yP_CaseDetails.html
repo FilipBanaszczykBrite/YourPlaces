@@ -1,6 +1,22 @@
 <template>
-    <div>
-        Hello
-        {recordId}
-    </div>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
+    <template if:false={isLoading}>
+        <div class="container">
+
+            <div>
+                <p class="subject">{item.Subject}</p>
+                <p class="date">{labels.SUBM}: {createdDateLabel}</p>
+                <p class="date">{labels.CTYPE}: {item.Type}</p>
+                <p class="date">{labels.CNUM}: {item.CaseNumber}</p>
+                <p class="date">{item.Description}</p>
+            </div>
+            <div style="position: absolute; right: 20px;">
+                <p class={statusClass} style="text-align: right;">{item.Status}</p>
+                <p class="date">{closedDateLabel}</p>
+            </div>
+        </div>
+    </template>
+    
 </template>

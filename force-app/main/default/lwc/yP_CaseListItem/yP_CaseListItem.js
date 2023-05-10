@@ -1,7 +1,13 @@
 import { LightningElement, api, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-export default class YP_CaseListItem extends LightningElement {
+import SUBM from '@salesforce/label/c.YP_SubmittedOn';
+import CLOS from '@salesforce/label/c.YP_ClosedOn';
 
+export default class YP_CaseListItem extends NavigationMixin(LightningElement) {
+
+    labels = {
+        SUBM,
+    }
     @api item;
     @track createdDateLabel;
     @track closedDateLabel;
@@ -11,7 +17,7 @@ export default class YP_CaseListItem extends LightningElement {
         
         this.createdDateLabel = this.item.CreatedDate.toString().slice(0, 10);
         if(this.item.ClosedDate != null){
-            this.closedDateLabel = 'Closed on: ' + this.item.ClosedDate.toString().slice(0, 10);
+            this.closedDateLabel = CLOS + ': ' + this.item.ClosedDate.toString().slice(0, 10);
         }
         if(this.item.Status == 'New'){
             this.statusClass = 'new';
@@ -27,15 +33,17 @@ export default class YP_CaseListItem extends LightningElement {
         }
     }
 
-    navigateToCasePage(){
-        console.log('go to case page', this.item.Id)
-        window.location.assign('https://your-places-developer-edition.eu42.force.com/businessandliving/s/detail/' + this.item.Id);
-        // this[NavigationMixin.Navigate]({
-        //     type: 'standard__webPage',
-        //     attributes: {
-        //         url: 'https://your-places-developer-edition.eu42.force.com/yourplaces/s/detail/' + this.item.Id
-        //     }
-        // });
-        // console.log('after')
+    goToCaseDetails(){
+        //window.location.assign('https://your-places-developer-edition.eu42.force.com/businessandliving/s/detail/' + this.item.Id);
+
+        this[NavigationMixin.Navigate]({
+            type: 'comm__namedPage',
+            attributes: {
+                name: 'Case_Details__c'
+            },
+            state: {
+                recordId: this.item.Id
+            }
+        });
     }
 }
