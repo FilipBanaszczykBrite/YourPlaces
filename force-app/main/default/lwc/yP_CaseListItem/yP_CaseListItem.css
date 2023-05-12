@@ -17,7 +17,7 @@
 }
 
 .subject{
-    font-size: 20px;
+    font-size: 23px;
     font-weight: 300;
     margin-bottom: 5px;
 }
@@ -28,27 +28,32 @@
     margin-bottom: 5px;
 }
 
+.desc{
+    color: #555;
+    font-size: 17px;
+    margin-bottom: 5px;
+}
 
-.new{
+.status{
     font-size: 18px;
     font-weight: 400;
+    margin-bottom: 3px;
+}
+
+.new{
+    
     color: rgb(55, 102, 163);
 }
 
 .working{
-    font-size: 18px;
-    color: peru;
-    font-weight: 400;
+    color: rgb(212, 118, 23);
 }
 
 .escalated{
-    font-size: 18px;
     color: rgb(0, 152, 179);
     font-weight: 400;
 }
 
 .closed{
-    font-size: 18px;
     color: rgb(0, 168, 50);
-    font-weight: 400;
 }

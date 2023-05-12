@@ -2,11 +2,12 @@
     <div class="container" onclick={goToCaseDetails}>
         <div>
             <p class="subject">{item.Subject}</p>
-            <p class="date">{labels.SUBM}: {createdDateLabel}</p>
+            <p class="desc">{description}</p>
         </div>
         <div style="position: absolute; right: 20px;">
             <p class={statusClass} style="text-align: right;">{item.Status}</p>
-            <p class="date">{closedDateLabel}</p>
+            <p class="date">{labels.SUBM}: {createdDateLabel}</p>
+            <p class="date" style="text-align: right;">{closedDateLabel}</p>
         </div>
     </div>
 </template>

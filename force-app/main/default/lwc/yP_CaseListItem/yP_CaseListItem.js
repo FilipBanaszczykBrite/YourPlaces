@@ -12,30 +12,42 @@ export default class YP_CaseListItem extends NavigationMixin(LightningElement) {
     @track createdDateLabel;
     @track closedDateLabel;
     @track statusClass;
+    @track description = '';
 
-    renderedCallback(){
-        
+
+    connectedCallback(){
+        if(this.item.Description != null){
+            let words = this.item.Description.split(' ');
+             this.description = words[0];
+             let descLength = words.length > 10 ? 10 : words.length;
+             for(let i = 1; i < descLength; i++){
+                 this.description += ' ' + words[i];
+             } 
+             this.description += '...';
+         }
+    }
+
+    renderedCallback(){ 
         this.createdDateLabel = this.item.CreatedDate.toString().slice(0, 10);
         if(this.item.ClosedDate != null){
             this.closedDateLabel = CLOS + ': ' + this.item.ClosedDate.toString().slice(0, 10);
         }
         if(this.item.Status == 'New'){
-            this.statusClass = 'new';
+            this.statusClass = 'status new';
         }
         else if(this.item.Status == 'Working'){
-            this.statusClass = 'working';
+            this.statusClass = 'status working';
         }
         else if(this.item.Status == 'Escalated'){
-            this.statusClass = 'escalated';
+            this.statusClass = 'status escalated';
         }
         else if(this.item.Status == 'Closed'){
-            this.statusClass = 'closed';
+            this.statusClass = 'status closed';
         }
+        
     }
 
     goToCaseDetails(){
-        //window.location.assign('https://your-places-developer-edition.eu42.force.com/businessandliving/s/detail/' + this.item.Id);
-
         this[NavigationMixin.Navigate]({
             type: 'comm__namedPage',
             attributes: {

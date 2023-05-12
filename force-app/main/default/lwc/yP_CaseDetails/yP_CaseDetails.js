@@ -24,7 +24,6 @@ export default class YP_CaseDetails extends LightningElement {
         this.isLoading = true;
         getDetails({caseId: this.recordId}).then(result => {
             this.item = result;
-            console.log(JSON.stringify(result))
             this.isLoading = false;
             this.createdDateLabel = this.item.CreatedDate.toString().slice(0, 10);
             if(this.item.ClosedDate != null){
