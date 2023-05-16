@@ -1,14 +1,14 @@
 <template>
     <div class="container" onclick={navigateToRecordPage}>
         <div class="image">
-            <img src={imageSrc} class="image" style="border-radius: 5px;">
+            <img src={item.photoUrl} class="image">
         </div>
         <div class="info">
             <div class="info-main">
-                <p class="name">{item.Name}</p>
+                <p class="name">{item.name}</p>
             
-                <p class="area">Area: <span style="font-weight: 400;">{item.Area__c}m2</span></p>
-                <!-- <p class="price">Price: <span style="font-weight: 400;">100.000$</span></p> -->
+                <p class="area"><span style="font-weight: 400;">{item.area}m2</span></p>
+                <p class="price"><span style="font-weight: 400;">{item.price}</span></p>
                 
             </div>
             
@@ -16,33 +16,12 @@
             <div class="info-detail">
                 
                 <div class="info-row-left">
-                    
                     <div>
-                        
-                        <p class="info-text">Floors: </p>
-                        <p class="info-text" >Restrooms: </p>
-                 
-                    </div>
-                    <div>
-                        <p class="bold-text">{item.Floors__c}</p>
-                        <p class="bold-text">{item.Restrooms__c}</p>
-                      
+                        <p class="bold-text">{item.address}</p>                
                     </div>
                     
                 </div>
-                
-                <div class="info-row-right">
-                    <div>
-                        <p class="info-text" >Meeting rooms: </p>
-                        <p class="info-text">Utility rooms: </p>
-                     
-                    </div>
-                    <div>
-                        <p class="bold-text">{item.Meeting_Rooms__c}</p>
-                        <p class="bold-text">{item.Utility_Rooms__c}</p>
-                    </div>
-                    
-                </div>   
+
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@
             <template if:true={business}>
                 <template for:each={resultsShown} for:item="result">
                     <div key={result} class="results-list">
-                        <c-y-p_-result-business-premises item={result}></c-y-p_-result-business-premises>
+                        <c-y-p_-result-business-premises item={result} community="false"></c-y-p_-result-business-premises>
                     </div>
                 </template>
             </template>
