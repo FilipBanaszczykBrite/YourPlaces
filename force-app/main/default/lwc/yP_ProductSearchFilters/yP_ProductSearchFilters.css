@@ -1,9 +1,7 @@
 .container{
-    width: 80%;
-    margin-left: 10%;
-    border-radius: 5px;
-    border-radius: 5px;
+    width: 100%;
     padding-top: 10px;
+    
 }
 
 .input-container{
@@ -109,6 +107,7 @@
 .button-footer{
     position: relative;
     height: 40px;
+    
     
 }
 .button-row{
