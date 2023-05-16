@@ -1,8 +1,8 @@
 <template>
    
-    <c-y-p_-product-search-filters onsearch={searchBP}></c-y-p_-product-search-filters >
+    
     <div class="container">
-      
+        <c-y-p_-product-search-filters onsearch={searchBP}></c-y-p_-product-search-filters >
         <template if:true={isLoading}>
             <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
         </template>
@@ -10,7 +10,7 @@
                 <p class="results-header">Results {displayResultCount}</p>
                 <template for:each={resultsShown} for:item="result">
                     <div key={result} class="results-list">
-                        <c-y-p_-result-business-premises item={result}></c-y-p_-result-business-premises>
+                        <c-y-p_-result-business-premises item={result} community="true"></c-y-p_-result-business-premises>
                     </div>
                 </template>
 

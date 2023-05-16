@@ -21,7 +21,9 @@ export default class YP_ResultBusinessPremises extends NavigationMixin(Lightning
     }
 
     navigateToRecordPage() {
-        if(this.community == true){
+        console.log(this.community, typeof console.log(this.community))
+        if(this.community == 'true'){
+            console.log('community')
             this[NavigationMixin.Navigate]({
                 type: 'comm__namedPage',
                 attributes: {
@@ -34,7 +36,7 @@ export default class YP_ResultBusinessPremises extends NavigationMixin(Lightning
         }
         
         else{
-           
+            console.log('org')
             this[NavigationMixin.Navigate]({
                 type: 'standard__recordPage',
                 attributes: {
