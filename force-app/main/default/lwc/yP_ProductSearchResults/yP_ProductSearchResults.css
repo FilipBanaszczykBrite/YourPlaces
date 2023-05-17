@@ -1,12 +1,20 @@
 .container{
-    width:80%;
+    background-color: white;
+    border-radius: 5px;
+    flex:8;
     margin-top: 20px;
-    margin-left: 10%;
+}
+
+.filter-container{
+    flex:2;
+    margin-top: 20px;
+
 }
 
 .results-header{
+    margin-top: 10px;
     margin-left: 10px;
-    margin-bottom: 29px;
+    margin-bottom: 20px;
     font-size: 20px;
     font-weight: 300;
 }
