@@ -13,17 +13,29 @@ export default class YP_CaseListItem extends NavigationMixin(LightningElement) {
     @track closedDateLabel;
     @track statusClass;
     @track description = '';
+    @track subject = ''
 
 
     connectedCallback(){
         if(this.item.Description != null){
             let words = this.item.Description.split(' ');
-             this.description = words[0];
-             let descLength = words.length > 10 ? 10 : words.length;
-             for(let i = 1; i < descLength; i++){
-                 this.description += ' ' + words[i];
-             } 
-             this.description += '...';
+            this.description = words[0];
+            let descLength = words.length > 10 ? 10 : words.length;
+            for(let i = 1; i < descLength; i++){
+                this.description += ' ' + words[i];
+            } 
+            if(descLength == 10){
+                this.description += '...';
+            }
+            words = this.item.Subject.split(' ');
+            this.subject = words[0];
+            descLength = words.length > 8 ? 8 : words.length;
+            for(let i = 1; i < descLength; i++){
+                this.subject += ' ' + words[i];
+            } 
+            if(descLength == 8){
+                this.subject += '...';
+            }
          }
     }
 
