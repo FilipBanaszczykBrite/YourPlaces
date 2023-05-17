@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <fieldName>areaMin</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>areaMax</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>bedrooms</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>bathrooms</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>attic</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>basement</fieldName>
+    </lightningMessageFields>
+    <masterLabel>FiltersMessageChannel</masterLabel>
+</LightningMessageChannel>

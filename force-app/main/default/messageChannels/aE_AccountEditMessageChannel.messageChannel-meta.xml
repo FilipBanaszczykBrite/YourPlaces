@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This is a sample Lightning Message Channel for the Accounts Explorer App.</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>This is the record that has been edited</description>
+        <fieldName>recordId</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Flag indicating edit or create</description>
+        <fieldName>isFromEdit</fieldName>
+    </lightningMessageFields>
+    <masterLabel>AccountEditMessageChannel</masterLabel>
+</LightningMessageChannel>

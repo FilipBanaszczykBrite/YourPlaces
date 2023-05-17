@@ -1,0 +1,28 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global">
+    <aura:registerEvent name="appEvent" type="selfService:caseCreateFieldChange"/>
+    <lightning:messageChannel type="YP_RefreshCasesMessageChannel__c"
+            aura:id="refreshCasesChannel"/>
+    <aura:attribute name="hideForm" type="Boolean" default="false"/>
+    <div class="container">
+        <aura:if isTrue="{!v.hideForm}">
+            <p class="thank">{!$Label.c.YP_ThankSubmission}</p>
+            <br/>
+            <p class="thank">{!$Label.c.YP_EmployeeWillContact}</p>
+            <aura:set attribute="else">
+                <p class="header">New Case</p>
+                <lightning:recordEditForm aura:id="recordEditForm" objectApiName="Case" onsuccess="{!c.refreshList}">
+                <lightning:messages />
+                <lightning:inputField fieldName="Subject" onchange="{!c.itemsChange}"/>
+                <lightning:inputField fieldName="Type" onchange="{!c.itemsChange}"/>
+                <lightning:inputField fieldName="Description" onchange="{!c.itemsChange}"/>
+                <div class="footer">
+                <lightning:button class="slds-m-top_small submit-btn" type="submit" label="Submit" />
+        </div>
+        
+        </lightning:recordEditForm>
+            </aura:set>
+        </aura:if>
+        
+    </div>
+    
+</aura:component>	
