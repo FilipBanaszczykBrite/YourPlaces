@@ -6,8 +6,14 @@ export default class YP_NewCase extends LightningElement {
 
     fields = [SUBJECT_FIELD, TYPE_FIELD, DESC_FIELD];
 
+    changeDescription(event){
+        console.log(event);
+        console.log(event.detail.value);
+        console.log(event.explicitOriginalTarget.name);
+    }
 
     sendSubmitted(){
+
         const submittedEvent = new CustomEvent('submitted');
         this.dispatchEvent(submittedEvent);
     }
