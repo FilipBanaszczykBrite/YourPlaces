@@ -40,18 +40,17 @@
 
 .new{
     
-    color: rgb(55, 102, 163);
+    color: rgb(0, 56, 129);
 }
 
 .working{
-    color: rgb(212, 118, 23);
+    color: rgb(185, 93, 0);
 }
 
 .escalated{
-    color: rgb(0, 152, 179);
-    font-weight: 400;
+    color: rgb(0, 105, 112);
 }
 
 .closed{
-    color: rgb(0, 168, 50);
+    color: rgb(0, 145, 43);
 }
