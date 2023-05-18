@@ -4,19 +4,28 @@
     </template>
     <template if:false={isLoading}>
         <div class="container">
+            <div class="info">
 
-            <div>
-                <p class="subject">{item.Subject}</p>
-                <p class="date">{labels.SUBM}: {createdDateLabel}</p>
-                <p class="date">{labels.CTYPE}: {item.Type}</p>
-                <p class="date">{labels.CNUM}: {item.CaseNumber}</p>
-                <p class="date">{item.Description}</p>
+                <div>
+                    <p class="subject">{item.Subject}</p>
+                    
+                    <p class="date">{labels.CTYPE}: {item.Type}</p>
+                    <p class="date">{labels.CNUM}: {item.CaseNumber}</p>
+                    
+                    
+                </div>
+                <div style="position: absolute; right: 20px;">
+                    <p class={statusClass} style="text-align: right;">{item.Status}</p>
+                    <p class="date">{labels.SUBM}: {createdDateLabel}</p>
+                    <p class="date">{closedDateLabel}</p>
+                </div>
+                
             </div>
-            <div style="position: absolute; right: 20px;">
-                <p class={statusClass} style="text-align: right;">{item.Status}</p>
-                <p class="date">{closedDateLabel}</p>
+            <div class="description">
+                <p>{item.Description}</p>
             </div>
         </div>
+       
     </template>
     
 </template>

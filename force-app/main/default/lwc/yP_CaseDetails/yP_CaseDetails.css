@@ -1,17 +1,23 @@
 .container{
     margin-left: 10%;
     width: 80%;
+
+    margin-bottom: 10px;
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #888;
+    padding: 10px;
+}
+
+.info{
     display: flex;
     flex-direction: row;
-    padding-top: 10px;
-    padding-left: 10px;
-    margin-bottom: 10px;
     position: relative;
-    margin-bottom: 20px;
 }
 
 .subject{
-    font-size: 23px;
+    font-size: 26px;
     font-weight: 300;
     margin-bottom: 5px;
 }
@@ -45,4 +51,13 @@
     font-size: 18px;
     color: rgb(0, 168, 50);
     font-weight: 400;
+}
+
+.description{
+    width: 100%;
+    border-top: 1px solid #888;
+    padding: 10px;
+    color: #444;
+    font-size: 19px;
+    margin-bottom: 5px;
 }

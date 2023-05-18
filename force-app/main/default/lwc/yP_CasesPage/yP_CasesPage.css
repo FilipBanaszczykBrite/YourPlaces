@@ -13,3 +13,12 @@
     margin-bottom: 30px;
     margin-top: 30px;
 }
+
+.container{
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+
+    border: 1px solid #AAA;
+
+}
