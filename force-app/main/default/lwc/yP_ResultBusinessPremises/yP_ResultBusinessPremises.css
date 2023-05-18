@@ -8,7 +8,7 @@
 
 .container:hover{
     box-shadow: 0px 0px 3px rgb(150,150,150);
-    background-color: rgb(240, 245, 250);
+    background-color: rgb(252, 251, 246);
     cursor: pointer;
 }
 

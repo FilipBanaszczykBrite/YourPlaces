@@ -1,6 +1,8 @@
 .container{
     background-color: white;
     border-radius: 5px;
+    border-top-left-radius: 0;
+    border: 1px solid #AAA;
     flex:8;
     margin-top: 20px;
 }

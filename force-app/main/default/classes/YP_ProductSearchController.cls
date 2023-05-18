@@ -116,7 +116,7 @@ public with sharing class YP_ProductSearchController {
                 productIds.add(entry.Product2Id);
             }
             List<Product2> products = [SELECT Id, Name, RecordType.Name, DisplayUrl, ContentDocumentId__c, Area__c, Floors__c,
-            Meeting_Rooms__c, Restrooms__c, Utility_Rooms__c, Address__c  FROM Product2 WHERE Id IN :productIds];
+            Meeting_Rooms__c, Restrooms__c, Utility_Rooms__c, Address__c, AgentId__c  FROM Product2 WHERE Id IN :productIds];
             List<YP_BusinessPremisesWrapper> wrappers = new List<YP_BusinessPremisesWrapper>();
             for(Integer i = 0; i< products.size(); i++){
                 YP_BusinessPremisesWrapper wrapper = new YP_BusinessPremisesWrapper(
@@ -125,6 +125,7 @@ public with sharing class YP_ProductSearchController {
                     '',
                     products[i].DisplayUrl,
                     products[i].Address__c,
+                    products[i].AgentId__c,
                     entries[i].UnitPrice,
                     products[i].Area__c,
                     products[i].Floors__c,
@@ -141,9 +142,9 @@ public with sharing class YP_ProductSearchController {
         }
     }
 
-    @AuraEnabled (cacheable=true)
+    @AuraEnabled
     public static List<YP_BusinessPremisesWrapper> getBusinessPremisesCommunity(String name, Double areaMin, Double areaMax, Double priceMin, Double priceMax, Integer floors, Integer meetingRooms, Integer restrooms, Integer utilityRooms){
-        String baseQuery = 'SELECT Id, Name, RecordType.Name, DisplayUrl, Area__c, Floors__c, Meeting_Rooms__c, Restrooms__c, Utility_Rooms__c, Address__c FROM Product2 WHERE Id IN: productIds ';
+        String baseQuery = 'SELECT Id, Name, RecordType.Name, DisplayUrl, Area__c, Floors__c, Meeting_Rooms__c, Restrooms__c, Utility_Rooms__c, Address__c, AgentId__c FROM Product2 WHERE Id IN: productIds ';
         
         if(name != null){
             baseQuery += 'AND Name LIKE \'%' + String.escapeSingleQuotes(name) + '%\'';
@@ -193,6 +194,7 @@ public with sharing class YP_ProductSearchController {
                     '',
                     products[i].DisplayUrl,
                     products[i].Address__c,
+                    products[i].AgentId__c,
                     entries[i].UnitPrice,
                     products[i].Area__c,
                     products[i].Floors__c,
@@ -219,13 +221,5 @@ public with sharing class YP_ProductSearchController {
         }
     }
 
-    @AuraEnabled
-    public static void markProductAsRecentlyViewed(String recordId) {
-        Product2 prod = [
-            SELECT Id, Name
-            FROM Product2
-            WHERE Id = :recordId
-            FOR VIEW
-        ];
-    }
+   
 }

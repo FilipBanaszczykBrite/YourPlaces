@@ -81,7 +81,7 @@ export default class YP_ProductSearchFilters extends LightningElement {
         const searchEvent = new CustomEvent('search', { detail: { areaMin: this.areaMin, areaMax: this.areaMax,
             priceMin: this.priceMin, priceMax: this.priceMax, floors: this.floors, meetingRooms: this.meetingRooms,
             restrooms: this.restrooms, utilityRooms: this.utilityRooms }});
-        console.log('dispatch', JSON.stringify(searchEvent.detail))
+        
         this.dispatchEvent(searchEvent);
     }
 

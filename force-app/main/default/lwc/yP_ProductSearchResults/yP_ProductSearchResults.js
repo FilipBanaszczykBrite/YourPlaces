@@ -96,8 +96,13 @@ export default class YP_ProductSearchResults extends LightningElement {
         getBusinessPremises({name: event.detail.name, areaMin: event.detail.areaMin, areaMax: event.detail.areaMax,
              priceMin: event.detail.priceMin, priceMax: event.detail.priceMax,
              meetingRooms: event.detail.meetingRooms, restrooms: event.detail.restrooms, utilityRooms: event.detail.utilityRooms }).then(result => {
-            this.results = result;
+            this.results = (result);
             this.displayResultCount = '(' + result.length + ')';
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'EUR' });
+            this.results.forEach(element => 
+                element.price = formatter.format(element.price));
             this.pageCount = Math.ceil(result.length/this.pageSize);
             if(this.pageCount == 0){
                 this.pageCount = 1;
