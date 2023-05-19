@@ -12,6 +12,7 @@
 .container:hover{
     cursor: pointer;
     background-color: rgb(253, 251, 250);
+    box-shadow: 0 0 2px #666;
 }
 
 .subject{
