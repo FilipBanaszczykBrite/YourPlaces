@@ -8,7 +8,7 @@
 
 .container:hover{
     box-shadow: 0px 0px 4px rgb(100,100,100);
-    background-color: rgb(253, 252, 250);
+    background-color: rgb(248, 248, 245);
     cursor: pointer;
 }
 
@@ -21,31 +21,43 @@
 }
 
 .info{
-    margin-left: 10px;
-    display: inline-flex;
+    margin-left: 15px;
+    display: flex;
     flex-direction: row;
 }
 
 .name{
-    font-size: 23px;
+    display: block;
+    font-size: 25px;
     font-weight: 300;
-    margin-bottom: 5px;
     margin-top: 5px;
+    margin-left: 10px;
 }
 
 .area{
     font-size: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .price{
     font-size: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .info-text{
     font-size: 14px;
-    margin-right: 10px;
+    margin-right: 5px;
+}
+
+.info-value{
+    
+    font-size: 14px;
+    text-align: right;
+}
+
+.info-values{
+    position: absolute;
+    right: 10px;
 }
 
 
@@ -55,16 +67,16 @@
     flex: 3;
 }
 .info-detail{
+    position: relative;
     margin-left: 10px;
-    margin-top: 10px;
     display: inline-flex;
     flex-direction: row;
     flex: 2;
 }
 
 .bold-text{
+    margin-bottom: 5px;
     font-size: 14px;
-    font-weight: 500;
 }
 
 .info-row-left{
@@ -73,6 +85,7 @@
 }
 
 .info-row-right{
+    margin-top: 22px;
     display: inline-flex;
     text-align: left;
     margin-right: 10px;

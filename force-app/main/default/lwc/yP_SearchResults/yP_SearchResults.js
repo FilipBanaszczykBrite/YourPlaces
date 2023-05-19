@@ -1,8 +1,8 @@
 import { LightningElement, track, wire } from 'lwc';
 import getApartments from '@salesforce/apex/YP_ProductSearchController.getApartments';
 import getAllApartments from '@salesforce/apex/YP_ProductSearchController.getAllApartments';
-import getBusinessPremises from '@salesforce/apex/YP_ProductSearchController.getBusinessPremises';
-import getAllBusinessPremises from '@salesforce/apex/YP_ProductSearchController.getAllBusinessPremises';
+import getBusinessPremises from '@salesforce/apex/YP_ProductSearchController.getBusinessPremisesCommunity';
+import getAllBusinessPremises from '@salesforce/apex/YP_ProductSearchController.getAllBusinessPremisesCommunity';
 import ASMC from '@salesforce/messageChannel/YP_ApartamentsSearchMessageChannel__c';
 import BPSMC from '@salesforce/messageChannel/YP_BusinessPremisesSearchMessageChannel__c';
 import { subscribe, unsubscribe, APPLICATION_SCOPE, MessageContext } from 'lightning/messageService';

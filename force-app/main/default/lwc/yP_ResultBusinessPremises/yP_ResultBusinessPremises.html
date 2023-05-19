@@ -3,10 +3,11 @@
         <div class="image">
             <img src={item.photoUrl} class="image">
         </div>
+        <p class="name">{item.name}</p>
         <div class="info">
             <div class="info-main">
-                <p class="name">{item.name}</p>
-            
+                
+                <p class="bold-text">{item.address}</p>
                 <p class="area"><span style="font-weight: 400;">{item.area}m2</span></p>
                 <p class="price"><span style="font-weight: 400;">{item.price}</span></p>
                 
@@ -15,34 +16,20 @@
                 
             <div class="info-detail">
                 
-                <div class="info-row-left">
-<!--                     
+                <div class="info-row-right">
                     <div>
-                        
-                        <p class="info-text">Floors: </p>
-                        <p class="info-text" >Restrooms: </p>
-                 
-                    </div> -->
-                    <div>
-                        <p class="bold-text">{item.address}</p>
-                        <!-- <p class="bold-text">{item.restrooms}</p> -->
-                      
-                    </div>
-                    
-                </div>
-                
-                <!-- <div class="info-row-right">
-                    <div>
-                        <p class="info-text" >Meeting rooms: </p>
-                        <p class="info-text">Utility rooms: </p>
+                        <p class="info-text" >Restrooms </p>
+                        <p class="info-text" >Meeting rooms </p>
+                        <p class="info-text">Utility rooms </p>
                      
                     </div>
-                    <div>
-                        <p class="bold-text">{item.meetingRooms}</p>
-                        <p class="bold-text">{item.utilityRooms}</p>
+                    <div class="info-values">
+                        <p class="info-value">{item.restrooms}</p>
+                        <p class="info-value">{item.meetingRooms}</p>
+                        <p class="info-value">{item.utilityRooms}</p>
                     </div>
                     
-                </div>    -->
+                </div>   
             </div>
         </div>
     </div>
