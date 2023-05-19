@@ -1,0 +1,19 @@
+<template>
+    <div class="container">
+        <template for:each={images} for:item="slide">
+            <div class={slide.cardClasses} key={slide.slideIndex}>
+                <div class="image-container">
+                    <img class="image" src={slide.image} data-id={slide.slideIndex} onclick={openPreview}/>
+                </div>
+                
+            </div>
+        </template>
+        <p class="prev" onclick={prevSlide}>&#10094;</p>
+        <p class="next" onclick={nextSlide}>&#10095;</p>
+    </div>
+    <div class="slds-text-align_center slds-p-around_medium">
+        <template for:each={images} for:item="slide">
+           <span key={slide} class={slide.dotClasses} onclick={currentSlide} data-id={slide.slideIndex}></span>
+        </template>
+    </div>
+</template>

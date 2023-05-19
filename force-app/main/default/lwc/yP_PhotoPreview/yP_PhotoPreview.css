@@ -3,9 +3,3 @@
     justify-content: center;
     align-items: center;
 }
-
-.photo{
-    object-fit: contain;
-    max-width: 700px;
-    max-height: 600px;
-}

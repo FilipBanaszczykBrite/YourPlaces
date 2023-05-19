@@ -1,9 +1,10 @@
 import { LightningElement, api } from 'lwc';
 import PhotoPreview from 'c/yP_PhotoPreview';
 
-export default class YP_ProductImageGallery extends LightningElement {
+export default class YP_ProductImageGalleryPreview extends LightningElement {
     slides = []
     slideIndex = 1;
+
     @api
     get images(){
         return this.slides;
@@ -68,12 +69,5 @@ export default class YP_ProductImageGallery extends LightningElement {
         this.changeSlide();
     }
 
-    async openPreview(event){
-        let index = Number(event.target.dataset.id);
-        const result = await PhotoPreview.open({ 
-            size: 'medium',
-            thumbnail: this.slides[index - 1].image,
-            images: this.images
-        });
-    }
+    
 }

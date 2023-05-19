@@ -1,9 +1,10 @@
 .container{
     position: relative;  
+    
 }
 
 .info{
-    background-color: rgba(0, 0, 0, 0.65); 
+    background-color: rgba(0, 0, 0, 0.75); 
     position: absolute; 
     padding: 30px 60px; 
     border-radius:5px; 
@@ -38,43 +39,97 @@
     margin-bottom: 7px;
 }
 
-.detail-row{
-
-    font-size: 19px;
-    font-weight: 300;
+.detail-column-left{
+    margin-right: 24px;
+    flex: 1;
+    
+}
+.detail-column-right{
+    margin-left: 24px;
+    padding-right: 30px;
+    flex: 1;
+    
 }
 
-.mid-container{
-    width: 80%;
-    margin-left: 10%;
-    height: 310px;
+.detail-column-left>.detail-row {
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 30px;
     
-    
-    margin-top: 100px;
-    border-radius: 5px;
-    position: relative;
-    padding-top: 30px;
-    padding-left: 30px;
-    padding-right: 400px;
-    padding-bottom: 30px;
-    margin-bottom: 100px;
+}
 
+.detail-column-right>.detail-row{
+    
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.detail-row{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    width: 100%;
+    font-size: 19px;
+    font-weight: 300;
+    display: flex;
+    flex-direction: row;
+}
+
+.detail-labels{
+
+    flex: 3;
+}
+
+.detail-values{
+    text-align: end;
+    flex: 1;
+}
+
+.dark{
+    background-color: #EEE;
+}
+
+.mid-container{    
+    border-radius: 5px;
+    margin-bottom: 30px;
+    background-color: white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid #888;
+    border-top: 0;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding: 100px;
+    padding-top: 20px;
+    
+}
+
+.inner-mid{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid #888;
+    border-bottom: 1px solid #888;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-bottom: 50px;
 }
 
 .description-container{
-    padding-left: 30px;
-    border: 1px solid #222222;
-    height: 100%;
+    padding: 40px;
+    padding-top: 80px;
+    padding-left: 0;
     border-radius: 5px;
+    height: 350px;
+
 }
 
 .description{
     font-size: 19px;
     font-weight: 300;
-    margin-right:200px; 
+  
     text-align:justify;
     border-radius: 5px;
-    padding: 15px;
+    
     
 }
 
@@ -82,9 +137,6 @@
     height: 350px;
     width: 490px;
     object-fit: cover;
-    position: absolute;
-    right: 80px;
-    top: -20px;
 }
 
 .bottom-container{
@@ -97,25 +149,11 @@
     margin-bottom: 70px; 
 }
 
-.details-container{
-    height: 260px;
-    width: 100%;
-    padding: 15px;;
-    padding-left: 400px;
-    
-    position: relative;
-}
 
 .details{
-    padding: 30px;
-    padding-left: 500px;
-    padding-right: 200px;
-    border-radius: 5px;
-    border: 1px solid #222222;
     display:flex; 
-    flex-direction: row; 
-    position: absolute; 
-    right: 100px;
+    flex-direction: row;  
+    padding-bottom: 50px;
 }
 
 .bottom-image{
@@ -128,10 +166,11 @@
 }
 
 .gallery-header{
+
+    display: block;
     font-size: 25px;
     font-weight: 350;
-    margin-left: 15%;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .reserve-button{

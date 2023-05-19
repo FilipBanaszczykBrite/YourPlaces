@@ -26,41 +26,77 @@
         </div>
     </div>
 
-    <div class="mid-container slds-align_absolute-center">
-        <div class="description-container slds-align_absolute-center">
-            <p class="description slds-align_absolute-center">{recordDescription}</p>
-        </div>
-        <img class="mid-image" src={midImage}/>
-    </div>
-
-    <div class="bottom-container">
-        <div class="details-container slds-align_absolute-center">
-            <div class="details slds-align_absolute-center">
-                <div style="display: inline-block;">
-                    <p class="detail-row">{labels.FLOORS}</p>
-                    <p class="detail-row">{labels.MROOMS}</p>
-                    <p class="detail-row">{labels.RROOMS}</p>
-                    <p class="detail-row">{labels.UROOMS}</p>
+    <div class="mid-container ">
+        <p class="gallery-header">Details</p>
+        <div class="details">
+            
+            <div class="detail-column-left">
+                <div class="detail-row" >
+                    <div class="detail-labels">{labels.FLOORS}</div>
+                    <div class="detail-values"><span>{floors}</span></div>
                 </div>
-                <div style="margin-left: 70px; display: inline-block; text-align: right">
-                    <p class="detail-row"><span>{floors}</span></p>
-                    <p class="detail-row"><span>{meetingRooms}</span></p>
-                    <p class="detail-row"><span>{restrooms}</span></p>
-                    <p class="detail-row"><span>{utilityRooms}</span></p>
+                <div class="detail-row dark" >
+                    <p class="detail-labels">{labels.MROOMS}</p>
+                    <p class="detail-values"><span>{meetingRooms}</span></p>
+                </div>
+                <div class="detail-row">
+                    <p class="detail-labels">{labels.RROOMS}</p>
+                    <p class="detail-values"><span>{restrooms}</span></p>
+                </div>
+                <div class="detail-row dark" >
+                    <p class="detail-labels">{labels.UROOMS}</p>
+                    <p class="detail-values"><span>{utilityRooms}</span></p>
+                </div>
+                <div class="detail-row">
+                    <p class="detail-labels">Office Kitchens</p>
+                    <p class="detail-values"><span>{utilityRooms}</span></p>
                 </div>
             </div>
+            <div class="detail-column-right">
+                <div class="detail-row" >
+                    <div class="detail-labels">Wi-Fi</div>
+                    <div class="detail-values"><span>No</span></div>
+                </div>
+                <div class="detail-row dark" >
+                    <p class="detail-labels">Car Park</p>
+                    <p class="detail-values"><span>Yes</span></p>
+                </div>
+                <div class="detail-row">
+                    <p class="detail-labels">Air Conditioning</p>
+                    <p class="detail-values"><span>Yes</span></p>
+                </div>
+                <div class="detail-row dark" >
+                    <p class="detail-labels">Open Office</p>
+                    <p class="detail-values"><span>No</span></p>
+                </div>
+                <div class="detail-row">
+                    <p class="detail-labels">Elevators</p>
+                    <p class="detail-values"><span>2</span></p>
+                </div>
+            </div>
+            
         </div>
-        <img class="bottom-image" src={bottomImage}/>
-    </div>
-
-    <p class="gallery-header">{labels.PRGAL}:</p>
-    <div style="display: flex; flex-direction: row">
-        <div style="flex: 1;"></div>
-        <div style="flex: 3;">
-            <template if:false={isLoading}>
-                <c-y-p_-product-image-gallery images={images}></c-y-p_-product-image-gallery>
-            </template>
+        <div class="inner-mid">
+            
+            <div class="description-container">
+                <div>
+                    <p class="description" style="font-size: 25px;">{recordName}</p>
+                </div>
+                <p class="description" style=" display: block;">{recordDescription}</p>
+            </div>
+            <img class="mid-image" src={midImage}/>
         </div>
-        <div style="flex: 1;"></div>
+        
+        <p class="gallery-header">{labels.PRGAL}</p>
+        <div style="display: flex; flex-direction: row">
+            <div style="flex: 1;"></div>
+                <div style="flex: 3;">
+                    <template if:false={isLoading}>
+                        <c-y-p_-product-image-gallery images={images}></c-y-p_-product-image-gallery>
+                    </template>
+                </div>
+            <div style="flex: 1;"></div>
+        </div>
     </div>
+    
 </template>
