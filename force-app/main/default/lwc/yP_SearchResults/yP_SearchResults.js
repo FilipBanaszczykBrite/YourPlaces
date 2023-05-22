@@ -25,13 +25,15 @@ export default class YP_SearchResults extends LightningElement {
     subscription = null;
     connectedCallback(){
         this.isLoading = true;
+        console.log(Id);
         getRole({userId: Id}).then(result => {
+            console.log(result);
             if(result === 'Housing Management' || result === 'Housing Sales'){
                 this.business = false;
                 this.subscribeAMC();
                 getAllApartments().then(result => {
                     this.results = result;
-                    console.log("Apartments " + JSON.stringify(result));
+                    
                     this.pageCount = Math.ceil(result.length/this.pageSize);
                     this.updateRecords();
                     
@@ -44,7 +46,11 @@ export default class YP_SearchResults extends LightningElement {
                 this.subscribeBPMC();
                 getAllBusinessPremises().then(result => {
                     this.results = result;
-                    console.log("Business Premises " + JSON.stringify(result));
+                    const formatter = new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'EUR' });
+                    this.results.forEach(element => 
+                        element.price = formatter.format(element.price));
                     this.pageCount = Math.ceil(result.length/this.pageSize);
                     this.updateRecords();
                     
@@ -77,10 +83,7 @@ export default class YP_SearchResults extends LightningElement {
         const start = (this.currentPage-1)*this.pageSize;
         const end = this.pageSize*this.currentPage;
         this.resultsShown = this.results.slice(start, end);
-        console.log('SHOWN ' + start)
-        console.log('SHOWN ' + end)
-        console.log('SHOWN ' + this.results)
-        console.log('SHOWN ' + this.resultsShown)
+     
     }
 
     subscribeAMC() {
@@ -91,7 +94,7 @@ export default class YP_SearchResults extends LightningElement {
             this.messageContext,
             ASMC,
             (message) => { 
-                console.log('get message results ' + JSON.stringify(message))
+             
                 this.searchA(message);
             
              },
@@ -107,7 +110,7 @@ export default class YP_SearchResults extends LightningElement {
             this.messageContext,
             BPSMC,
             (message) => { 
-                console.log('get message results ' + JSON.stringify(message))
+                
                 this.searchBP(message);
             
              },
@@ -120,7 +123,7 @@ export default class YP_SearchResults extends LightningElement {
         this.results = []
         getApartments({name: message.name, areaMin: message.areaMin, areaMax: message.areaMax,
              bedrooms: message.bedrooms, bathrooms: message.bathrooms, attic: message.attic, basement: message.basement}).then(result => {
-            console.log("Apartments " + JSON.stringify(result));
+          
             this.results = result;
             this.displayResultCount = '(' + result.length + ')';
             this.pageCount = Math.ceil(result.length/this.pageSize);
@@ -133,7 +136,11 @@ export default class YP_SearchResults extends LightningElement {
         this.results = []
         getBusinessPremises({name: message.name, areaMin: message.areaMin, areaMax: message.areaMax,
              meetingRooms: message.meetingRooms, restrooms: message.restrooms, utilityRooms: message.utilityRooms }).then(result => {
-            console.log("Apartments " + JSON.stringify(result));
+                const formatter = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'EUR' });
+                this.results.forEach(element => 
+                    element.price = formatter.format(element.price));
             this.results = result;
             this.displayResultCount = '(' + result.length + ')';
             this.pageCount = Math.ceil(result.length/this.pageSize);
