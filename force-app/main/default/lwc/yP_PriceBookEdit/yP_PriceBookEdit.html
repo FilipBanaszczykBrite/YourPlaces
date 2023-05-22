@@ -49,7 +49,7 @@
                         <lightning-input class="input" type="number" label={labels.NEWPRICE} onchange={changeSet}></lightning-input>
                         <div class="btn-row">
                             <div class="btn-container">
-                                <lightning-button class="price-btn" label={labels.CHANGEBTN} onclick={setNewPrice} disabled={noSelected}></lightning-button>
+                                <lightning-button class="price-btn" label={labels.CHANGEBTN} onclick={setNewPrice} disabled={noSelected}  variant="brand-outline"></lightning-button>
                             </div>
                             
                            
@@ -59,8 +59,8 @@
                         <lightning-input class="input" type="number" label={labels.PERCENTAGE} onchange={changePercent}></lightning-input>
                         <div class="btn-row">
                             <div class="btn-container">
-                                <lightning-button  label={labels.ADDBTN} onclick={addDiscount} disabled={noSelected}></lightning-button>
-                                <lightning-button class="price-btn" label={labels.SUBBTN} onclick={subDiscount} disabled={noSelected}></lightning-button>
+                                <lightning-button  label={labels.ADDBTN} onclick={addDiscount} disabled={noSelected} variant="brand-outline"></lightning-button>
+                                <lightning-button class="price-btn" label={labels.SUBBTN} onclick={subDiscount} disabled={noSelected}  variant="destructive-text"></lightning-button>
                             </div>
                             
                         </div>
@@ -70,8 +70,8 @@
                         <lightning-input class="input" type="number" label={labels.FLAT}  onchange={changeFlat}></lightning-input>
                         <div class="btn-row">
                             <div class="btn-container">
-                                <lightning-button  label={labels.ADDBTN} onclick={addFlat} disabled={noSelected}></lightning-button>
-                                <lightning-button class="price-btn" label={labels.SUBBTN} onclick={subFlat} disabled={noSelected}></lightning-button>
+                                <lightning-button  label={labels.ADDBTN} onclick={addFlat} disabled={noSelected} variant="brand-outline"></lightning-button>
+                                <lightning-button class="price-btn" label={labels.SUBBTN} onclick={subFlat} disabled={noSelected} variant="destructive-text"></lightning-button>
                             </div>
                             
                         </div>

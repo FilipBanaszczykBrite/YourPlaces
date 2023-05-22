@@ -113,7 +113,12 @@ public with sharing class YP_PriceBookManagerController {
             List<PricebookEntry> entries = [SELECT Id, UnitPrice FROM PricebookEntry WHERE Id IN :ids];
             Integer idx = 0;
             for(PricebookEntry entry : entries){
-                entry.UnitPrice = newPrices[idx];
+                if(newPrices[idx] > 0){
+                    entry.UnitPrice = newPrices[idx];
+                }
+                else{
+                    entry.UnitPrice = 0;
+                }
                 idx++;
             }
             update entries;
