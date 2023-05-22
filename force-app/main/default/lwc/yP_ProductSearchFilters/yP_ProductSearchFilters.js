@@ -78,10 +78,18 @@ export default class YP_ProductSearchFilters extends LightningElement {
 
 
     sendMessageService() { 
+        this.areaMin = this.areaMin == '' ? undefined : this.areaMin;
+        this.areaMax = this.areaMax == '' ? undefined : this.areaMax;
+        this.priceMin = this.priceMin == '' ? undefined : this.priceMin;
+        this.priceMax = this.priceMax == '' ? undefined : this.priceMax;
+        this.floors = this.floors == '' ? undefined : this.floors;
+        this.meetingRooms = this.meetingRooms == '' ? undefined : this.meetingRooms;
+        this.restrooms = this.restrooms == '' ? undefined : this.restrooms;
+        this.utilityRooms = this.utilityRooms == '' ? undefined : this.utilityRooms;
         const searchEvent = new CustomEvent('search', { detail: { areaMin: this.areaMin, areaMax: this.areaMax,
             priceMin: this.priceMin, priceMax: this.priceMax, floors: this.floors, meetingRooms: this.meetingRooms,
             restrooms: this.restrooms, utilityRooms: this.utilityRooms }});
-        
+        console.log(JSON.stringify(searchEvent.detail))
         this.dispatchEvent(searchEvent);
     }
 

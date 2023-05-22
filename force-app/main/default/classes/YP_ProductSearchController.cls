@@ -108,34 +108,27 @@ public with sharing class YP_ProductSearchController {
     @AuraEnabled
     public static List<YP_BusinessPremisesWrapper> getAllBusinessPremisesCommunity(){
         try {
-            System.debug('get prods');
             PriceBook2 pb = [SELECT RecordType.Name, IsActive FROM PriceBook2 WHERE RecordType.Name = 'Business premises' AND IsActive = true LIMIT 1];
-            List<PriceBookEntry> entries = [SELECT Product2Id, 	UnitPrice, PriceBook2Id FROM PriceBookEntry WHERE PriceBook2Id =: pb.Id];
-            List<String> productIds = new List<String>();
-            for(PriceBookEntry entry : entries){
-                productIds.add(entry.Product2Id);
-            }
-            List<Product2> products = [SELECT Id, Name, RecordType.Name, DisplayUrl, ContentDocumentId__c, Area__c, Floors__c,
-            Meeting_Rooms__c, Restrooms__c, Utility_Rooms__c, Address__c, AgentId__c  FROM Product2 WHERE Id IN :productIds];
+            List<PriceBookEntry> entries = [SELECT Product2Id, Product2.Name, Product2.DisplayUrl, Product2.Area__c, Product2.Floors__c,
+                Product2.Meeting_Rooms__c, Product2.Restrooms__c, Product2.Utility_Rooms__c, Product2.Address__c, Product2.AgentId__c,
+                UnitPrice, PriceBook2Id FROM PriceBookEntry WHERE PriceBook2Id =: pb.Id];
             List<YP_BusinessPremisesWrapper> wrappers = new List<YP_BusinessPremisesWrapper>();
-            for(Integer i = 0; i< products.size(); i++){
+            for(Integer i = 0; i< entries.size(); i++){
                 YP_BusinessPremisesWrapper wrapper = new YP_BusinessPremisesWrapper(
-                    products[i].Id,
-                    products[i].Name,
+                    entries[i].Product2.Id,
+                    entries[i].Product2.Name,
                     '',
-                    products[i].DisplayUrl,
-                    products[i].Address__c,
-                    products[i].AgentId__c,
+                    entries[i].Product2.DisplayUrl,
+                    entries[i].Product2.Address__c,
+                    entries[i].Product2.AgentId__c,
                     entries[i].UnitPrice,
-                    products[i].Area__c,
-                    products[i].Floors__c,
-                    products[i].Restrooms__c,
-                    products[i].Meeting_Rooms__c,
-                    products[i].Utility_Rooms__c );
-                System.debug(wrapper);
+                    entries[i].Product2.Area__c,
+                    entries[i].Product2.Floors__c,
+                    entries[i].Product2.Restrooms__c,
+                    entries[i].Product2.Meeting_Rooms__c,
+                    entries[i].Product2.Utility_Rooms__c );
                 wrappers.add(wrapper);
             }
-            System.debug(wrappers);
             return wrappers;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -143,66 +136,61 @@ public with sharing class YP_ProductSearchController {
     }
 
     @AuraEnabled
-    public static List<YP_BusinessPremisesWrapper> getBusinessPremisesCommunity(String name, Double areaMin, Double areaMax, Double priceMin, Double priceMax, Integer floors, Integer meetingRooms, Integer restrooms, Integer utilityRooms){
-        String baseQuery = 'SELECT Id, Name, RecordType.Name, DisplayUrl, Area__c, Floors__c, Meeting_Rooms__c, Restrooms__c, Utility_Rooms__c, Address__c, AgentId__c FROM Product2 WHERE Id IN: productIds ';
-        
-        if(name != null){
-            baseQuery += 'AND Name LIKE \'%' + String.escapeSingleQuotes(name) + '%\'';
-        }
-        if(areaMin != null){
-            baseQuery += ' AND Area__c >= ' + areaMin;
-        }
-        if(areaMax != null){
-            baseQuery += ' AND Area__c <= ' + areaMax;
-        }
-        
-        if(floors != null){
-            baseQuery += ' AND Floors__c = ' + floors;
-        }
-        if(meetingRooms != null){
-            baseQuery += ' AND Meeting_Rooms__c >= ' + meetingRooms;
-        }
-        if(restrooms != null){
-            baseQuery += ' AND Restrooms__c >= ' + restrooms;
-        }
-        if(utilityRooms != null){
-            baseQuery += ' AND Utility_Rooms__c >= ' + utilityRooms;
-        }
- 
+    public static List<YP_BusinessPremisesWrapper> getBusinessPremisesCommunity(String name, Double areaMin, Double areaMax, Double priceMin,
+     Double priceMax, Integer floors, Integer meetingRooms, Integer restrooms, Integer utilityRooms){
         try {
            
             PriceBook2 pb = [SELECT Id, RecordType.Name, IsActive FROM PriceBook2 WHERE RecordType.Name = 'Business premises' AND IsActive = true LIMIT 1];
-            String priceQuery = 'SELECT Product2Id, UnitPrice, PriceBook2Id FROM PriceBookEntry WHERE PriceBook2Id = \'' + pb.Id  + '\' ';
+            String priceQuery = 'SELECT Product2Id, Product2.Name, Product2.DisplayUrl, Product2.Area__c, Product2.Floors__c,'+
+            ' Product2.Meeting_Rooms__c, Product2.Restrooms__c, Product2.Utility_Rooms__c, Product2.Address__c, Product2.AgentId__c,'+
+            ' UnitPrice, PriceBook2Id FROM PriceBookEntry WHERE PriceBook2Id = \'' + pb.Id  + '\' ';
             if(priceMin != null){
                 priceQuery += ' AND UnitPrice >= ' + priceMin;
             }
             if(priceMax != null){
                 priceQuery += ' AND UnitPrice <= ' + priceMax;
             }
+            if(name != null){
+                priceQuery += 'AND Product2.Name LIKE \'%' + String.escapeSingleQuotes(name) + '%\'';
+            }
+            if(areaMin != null){
+                priceQuery += ' AND Product2.Area__c >= ' + areaMin;
+            }
+            if(areaMax != null){
+                priceQuery += ' AND Product2.Area__c <= ' + areaMax;
+            }
+            
+            if(floors != null){
+                priceQuery += ' AND Product2.Floors__c = ' + floors;
+            }
+            if(meetingRooms != null){
+                priceQuery += ' AND Product2.Meeting_Rooms__c >= ' + meetingRooms;
+            }
+            if(restrooms != null){
+                priceQuery += ' AND Product2.Restrooms__c >= ' + restrooms;
+            }
+            if(utilityRooms != null){
+                priceQuery += ' AND Product2.Utility_Rooms__c >= ' + utilityRooms;
+            }
             List<PriceBookEntry> entries = Database.query(priceQuery);
             List<String> productIds = new List<String>();
-            for(PriceBookEntry entry : entries){
-                productIds.add(entry.Product2Id);
-            }
-   
-            List<Product2> products = Database.query(baseQuery);
+    
             List<YP_BusinessPremisesWrapper> wrappers = new List<YP_BusinessPremisesWrapper>();
-            for(Integer i = 0; i< products.size(); i++){
+            for(Integer i = 0; i< entries.size(); i++){
                 YP_BusinessPremisesWrapper wrapper = new YP_BusinessPremisesWrapper(
-                    products[i].Id,
-                    products[i].Name,
+                    entries[i].Product2.Id,
+                    entries[i].Product2.Name,
                     '',
-                    products[i].DisplayUrl,
-                    products[i].Address__c,
-                    products[i].AgentId__c,
+                    entries[i].Product2.DisplayUrl,
+                    entries[i].Product2.Address__c,
+                    entries[i].Product2.AgentId__c,
                     entries[i].UnitPrice,
-                    products[i].Area__c,
-                    products[i].Floors__c,
-                    products[i].Restrooms__c,
-                    products[i].Meeting_Rooms__c,
-                    products[i].Utility_Rooms__c );
+                    entries[i].Product2.Area__c,
+                    entries[i].Product2.Floors__c,
+                    entries[i].Product2.Restrooms__c,
+                    entries[i].Product2.Meeting_Rooms__c,
+                    entries[i].Product2.Utility_Rooms__c );
                 wrappers.add(wrapper);
-                
             }
             return wrappers;
         } catch (Exception e) {
