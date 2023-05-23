@@ -3,7 +3,7 @@ public without sharing class YP_BusinessPremisesController {
     @AuraEnabled
     public static YP_BusinessPremisesWrapper getDetails(String recordId){
         try {
-            PriceBook2 pb = [SELECT RecordType.Name, IsActive FROM PriceBook2 WHERE RecordType.Name = 'Business premises' AND IsActive = true LIMIT 1];
+            PriceBook2 pb = [SELECT IsStandard FROM PriceBook2 WHERE IsStandard = true LIMIT 1];
             PriceBookEntry entry = [SELECT Product2Id, 	UnitPrice, PriceBook2Id FROM PriceBookEntry WHERE PriceBook2Id =: pb.Id AND Product2Id =: recordId LIMIT 1];
             Product2 product = [SELECT Name, RecordType.Name, DisplayUrl, ContentDocumentId__c, Area__c, Floors__c,
             Meeting_Rooms__c, Restrooms__c, Utility_Rooms__c, Address__c, Description, AgentId__c  FROM Product2 WHERE Id =: recordId LIMIT 1];
@@ -21,6 +21,20 @@ public without sharing class YP_BusinessPremisesController {
                 product.Meeting_Rooms__c,
                 product.Utility_Rooms__c );
             return wrapper;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static Decimal getDiscountPrice(String recordId){
+        try {
+            PriceBook2 pb = [SELECT RecordType.Name, IsActive FROM PriceBook2 WHERE RecordType.Name = 'Business premises' AND IsActive = true LIMIT 1];
+            List<PriceBookEntry> entry = [SELECT Product2Id, UnitPrice, PriceBook2Id FROM PriceBookEntry WHERE PriceBook2Id =: pb.Id AND Product2Id =: recordId];
+            if(entry.isEmpty()){
+                return null;
+            }
+            return entry[0].UnitPrice;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }

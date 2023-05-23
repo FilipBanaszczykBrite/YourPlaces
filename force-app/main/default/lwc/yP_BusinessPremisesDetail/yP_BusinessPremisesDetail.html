@@ -9,7 +9,8 @@
         </div>
         <div class="info">
             <p class="name-row" >{recordName}</p>
-            <p class="info-row" >{recordPrice}</p>
+            <p class={recordStandardPrice.class}><span style="font-weight: 400;">{recordStandardPrice.value}</span></p>
+            <p class={recordNewPrice.class}><span style="font-weight: 400;">{recordNewPrice.value}</span></p>
             <p class="info-row" ><span style="font-weight: 350;">{labels.AREA}:</span> {recordArea}m2</p>
             <p class="info-row" >{recordAddress}</p> 
             <template if:true={loggedUser}>

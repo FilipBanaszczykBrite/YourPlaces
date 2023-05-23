@@ -11,11 +11,10 @@ import UROOMS from '@salesforce/label/c.YP_UtilityRooms';
 import PRGAL from '@salesforce/label/c.YP_ProductGallery';
 import CNCBT from '@salesforce/label/c.YP_CancelBtn';
 import RESLB from '@salesforce/label/c.YP_DemoLabel';
-// import DEMOSUCCESS from '@salesforce/label/c.YP_DemoAgentSuccess';
-// import DEMOFAIL from '@salesforce/label/c.YP_DemoAgentFail';
 import ReservationModal from 'c/yP_AgentReservationModal';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import Id from '@salesforce/user/Id';
+import getDiscountPrice from '@salesforce/apex/YP_BusinessPremisesController.getDiscountPrice';
 
 export default class YP_BusinessPremisesDetails extends LightningElement {
 
@@ -37,7 +36,6 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
     @track isLoading;
     @track recordName;
     @track recordDescription;
-    @track recordPrice;
     @track recordArea;
     @track recordPhoto;
     @track recordAddress;
@@ -49,17 +47,21 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
     @track bottomImage;
     @track midImage;
     @track reservationLabel;
+    @track recordStandardPrice;
+    @track recordNewPrice;
     agentId;
     reservationId;
 
     connectedCallback(){
         this.isLoading = true;
+        this.recordStandardPrice = {value: '', class: 'price'};
+        this.recordNewPrice = {value: '', class: 'price'};
+        
         getDetails({recordId: this.recordId}).then(result => {
             this.recordName = result.name;
-            const formatter = new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'EUR' });
-            this.recordPrice = formatter.format(result.price);
+           
+            
+        
             this.recordDescription = result.description;
             this.recordArea = result.area;
             this.recordPhoto = result.photoUrl;
@@ -72,6 +74,14 @@ export default class YP_BusinessPremisesDetails extends LightningElement {
             this.agentId = result.agentId
             this.images.push({image: result.photoUrl})
             this.loggedUser = (this.userId != undefined);
+            getDiscountPrice({recordId: this.recordId}).then(newPrice =>{
+                //console.log(JSON.stringify(result))
+                const formatter = new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'EUR' });
+                    this.recordStandardPrice = {value: formatter.format((Number)(result.price)), class: (newPrice == null ? 'slds-hide' : 'price')};
+                this.recordNewPrice = {value: (newPrice == null ? formatter.format((Number)(result.price)) : formatter.format((Number)(newPrice))), class:  'price-new'};
+            });
             if(this.loggedUser){
                 hasReservation({userId: this.userId, ownerId: this.agentId}).then(result => {
                     this.demoReserved = (result != []);
