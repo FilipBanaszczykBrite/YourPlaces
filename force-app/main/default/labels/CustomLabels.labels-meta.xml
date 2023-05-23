@@ -1014,7 +1014,7 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>YP_NewCase</shortDescription>
-        <value>Submit new Case</value>
+        <value>New Case</value>
     </labels>
      <labels>
         <fullName>YP_MyCases</fullName>

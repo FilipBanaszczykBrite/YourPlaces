@@ -9,7 +9,7 @@
             <br/>
             <p class="thank">{!$Label.c.YP_EmployeeWillContact}</p>
             <aura:set attribute="else">
-                <p class="header">New Case</p>
+                <p class="header">{!$Label.c.YP_NewCase}</p>
                 <lightning:recordEditForm aura:id="recordEditForm" objectApiName="Case" onsuccess="{!c.refreshList}">
                 <lightning:messages />
                 <lightning:inputField fieldName="Subject" onchange="{!c.itemsChange}"/>
