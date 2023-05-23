@@ -106,12 +106,26 @@ public with sharing class YP_ProductSearchController {
     }
 
     @AuraEnabled
-    public static List<YP_BusinessPremisesWrapper> getAllBusinessPremisesCommunity(){
+    public static Decimal getDiscountPrice(String recordId){
         try {
             PriceBook2 pb = [SELECT RecordType.Name, IsActive FROM PriceBook2 WHERE RecordType.Name = 'Business premises' AND IsActive = true LIMIT 1];
-            List<PriceBookEntry> entries = [SELECT Product2Id, Product2.Name, Product2.DisplayUrl, Product2.Area__c, Product2.Floors__c,
+            List<PriceBookEntry> entry = [SELECT Product2Id, UnitPrice, PriceBook2Id FROM PriceBookEntry WHERE PriceBook2Id =: pb.Id AND Product2Id =: recordId];
+            if(entry.isEmpty()){
+                return null;
+            }
+            return entry[0].UnitPrice;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    @AuraEnabled
+    public static List<YP_BusinessPremisesWrapper> getAllBusinessPremisesCommunity(){
+        try {
+            PriceBook2 pb = [SELECT IsStandard FROM PriceBook2 WHERE IsStandard = true LIMIT 1];
+            List<PriceBookEntry> entries = [SELECT Product2Id, Product2.Name, Product2.RecordTypeId, Product2.DisplayUrl, Product2.Area__c, Product2.Floors__c,
                 Product2.Meeting_Rooms__c, Product2.Restrooms__c, Product2.Utility_Rooms__c, Product2.Address__c, Product2.AgentId__c,
-                UnitPrice, PriceBook2Id FROM PriceBookEntry WHERE PriceBook2Id =: pb.Id];
+                UnitPrice, PriceBook2Id FROM PriceBookEntry WHERE PriceBook2Id =: pb.Id AND Product2.RecordTypeId = '01268000000ote0AAA'];
             List<YP_BusinessPremisesWrapper> wrappers = new List<YP_BusinessPremisesWrapper>();
             for(Integer i = 0; i< entries.size(); i++){
                 YP_BusinessPremisesWrapper wrapper = new YP_BusinessPremisesWrapper(
@@ -139,11 +153,10 @@ public with sharing class YP_ProductSearchController {
     public static List<YP_BusinessPremisesWrapper> getBusinessPremisesCommunity(String name, Double areaMin, Double areaMax, Double priceMin,
      Double priceMax, Integer floors, Integer meetingRooms, Integer restrooms, Integer utilityRooms){
         try {
-           
-            PriceBook2 pb = [SELECT Id, RecordType.Name, IsActive FROM PriceBook2 WHERE RecordType.Name = 'Business premises' AND IsActive = true LIMIT 1];
+            PriceBook2 pb = [SELECT IsStandard FROM PriceBook2 WHERE IsStandard = true LIMIT 1];
             String priceQuery = 'SELECT Product2Id, Product2.Name, Product2.DisplayUrl, Product2.Area__c, Product2.Floors__c,'+
             ' Product2.Meeting_Rooms__c, Product2.Restrooms__c, Product2.Utility_Rooms__c, Product2.Address__c, Product2.AgentId__c,'+
-            ' UnitPrice, PriceBook2Id FROM PriceBookEntry WHERE PriceBook2Id = \'' + pb.Id  + '\' ';
+            ' UnitPrice, PriceBook2Id FROM PriceBookEntry WHERE PriceBook2Id = \'' + pb.Id  + '\' AND Product2.RecordTypeId = \'01268000000ote0AAA\'';
             if(priceMin != null){
                 priceQuery += ' AND UnitPrice >= ' + priceMin;
             }

@@ -40,7 +40,13 @@
 }
 
 .price{
-    font-size: 18px;
+    color: rgb(201, 0, 0);
+    font-size: 14px;
+    text-decoration: line-through;
+}
+
+.price-new{
+    font-size: 20px;
     margin-bottom: 5px;
 }
 
@@ -79,12 +85,11 @@
     font-size: 14px;
 }
 
-.info-row-left{
-    display: inline-flex;
-    margin-right: 25px;
-}
 
 .info-row-right{
+    width: 100%;
+    position: absolute;
+    bottom: 5px;
     margin-top: 22px;
     display: inline-flex;
     text-align: left;

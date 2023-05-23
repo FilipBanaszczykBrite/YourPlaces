@@ -1,23 +1,33 @@
 import { LightningElement, api, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
+import getDiscountPrice from '@salesforce/apex/YP_ProductSearchController.getDiscountPrice';
 
 export default class YP_ResultBusinessPremises extends NavigationMixin(LightningElement) {
     @api item;
     @api community;
     @track imageSrc;
-    @track recordPrice;
+    @track recordStandardPrice;
+    @track recordNewPrice;
 
     connectedCallback(){
         this.imageSrc =  this.item.DisplayUrl;
-        const formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'EUR' });
-        if(typeof this.item.price == 'string'){
-            this.recordPrice = this.item.price
-        }
-        else if(typeof this.item.price == 'number'){
-            this.recordPrice = formatter.format((Number)(this.item.price));
-        }
+        this.recordStandardPrice = {value: '', class: 'price'};
+        this.recordNewPrice = {value: '', class: 'price'};
+        getDiscountPrice({recordId: this.item.id}).then(result =>{
+            console.log(JSON.stringify(result))
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'EUR' });
+            if(typeof this.item.price == 'string'){
+                this.recordStandardPrice = {value: this.item.price, class: (result == null ? 'slds-hidden' : 'price')};
+            }
+            else if(typeof this.item.price == 'number'){
+                this.recordStandardPrice = {value: formatter.format((Number)(this.item.price)), class: (result == null ? 'slds-hidden' : 'price')};
+                
+            }
+            this.recordNewPrice = {value: (result == null ? this.item.price : formatter.format((Number)(result))), class:  'price-new'};
+        });
+       
     }
 
     navigateToRecordPage() {
