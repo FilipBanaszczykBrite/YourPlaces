@@ -1,13 +1,13 @@
 public with sharing class YP_CaseTriggerHandler {
-    private YP_CaseEntitlementService service;
-
+    private YP_CaseEntitlementService eService;
+    private YP_CaseAssignmentService aService;
     public YP_CaseTriggerHandler(){
 
     }
 
     public void beforeInsert(List<SObject> newRecords) {
-        service = new YP_CaseEntitlementService(newRecords);
-        service.assign();
+        eService = new YP_CaseEntitlementService(newRecords);
+        eService.assign();
     }
 
     
@@ -21,8 +21,9 @@ public with sharing class YP_CaseTriggerHandler {
     }
 
     
-    public void afterInsert(List<SObject> newRecords, Map<Id, SObject> newRecordMap) {
-        
+    public void afterInsert(List<SObject> newRecords) {
+        aService = new YP_CaseAssignmentService(newRecords);
+        aService.assign();
     }
 
     

@@ -11,7 +11,7 @@ trigger YP_CaseEntitlement on Case (before insert, before update,  before delete
 
         }
         when AFTER_INSERT {
-
+            triggerHandler.afterInsert(Trigger.new);
         }
         when AFTER_UPDATE {
 
