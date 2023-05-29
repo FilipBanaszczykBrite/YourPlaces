@@ -1,8 +1,14 @@
 public with sharing class YP_ChatTranscriptEmailSendService {
     private List<LiveChatTranscript> scripts;
+    private String orgEmailId;
 
     public YP_ChatTranscriptEmailSendService(List<LiveChatTranscript> transcripts) {
         this.scripts = transcripts;
+        getEmailOrg();
+    }
+
+    private void getEmailOrg(){
+        this.orgEmailId = [SELECT Id, DisplayName FROM OrgWideEmailAddress WHERE DisplayName = 'YourPlace' LIMIT 1].Id;
     }
 
     public void send(){
@@ -18,12 +24,19 @@ public with sharing class YP_ChatTranscriptEmailSendService {
                 Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
                 mail.setSubject('Conversation with PlaceFinderBot');
                 mail.setHtmlBody(script.Body);
-                mail.setToAddresses(new List<String>{script.Contact.Email});
+                mail.setToAddresses(new List<String>{script.Contact.Email});  
+                mail.setOrgWideEmailAddressId(this.orgEmailId);
                 mails.add(mail);
             }
         }
-        if(!mails.isEmpty()){
-            Messaging.SendEmailResult[] results = Messaging.sendEmail(mails);
-        } 
+        try{
+            if(!mails.isEmpty()){
+                Messaging.SendEmailResult[] results = Messaging.sendEmail(mails);
+            } 
+        }
+        catch(Exception e){
+            
+        }
+
     }
 }
