@@ -1,9 +1,11 @@
 public with sharing class YP_ExchangeRateUpdater implements Schedulable{
 
-    private static final String endpoint = 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml';
-    private Map<String, Double> rates;
+    private static Map<String, Double> rates;
 
-    private void getCurrencyRatios(){
+    @future(callout=true)
+    private static void getCurrencyRatios(){
+        String endpoint = YP_CurrencyEndopoint__c.getInstance(UserInfo.getUserId()).endpoint__c;
+        System.debug(endpoint);
         Http h = new Http();
         HttpRequest req = new HttpRequest();
         req.setEndpoint(endpoint);
@@ -11,27 +13,22 @@ public with sharing class YP_ExchangeRateUpdater implements Schedulable{
         req.setMethod('GET');
         HttpResponse res = h.send(req);
         String body = res.getBody();
-        this.rates = AE_CurrencyXMLParser.parseXMLToMap(body);
+        rates = AE_CurrencyXMLParser.parseXMLToMap(body);
         updateRates();
     }
 
-    private void updateRates(){
-        List<CurrencyType> oldRates = [SELECT IsoCode, Id FROM CurrencyType WHERE IsoCode IN: this.rates.keySet()];
-        for(String isoCode : this.rates.keySet()){
-            String rateId;
-            for(CurrencyType rate : oldRates){
-                if(isoCode == rate.IsoCode){
-                    rateId = rate.Id;
-                }
-            }
+    private static void updateRates(){
+        List<CurrencyType> oldRates = [SELECT IsoCode, Id FROM CurrencyType WHERE IsoCode IN: rates.keySet()];
+        for(CurrencyType rate : oldRates){
             Http h = new Http();
             HttpRequest req = new HttpRequest();
-            req.setEndpoint(URL.getSalesforceBaseUrl().toExternalForm() + '/services/data/v51.0/sobjects/CurrencyType/' + rateId + '?_HttpMethod=PATCH');
-            req.setBody('{ "ConversionRate" : ' + string.ValueOf(rates.get(isoCode)) + '}');
+            req.setEndpoint(URL.getSalesforceBaseUrl().toExternalForm() + '/services/data/v51.0/sobjects/CurrencyType/' + rate.Id + '?_HttpMethod=PATCH');
+            req.setBody('{ "ConversionRate" : ' + string.ValueOf(rates.get(rate.IsoCode)) + '}');
             req.setHeader('Authorization', 'OAuth ' + UserInfo.getSessionId());
             req.setHeader('Content-Type', 'application/json');
             req.setMethod('POST');
             HttpResponse res = h.send(req);
+            
         }
     }
 
